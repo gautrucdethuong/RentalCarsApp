@@ -1,6 +1,7 @@
 package com.example.rentalcarsapp.dao;
 
 import androidx.annotation.NonNull;
+
 import com.example.rentalcarsapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,42 +19,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
  * Company: FPT大学.
  */
 
-public class AuthenticationDAO {
+public class UserDAO {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    boolean statusLogin;
+    boolean response;
 
     public boolean isStatusLogin() {
-        return statusLogin;
+        return response;
     }
 
     public void setStatusLogin(boolean statusLogin) {
-        this.statusLogin = statusLogin;
+        this.response = statusLogin;
     }
 
-    public boolean loginFirebaseAuthentication(String email, String password) {
-        fAuth = FirebaseAuth.getInstance();
-        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    setStatusLogin(true);
-                } else {
-                    setStatusLogin(false);
-                }
 
-            }
-        });
-        return isStatusLogin();
-    }
 
-    public boolean registerFirebaseAuthentication(String email, String password, String fullName, String phone) {
 
+    public boolean addUser(String email, String image, String fullName, String phone) {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         User userInfo = new User(email, fullName, phone);
 
-        fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        fAuth.createUserWithEmailAndPassword(email, image).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {

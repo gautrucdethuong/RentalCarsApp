@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp;
+package com.example.rentalcarsapp.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rentalcarsapp.MainActivity;
+import com.example.rentalcarsapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
