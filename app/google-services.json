@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "557174253692",
+    "firebase_url": "https://rentalcarsapp-83149-default-rtdb.firebaseio.com",
     "project_id": "rentalcarsapp-83149",
     "storage_bucket": "rentalcarsapp-83149.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557174253692:android:eda1e182c2aecaac0b41f9",
+        "android_client_info": {
+          "package_name": "com.example.rentalcarsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557174253692-0dg3q3kqukece8c94846t1dntnkonugs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChWbkbL7VBUWSp74OV9QWwZdG-3NNGEhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557174253692-0dg3q3kqukece8c94846t1dntnkonugs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:557174253692:android:da1d25ea7b0d8c260b41f9",
