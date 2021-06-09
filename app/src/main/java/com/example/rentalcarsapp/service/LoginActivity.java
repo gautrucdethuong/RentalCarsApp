@@ -139,39 +139,38 @@ public class LoginActivity extends AppCompatActivity{
                 if (!task.isSuccessful()) {
                     dialog.dismiss();
 
-                    Toast.makeText(LoginActivity.this, "Login not successfull", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
 
                 } else {
                     dialog.dismiss();
 
-                    checkIfEmailVerified();
+                    Email.getText().clear();
 
+                    Password.getText().clear();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                    // Sending Email to Dashboard Activity using intent.
+                    intent.putExtra(userEmail,email);
+
+                    startActivity(intent);
                 }
             }
         });
 
     }
-    //This function helps in verifying whether the email is verified or not.
-    private void checkIfEmailVerified(){
-        FirebaseUser users=FirebaseAuth.getInstance().getCurrentUser();
-        boolean emailVerified=users.isEmailVerified();
-        if(!emailVerified){
-            Toast.makeText(this,"Verify the Email Id",Toast.LENGTH_SHORT).show();
-            mAuth.signOut();
-            finish();
-        }
-        else {
-            Email.getText().clear();
-
-            Password.getText().clear();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-            // Sending Email to Dashboard Activity using intent.
-            intent.putExtra(userEmail,email);
-
-            startActivity(intent);
-
-        }
-    }
+//    //This function helps in verifying whether the email is verified or not.
+//    private void checkIfEmailVerified(){
+//        FirebaseUser users=FirebaseAuth.getInstance().getCurrentUser();
+//        boolean emailVerified=users.isEmailVerified();
+//        if(!emailVerified){
+//            Toast.makeText(this,"Verify the Email Id",Toast.LENGTH_SHORT).show();
+//            mAuth.signOut();
+//            finish();
+//        }
+//        else {
+//
+//
+//        }
+//    }
 
 }
