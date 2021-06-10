@@ -19,15 +19,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final int GALLERY_INTENT_CODE = 1023 ;
@@ -66,7 +72,32 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        String userId = fAuth.getCurrentUser().getUid();
 
+        // [START get_document_options]
+        DocumentReference docRef = fStore.collection("users").document(userId);
+        Log.e("ERR",userId);
+
+
+        // Get the document, forcing the SDK to use the offline cache
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+
+                    Log.e("TAG", "Cached document data: " + document.getData());
+                    Map<String, Object> user = document.getData();
+                    fullName.setText(String.valueOf(user.get("fullName")));
+                    email.setText(String.valueOf(user.get("userEmail")));
+                    phone.setText(String.valueOf(user.get("userPhoneNumber")));
+
+                } else {
+                    Log.e("TAG", "Cached get failed: ", task.getException());
+                }
+            }
+        });
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

@@ -1,5 +1,7 @@
 package com.example.rentalcarsapp.dao;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import com.example.rentalcarsapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,17 +35,18 @@ public class AuthenticationDAO {
 
     public boolean loginFirebaseAuthentication(String email, String password) {
         fAuth = FirebaseAuth.getInstance();
+
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+                if (!task.isSuccessful()) {
                     setStatusLogin(true);
                 } else {
                     setStatusLogin(false);
                 }
-
             }
         });
+
         return isStatusLogin();
     }
 
@@ -63,7 +66,6 @@ public class AuthenticationDAO {
                     documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-
                             setStatusLogin(true);
                         }
                     }).addOnFailureListener(new OnFailureListener() {

@@ -15,15 +15,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.ui.home.AddUserActivity;
 import com.example.rentalcarsapp.ui.home.HomePageActivity;
+import com.example.rentalcarsapp.ui.home.TestActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
+
     EditText mEmail,mPassword;
     Button mLoginBtn;
     TextView mCreateBtn,forgotTextLink;
@@ -44,55 +50,21 @@ public class LoginActivity extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.loginBtn);
         mCreateBtn = findViewById(R.id.createText);
         forgotTextLink = findViewById(R.id.forgotPassword);
-
-        // Check token is already logged in Firebase
-/*        fAuth = FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
 
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
-        }else {
-            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-        }*/
-
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
-
-                if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Email is Required.");
-                    return;
-                }
-
-                if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Password is Required.");
-                    return;
-                }
-
-                progressBar.setVisibility(View.VISIBLE);
-
-                // authenticate the user
-                boolean status = authDao.loginFirebaseAuthentication(email,password);
-                if(status){
-                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), AddUserActivity.class));
-                }else{
-                    Toast.makeText(LoginActivity.this, "Email or password incorrect ! " , Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
+        }
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                //startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
+
 
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +104,45 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
                 passwordResetDialog.create().show();
+
+            }
+        });
+
+
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String email = mEmail.getText().toString().trim();
+                String password = mPassword.getText().toString().trim();
+
+                if(TextUtils.isEmpty(email)){
+                    mEmail.setError("Email is Required.");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password)){
+                    mPassword.setError("Password is Required.");
+                    return;
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                // authenticate the user
+
+                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }else {
+                            Toast.makeText(LoginActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                    }
+                });
 
             }
         });

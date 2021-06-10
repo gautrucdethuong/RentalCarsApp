@@ -58,7 +58,7 @@ public class AdapterUserDAO extends FirebaseRecyclerAdapter<User,AdapterUserDAO.
                         .setExpanded(true,1100)
                         .create();
 
-                View myview=dialogPlus.getHolderView();
+                View myview = dialogPlus.getHolderView();
                 final EditText purl=myview.findViewById(R.id.uimgurl);
                 final EditText name=myview.findViewById(R.id.uname);
                 final EditText phone=myview.findViewById(R.id.ucourse);
@@ -142,7 +142,7 @@ public class AdapterUserDAO extends FirebaseRecyclerAdapter<User,AdapterUserDAO.
     class myviewholder extends RecyclerView.ViewHolder
     {
         CircleImageView img;
-        ImageView edit,delete;
+        ImageView edit, delete;
         TextView name,phone,email;
         public myviewholder(@NonNull View itemView)
         {

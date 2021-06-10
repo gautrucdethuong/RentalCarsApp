@@ -17,12 +17,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -62,7 +66,39 @@ public class EditProfileActivity extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
         saveBtn = findViewById(R.id.saveProfileInfo);
+        fStore = FirebaseFirestore.getInstance();
+        String userId = fAuth.getCurrentUser().getUid();
 
+        // [START get_document_options]
+        DocumentReference docRef = fStore.collection("users").document(userId);
+
+        // Source can be CACHE, SERVER, or DEFAULT.
+        Source source = Source.CACHE;
+
+        // Get the document, forcing the SDK to use the offline cache
+        docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Document found in the offline cache
+                    DocumentSnapshot document = task.getResult();
+
+                    Log.d("TAG", "Cached document data: " + document.getData());
+                    Map<String, Object> user = document.getData();
+                    profileFullName.setText(String.valueOf(user.get("fullName")));
+//                    user.put("roleId",newRoleId);
+//                    docRef.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//
+//                        }
+//                    });
+                } else {
+                    Log.d("TAG", "Cached get failed: ", task.getException());
+                }
+            }
+        });
+        // [END get_document_options]
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

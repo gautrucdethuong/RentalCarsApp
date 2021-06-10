@@ -10,16 +10,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
+import com.example.rentalcarsapp.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -30,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     AuthenticationDAO authDao;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,16 +105,53 @@ public class RegisterActivity extends AppCompatActivity {
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
 
-                    boolean status = authDao.registerFirebaseAuthentication(email, password, fullName, phone);
-                    // register the user in firebase
-                    if(status){
-                        Toast.makeText(RegisterActivity.this, "Sign up in Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
 
-                    }else {
-                        Toast.makeText(RegisterActivity.this, "Register failed", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
+                                // send verification link
+
+//                                FirebaseUser fuser = fAuth.getCurrentUser();
+//                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Toast.makeText(Register.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+//                                    }
+//                                });
+                                userID = fAuth.getCurrentUser().getUid();
+                                User userInfo = new User(email, fullName, phone);
+                                Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+//                                Map<String,Object> user = new HashMap<>();
+//                                user.put("fName",fullName);
+//                                user.put("email",email);
+//                                user.put("phone",phone);
+                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+                            }else {
+                                Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 }
             }
         });
