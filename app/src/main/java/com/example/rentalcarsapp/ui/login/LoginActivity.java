@@ -25,14 +25,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText mEmail,mPassword;
+    TextInputLayout mEmail,mPassword;
     Button mLoginBtn;
-    TextView mCreateBtn,forgotTextLink;
+    Button mCreateBtn,forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
     AuthenticationDAO authDao;
@@ -44,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         authDao = new AuthenticationDAO();
-        mEmail = findViewById(R.id.Email);
-        mPassword = findViewById(R.id.password);
+        mEmail = findViewById(R.id.txtEmail);
+        mPassword = findViewById(R.id.txtPassword);
         progressBar = findViewById(R.id.progressBar);
         mLoginBtn = findViewById(R.id.loginBtn);
         mCreateBtn = findViewById(R.id.createText);
@@ -113,8 +114,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
+                String email = mEmail.getEditText().toString().trim();
+                String password = mPassword.getEditText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is Required.");

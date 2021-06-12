@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,9 +35,8 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone;
-    Button mRegisterBtn;
-    TextView mLoginBtn;
+    TextInputLayout mFullName,mEmail,mPassword,mPhone;
+    Button mRegisterBtn,mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
@@ -70,10 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = mEmail.getText().toString().trim();
-                final String password = mPassword.getText().toString().trim();
-                final String fullName = mFullName.getText().toString();
-                final String phone    = mPhone.getText().toString();
+                final String email = mEmail.getEditText().toString().trim();
+                final String password = mPassword.getEditText().toString().trim();
+                final String fullName = mFullName.getEditText().toString();
+                final String phone    = mPhone.getEditText().toString();
 
                 // Validation data fields when user input
                 if (fullName.length() == 0) {
