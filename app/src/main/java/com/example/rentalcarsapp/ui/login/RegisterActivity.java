@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextInputLayout mFullName,mEmail,mPassword,mPhone;
+    TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
         mPassword   = findViewById(R.id.password);
+        mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.registerBtn);
         mLoginBtn   = findViewById(R.id.createText);
@@ -74,6 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String password = mPassword.getEditText().toString().trim();
                 final String fullName = mFullName.getEditText().toString();
                 final String phone    = mPhone.getEditText().toString();
+                final String confirm_password    = mConfirmPassword.getEditText().toString();
 
                 // Validation data fields when user input
                 if (fullName.length() == 0) {
@@ -88,20 +90,30 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (phone.length() == 0 ) {
                     mPhone.requestFocus();
                     mPhone.setError("Please enter phone number");
+                } else if(!password.equals(confirm_password)) {
 
+                    mConfirmPassword.requestFocus();
+                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
+                    //check = false;
+                    return;
+                }
+
+                else if(confirm_password.length() == 0){
+                    mEmail.requestFocus();
+                    mEmail.setError("Please enter confirm password.");
                 // Check validation regex
                 } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
                     mEmail.requestFocus();
-                    mEmail.setError("Email incorrect format.");
+                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
                 } else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
                     mPassword.requestFocus();
-                    mPassword.setError("Password very bad.");
+                    mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
                 }else if(!phone.matches(RegexValidate.VALID_PHONE_NUMBER)){
                     mPhone.requestFocus();
-                    mPhone.setError("Phone number incorrect format.");
+                    mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
                 } else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
                     mFullName.requestFocus();
-                    mFullName.setError("Full name at least two words. !!!");
+                    mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -125,14 +137,10 @@ public class RegisterActivity extends AppCompatActivity {
 //                                    }
 //                                });
                                 userID = fAuth.getCurrentUser().getUid();
-                                User userInfo = new User(email, fullName, phone);
+                                User userInfo = new User(email, fullName, phone, "Customer");
                                 Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
-//                                Map<String,Object> user = new HashMap<>();
-//                                user.put("fName",fullName);
-//                                user.put("email",email);
-//                                user.put("phone",phone);
                                 documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -164,5 +172,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean comparePassword(){
+        final String password = mPassword.getEditText().toString().trim();
+        final String confirm_password    = mConfirmPassword.getEditText().toString();
+        boolean check = true;
+        if(!password.equals(confirm_password)){
+            mConfirmPassword.requestFocus();
+            mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
+            check = false;
+        }
+        return check;
     }
 }

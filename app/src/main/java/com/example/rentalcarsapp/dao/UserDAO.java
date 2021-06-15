@@ -38,7 +38,7 @@ public class UserDAO {
     public boolean addUser(String email, String image, String fullName, String phone) {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        User userInfo = new User(email, fullName, phone);
+        User userInfo = new User(email, fullName, phone, "Customer");
 
         fAuth.createUserWithEmailAndPassword(email, image).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

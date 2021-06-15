@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.home.AddUserActivity;
 import com.example.rentalcarsapp.ui.home.HomePageActivity;
 import com.example.rentalcarsapp.ui.home.TestActivity;
@@ -71,10 +72,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 final EditText resetMail = new EditText(v.getContext());
                 final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Reset Password ?");
-                passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
+                passwordResetDialog.setTitle("Reset Your Password");
+                passwordResetDialog.setMessage(RegexValidate.MESSAGE_SHOW_RESET_PASSWORD);
                 passwordResetDialog.setView(resetMail);
 
                 passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
