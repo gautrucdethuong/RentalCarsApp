@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/logoImage"
+        android:transitionName="logo_image"
         android:layout_width="150dp"
         android:layout_height="113dp"
         android:background="@drawable/ic_email_black_24dp" />
@@ -22,6 +23,7 @@
         android:layout_marginTop="-30dp"
         android:fontFamily="@font/bungee"
         android:text="Hello there, Welcome back"
+        android:transitionName="logo_text"
         android:textColor="#000"
         android:textSize="40sp" />
 
@@ -29,6 +31,7 @@
         android:id="@+id/slogan_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:transitionName="logo_signup"
         android:text="Sign In to continue"
         android:textSize="18sp" />
     <LinearLayout
@@ -61,6 +64,7 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
+            android:transitionName="txt_transaction"
             android:id="@+id/forgotPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"

@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
+        android:transitionName="logo_image"
         android:background="@drawable/ic_baseline_arrow_back_24" />
 
     <LinearLayout
@@ -21,10 +22,12 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/logo_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
+            android:transitionName="logo_text"
             android:text="Welcome"
             android:textColor="#000000"
             android:textSize="40sp" />
@@ -42,9 +45,11 @@
             android:textSize="18dp" />
     </LinearLayout>
     <TextView
+        android:id="@+id/slogan_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
+        android:transitionName="logo_signup"
         android:text="SignUp to start your new Journey"
         android:textSize="18sp" />
 
