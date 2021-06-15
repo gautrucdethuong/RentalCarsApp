@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="150dp"
+        android:layout_height="113dp"
+        android:background="@drawable/ic_email_black_24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_marginTop="-30dp"
+        android:fontFamily="@font/bungee"
+        android:text="Welcome"
+        android:textColor="#000000"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="-20dp"
+        android:text="Create to start a new Journey"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/next3Btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:text="Next"
+        android:textColor="#fff" />
+</LinearLayout>

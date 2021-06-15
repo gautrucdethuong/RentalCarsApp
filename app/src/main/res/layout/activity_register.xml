@@ -94,6 +94,7 @@
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="match_parent"
