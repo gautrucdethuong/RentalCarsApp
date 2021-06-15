@@ -7,6 +7,7 @@ package com.example.rentalcarsapp.ui.home;
  * Company: FPT大学.
  */
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -48,7 +49,9 @@ public class TestActivity extends AppCompatActivity{
         // here we are calling a method
         // to load data in our list view.
         loadDatainListview();
+
     }
+
 
     private void loadDatainListview() {
         // below line is use to get data from Firebase
@@ -79,6 +82,7 @@ public class TestActivity extends AppCompatActivity{
                             // after passing this array list to our adapter
                             // class we are setting our adapter to our list view.
                             coursesLV.setAdapter(adapter);
+
                         } else {
                             // if the snapshot is empty we are displaying a toast message.
                             Toast.makeText(TestActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
@@ -93,4 +97,6 @@ public class TestActivity extends AppCompatActivity{
             }
         });
     }
+
+
 }

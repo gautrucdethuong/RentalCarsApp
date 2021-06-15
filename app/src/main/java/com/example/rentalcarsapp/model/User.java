@@ -145,11 +145,11 @@ public class User {
         this.userDeletedDate = userDeletedDate;
     }
 
-    public String getRoleId() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleName(String roleId) {
         this.roleName = roleName;
     }
 

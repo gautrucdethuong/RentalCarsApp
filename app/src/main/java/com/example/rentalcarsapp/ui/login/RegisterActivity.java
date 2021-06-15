@@ -18,6 +18,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.home.TestActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), TestActivity.class));
             finish();
         }
 
@@ -71,13 +72,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = mEmail.getEditText().toString().trim();
-                final String password = mPassword.getEditText().toString().trim();
-                final String fullName = mFullName.getEditText().toString();
-                final String phone    = mPhone.getEditText().toString();
-                final String confirm_password    = mConfirmPassword.getEditText().toString();
+                final String email = String.valueOf(mEmail.getEditText().getText());
+                final String password = String.valueOf(mPassword.getEditText().getText());
+                final String fullName = String.valueOf(mFullName.getEditText().getText());;
+                final String phone    = String.valueOf(mPhone.getEditText().getText());;
+                final String confirm_password    = String.valueOf(mConfirmPassword.getEditText().getText());;
+                //Log.e("ERRR",email);
 
-                // Validation data fields when user input
+  /*              // Validation data fields when user input
                 if (fullName.length() == 0) {
                     mFullName.requestFocus();
                     mFullName.setError("Please enter full name");
@@ -90,17 +92,17 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (phone.length() == 0 ) {
                     mPhone.requestFocus();
                     mPhone.setError("Please enter phone number");
-                } else if(!password.equals(confirm_password)) {
+                } *//*else if(!password.equals(confirm_password)) {
 
                     mConfirmPassword.requestFocus();
                     mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
                     //check = false;
                     return;
-                }
+                }*//*
 
                 else if(confirm_password.length() == 0){
-                    mEmail.requestFocus();
-                    mEmail.setError("Please enter confirm password.");
+                    mConfirmPassword.requestFocus();
+                    mConfirmPassword.setError("Please enter confirm password.");
                 // Check validation regex
                 } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
                     mEmail.requestFocus();
@@ -114,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
                     mFullName.requestFocus();
                     mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                }else{
+                }else{*/
                     progressBar.setVisibility(View.VISIBLE);
 
                     fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -137,9 +139,10 @@ public class RegisterActivity extends AppCompatActivity {
 //                                    }
 //                                });
                                 userID = fAuth.getCurrentUser().getUid();
+
                                 User userInfo = new User(email, fullName, phone, "Customer");
                                 Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
+                            //    userID = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
                                 documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -152,15 +155,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), TestActivity.class));
 
                             }else {
+                                Log.e("massage",task.getException().toString());
                                 Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
-                }
+                //}
             }
         });
 
@@ -174,15 +178,4 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean comparePassword(){
-        final String password = mPassword.getEditText().toString().trim();
-        final String confirm_password    = mConfirmPassword.getEditText().toString();
-        boolean check = true;
-        if(!password.equals(confirm_password)){
-            mConfirmPassword.requestFocus();
-            mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
-            check = false;
-        }
-        return check;
-    }
 }

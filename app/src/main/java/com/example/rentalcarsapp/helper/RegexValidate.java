@@ -9,7 +9,7 @@ public class RegexValidate {
     // String regex
     public static final String VALID_FULL_NAME = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
     //public static final String VALID_URL = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)";
-    public static final String VALID_EMAIL = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}";
+    public static final String VALID_EMAIL = "^[A-z][a-z0-9_\\.]{1,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$";
     public static final String VALID_PHONE_NUMBER = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
     public static final String VALID_PASSWORD = "^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#%^&+=]).*";
 

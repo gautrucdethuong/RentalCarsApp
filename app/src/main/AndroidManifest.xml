@@ -14,19 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.home.TestActivity" />
-
-
-        <activity android:name=".ui.home.AddUserActivity" />
-        <activity android:name=".ui.login.EditProfileActivity"></activity>
-        <activity android:name=".ui.login.RegisterActivity" />
-        <activity android:name=".ui.home.HomePageActivity" />
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.home.TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.home.AddUserActivity" />
+        <activity android:name=".ui.login.EditProfileActivity"></activity>
+        <activity android:name=".ui.login.RegisterActivity">
+
+        </activity>
+        <activity android:name=".ui.home.HomePageActivity" />
+        <activity android:name=".ui.login.LoginActivity">
+
         </activity>
         <activity android:name=".MainActivity" />
 
