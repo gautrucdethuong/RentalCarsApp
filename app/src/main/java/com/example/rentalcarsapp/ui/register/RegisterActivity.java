@@ -1,12 +1,15 @@
 package com.example.rentalcarsapp.ui.register;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
+    TextView mWelcome,mSlogan,mStep;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
@@ -51,11 +55,14 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
         mLoginBtn   = findViewById(R.id.createText);
-
+        imgBack   = findViewById(R.id.logoImage);
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        mWelcome=findViewById(R.id.logo_name);
+        mSlogan=findViewById(R.id.slogan_name);
         progressBar = findViewById(R.id.progressBar);
+        mStep=findViewById(R.id.txtStep);
 
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -162,12 +169,28 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair[] pairs=new Pair[4];
+                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+            }
+        });
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                Pair[] pairs=new Pair[4];
+                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
             }
         });
 
