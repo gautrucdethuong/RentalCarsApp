@@ -24,12 +24,12 @@ public class User {
     private String userImages;
     private Date userCreatedDate;
     private Date userDeletedDate;
-    private int roleId;
+    private String roleName;
     private boolean userStatus;
     private String staffCode;
     private int storeId;
 
-    public User(int userId, String userEmail, String userPassword, boolean userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, int roleId, boolean userStatus, String staffCode, int storeId) {
+    public User(int userId, String userEmail, String userPassword, boolean userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -40,16 +40,17 @@ public class User {
         this.userImages = userImages;
         this.userCreatedDate = userCreatedDate;
         this.userDeletedDate = userDeletedDate;
-        this.roleId = roleId;
+        this.roleName = roleName;
         this.userStatus = userStatus;
         this.staffCode = staffCode;
         this.storeId = storeId;
     }
 
-    public User(String userEmail, String fullName, String userPhoneNumber) {
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName) {
         this.userEmail = userEmail;
         this.fullName = fullName;
         this.userPhoneNumber = userPhoneNumber;
+        this.roleName = roleName;
     }
 
     public User() {
@@ -144,12 +145,12 @@ public class User {
         this.userDeletedDate = userDeletedDate;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getRoleId() {
+        return roleName;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.roleName = roleName;
     }
 
     public boolean isUserStatus() {
