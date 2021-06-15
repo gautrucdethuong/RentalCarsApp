@@ -1,13 +1,12 @@
-package com.example.rentalcarsapp.ui.login;
+package com.example.rentalcarsapp.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +17,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,13 +25,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
@@ -42,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     AuthenticationDAO authDao;
     String userID;
+    ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword   = findViewById(R.id.password);
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
-        mRegisterBtn= findViewById(R.id.registerBtn);
+        mRegisterBtn= findViewById(R.id.signup_next_button);
         mLoginBtn   = findViewById(R.id.createText);
 
         authDao = new AuthenticationDAO();
@@ -90,22 +86,25 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (phone.length() == 0 ) {
                     mPhone.requestFocus();
                     mPhone.setError("Please enter phone number");
-                } else if(!password.equals(confirm_password)) {
-
-                    mConfirmPassword.requestFocus();
-                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
-                    //check = false;
-                    return;
                 }
+//                else if(!password.equals(confirm_password)) {
+//
+//                    mConfirmPassword.requestFocus();
+//                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
+//                    //check = false;
+//                    return;
+//                }
 
                 else if(confirm_password.length() == 0){
                     mEmail.requestFocus();
                     mEmail.setError("Please enter confirm password.");
                 // Check validation regex
-                } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
-                    mEmail.requestFocus();
-                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
-                } else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
+                }
+//                else if (!email.matches(RegexValidate.VALID_EMAIL)) {
+//                    mEmail.requestFocus();
+//                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
+//                }
+                else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
                     mPassword.requestFocus();
                     mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
                 }else if(!phone.matches(RegexValidate.VALID_PHONE_NUMBER)){
@@ -152,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(),RegisterInforActivity.class));
 
                             }else {
                                 Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
