@@ -58,7 +58,7 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final String email = mEmail.getText().toString().trim();
+/*                final String email = mEmail.getText().toString().trim();
                 final String image = mImage.getText().toString().trim();
                 final String fullName = mFullName.getText().toString();
                 final String phone    = mPhone.getText().toString();
@@ -74,7 +74,7 @@ public class AddUserActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(AddUserActivity.this, "Add failed", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
-                }
+                }*/
             }
         });
     }

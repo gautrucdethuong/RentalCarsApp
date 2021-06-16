@@ -20,6 +20,12 @@
         <activity android:name=".ui.login.EditProfileActivity" />
         <activity android:name=".ui.login.RegisterActivity" />
         <activity android:name=".ui.login.LoginActivity">
+
+        <activity android:name=".ui.register.RegisterInforActivity"></activity>
+
+        <activity android:name=".ui.home.HomePageActivity" />
+<!--        <activity android:name=".ui.login.LoginActivity">-->
+        <activity android:name=".ui.admin.CreateInforActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

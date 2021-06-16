@@ -7,14 +7,16 @@
     android:background="#fff"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".ui.register.RegisterActivity">
-    <ImageView
+    tools:context=".ui.register.RegisterInforActivity">
+
+        <ImageView
         android:id="@+id/logoImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:transitionName="logo_image"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/ic_baseline_arrow_back_24" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,12 +24,10 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/logo_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:transitionName="logo_text"
             android:text="Welcome"
             android:textColor="#000000"
             android:textSize="40sp" />
@@ -41,16 +41,15 @@
             android:background="@drawable/border"
             android:fontFamily="@font/concert_one"
             android:padding="30dp"
-            android:text="1/2"
+            android:text="2/2"
             android:textSize="18dp" />
     </LinearLayout>
 
+
     <TextView
-        android:id="@+id/slogan_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
-        android:transitionName="logo_signup"
         android:text="SignUp to start your new Journey"
         android:textSize="18sp" />
 
@@ -60,72 +59,70 @@
         android:orientation="vertical"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fullName"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            android:text="Choose Gender"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/g_Male"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Email"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/g_Female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+            <RadioButton
+                android:id="@+id/g_Other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/black" />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
+            android:text="Select Your Age"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <DatePicker
+            android:id="@+id/datePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/re_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone No"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:spinnersShown="true" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/signup_next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next"
         android:background="#000"
-        android:textColor="#fff"/>
+        android:text="Sign UP"
+        android:textColor="#fff" />
     <Button
         android:id="@+id/createText"
         android:layout_width="match_parent"
@@ -140,7 +137,3 @@
         android:visibility="invisible"
         android:layout_gravity="center" />
 </LinearLayout>
-
-
-
-
