@@ -7,6 +7,7 @@ import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,19 +38,33 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
     TextView mWelcome,mSlogan,mStep;
-    FirebaseAuth fAuth;
-    ProgressBar progressBar;
-    FirebaseFirestore fStore;
-    AuthenticationDAO authDao;
-    String userID;
     ImageView imgBack;
 
+    //String fullName;
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("saveFullName", String.valueOf(mFullName.getEditText().getText()));
+        outState.putString("saveEmail", String.valueOf(mEmail.getEditText().getText()));
+        outState.putString("savePassWord", String.valueOf(mPassword.getEditText().getText()));
+        outState.putString("savePhoneNumber", String.valueOf(mPhone.getEditText().getText()));
+
+    }
+/*
+    void setLesson()
+    {
+        Log.e("savename", fullName);
+        mFullName.setHint(fullName);
+    }
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
@@ -60,12 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
         mLoginBtn   = findViewById(R.id.createText);
         imgBack   = findViewById(R.id.logoImage);
 
-        authDao = new AuthenticationDAO();
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
         mWelcome=findViewById(R.id.logo_name);
         mSlogan=findViewById(R.id.slogan_name);
-        progressBar = findViewById(R.id.progressBar);
+
         mStep = findViewById(R.id.txtStep);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
+
+
     }
 
     private boolean ValidateFullName(){
@@ -153,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean ValidatePassword(){
         String passWord = String.valueOf(mPassword.getEditText().getText());
         if(passWord.isEmpty()){
-            mPassword.setError("Please enter full name.");
+            mPassword.setError("Please enter password.");
             return false;
         }else if(!passWord.matches(RegexValidate.VALID_PASSWORD)){
             mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
