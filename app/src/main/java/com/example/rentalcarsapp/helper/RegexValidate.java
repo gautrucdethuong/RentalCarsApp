@@ -9,8 +9,8 @@ public class RegexValidate {
     // String regex
     public static final String VALID_FULL_NAME = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
     //public static final String VALID_URL = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)";
-    public static final String VALID_EMAIL = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}";
-    public static final String VALID_PHONE_NUMBER = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+    public static final String VALID_EMAIL = "^[A-z][a-z0-9_\\.]{1,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$";
+    public static final String VALID_PHONE_NUMBER = "(84|0[3|5|7|8|9])+([0-9]{9})\\b";
     public static final String VALID_PASSWORD = "^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#%^&+=]).*";
 
 
@@ -22,4 +22,5 @@ public class RegexValidate {
     public static final String MESSAGE_ERROR_PHONE_NUMBER = "Phone number malformed e.g. 84832511369.";
     public static final String MESSAGE_ERROR_PASSWORD = "Password must be at least 8 characters including uppercase, lowercase letters, numbers and special characters.";
     public static final String MESSAGE_SHOW_RESET_PASSWORD = "Enter the email associated with your account and we'll send an email with instructions to reset your password.";
+
 }
