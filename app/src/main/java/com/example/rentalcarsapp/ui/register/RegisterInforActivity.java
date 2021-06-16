@@ -22,7 +22,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
-import com.example.rentalcarsapp.ui.home.TestActivity;
+import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -124,7 +124,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                 Log.e("time", userCreatedDate.toString());
                                 userID = fAuth.getCurrentUser().getUid();
 
-                                User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1, userCreatedDate , userCreatedDate );
+                                User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
                                 Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
 
                             //    userID = fAuth.getCurrentUser().getUid();
@@ -141,7 +141,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                startActivity(new Intent(getApplicationContext(), TestActivity.class));
+                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
 
                             }else {
                                 Log.e("massage",task.getException().toString());

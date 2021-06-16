@@ -24,9 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.model.User;
-import com.example.rentalcarsapp.ui.home.TestActivity;
+import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;
-import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -110,7 +109,7 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
                             Log.e("time", userCreatedDate.toString());
                             userID = fAuth.getCurrentUser().getUid();
 
-                            User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1, userCreatedDate, userCreatedDate);
+                            User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
                             Toast.makeText(CreateInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
 
                             //    userID = fAuth.getCurrentUser().getUid();
@@ -127,7 +126,7 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
                                 }
                             });
 
-                            startActivity(new Intent(getApplicationContext(), TestActivity.class));
+                            startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
 
                         } else {
                             Log.e("massage", task.getException().toString());

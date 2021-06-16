@@ -16,7 +16,6 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
-import com.example.rentalcarsapp.ui.register.RegisterActivity;
 import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;

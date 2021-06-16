@@ -33,6 +33,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
+import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -54,6 +55,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
     NavigationView navigationView;
     Toolbar toolbar;
     MenuBuilder menuBuilder;
+    Button buttonNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,15 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
         // below line is use to initialize our variables
         coursesLV = findViewById(R.id.idLVCourses);
         dataModalArrayList = new ArrayList<>();
+        buttonNew = findViewById(R.id.new_user);
+        buttonNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // initializing our variable for firebase
         // firestore and getting its instance.
@@ -155,17 +166,17 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
 //                                                    intent.putExtra("currentLecture", currentLecture);
 //                                                    startActivityForResult(intent, UPDATE_NEW_REQUEST_CODE);
                                                     break;
-                                                case R.id.block:
-                                                    // function remove lecture
-//                                                    db.removeLecture(currentLecture.getId());
-//                                                    reloadView();
-                                                    break;
-                                                case R.id.change_role:
-
-                                                    // function remove lecture
-//                                                    db.removeLecture(currentLecture.getId());
-//                                                    reloadView();
-                                                    break;
+//                                                case R.id.block:
+//                                                    // function remove lecture
+////                                                    db.removeLecture(currentLecture.getId());
+////                                                    reloadView();
+//                                                    break;
+//                                                case R.id.change_role:
+//
+//                                                    // function remove lecture
+////                                                    db.removeLecture(currentLecture.getId());
+////                                                    reloadView();
+//                                                    break;
                                                 default:
                                                     return false;
                                             }
