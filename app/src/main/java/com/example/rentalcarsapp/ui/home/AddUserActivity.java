@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.UserDAO;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
@@ -46,7 +48,7 @@ public class AddUserActivity extends AppCompatActivity {
         mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
+                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                 finish();
             }
         });

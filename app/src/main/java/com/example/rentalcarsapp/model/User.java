@@ -24,6 +24,9 @@ public class User {
     private String userImages;
     private Date userCreatedDate;
     private Date userDeletedDate;
+
+
+
     private String roleName;
     private boolean userStatus;
     private String staffCode;
@@ -145,11 +148,11 @@ public class User {
         this.userDeletedDate = userDeletedDate;
     }
 
-    public String getRoleId() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 

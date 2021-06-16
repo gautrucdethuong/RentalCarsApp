@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/edit_button"
+        android:title="@string/edit" />
+    <item
+        android:id="@+id/change_role"
+        android:title="@string/change_role" />
+    <item
+        android:id="@+id/block"
+        android:title="@string/block" />
+
+</menu>

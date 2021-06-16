@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
 
-                    Log.e("TAG", "Cached document data: " + document.getData());
+//                    Log.e("TAG", "Cached document data: " + document.getData());
                     Map<String, Object> user = document.getData();
                     fullName.setText(String.valueOf(user.get("fullName")));
                     email.setText(String.valueOf(user.get("userEmail")));
