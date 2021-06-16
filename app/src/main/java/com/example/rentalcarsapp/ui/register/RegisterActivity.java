@@ -20,11 +20,8 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
-<<<<<<< HEAD:app/src/main/java/com/example/rentalcarsapp/ui/login/RegisterActivity.java
 import com.example.rentalcarsapp.ui.home.TestActivity;
-=======
 import com.example.rentalcarsapp.ui.login.LoginActivity;
->>>>>>> c7acbf8770aa3ada2ccec55ace47b54bac8ed095:app/src/main/java/com/example/rentalcarsapp/ui/register/RegisterActivity.java
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
     String userID;
     ImageView imgBack;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,136 +59,34 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterBtn= findViewById(R.id.signup_next_button);
         mLoginBtn   = findViewById(R.id.createText);
         imgBack   = findViewById(R.id.logoImage);
+
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         mWelcome=findViewById(R.id.logo_name);
         mSlogan=findViewById(R.id.slogan_name);
         progressBar = findViewById(R.id.progressBar);
-        mStep=findViewById(R.id.txtStep);
-
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), TestActivity.class));
-            finish();
-        }
-
+        mStep = findViewById(R.id.txtStep);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final String email = String.valueOf(mEmail.getEditText().getText());
-                final String password = String.valueOf(mPassword.getEditText().getText());
-                final String fullName = String.valueOf(mFullName.getEditText().getText());;
-                final String phone    = String.valueOf(mPhone.getEditText().getText());;
-                final String confirm_password    = String.valueOf(mConfirmPassword.getEditText().getText());;
-                //Log.e("ERRR",email);
-
-  /*              // Validation data fields when user input
-                if (fullName.length() == 0) {
-                    mFullName.requestFocus();
-                    mFullName.setError("Please enter full name");
-                } else if (email.length() == 0) {
-                    mEmail.requestFocus();
-                    mEmail.setError("Please enter email address");
-                } else if (password.length() == 0) {
-                    mPassword.requestFocus();
-                    mPassword.setError("Please enter password");
-                } else if (phone.length() == 0 ) {
-                    mPhone.requestFocus();
-                    mPhone.setError("Please enter phone number");
-<<<<<<< HEAD:app/src/main/java/com/example/rentalcarsapp/ui/login/RegisterActivity.java
-                } *//*else if(!password.equals(confirm_password)) {
-
-                    mConfirmPassword.requestFocus();
-                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
-                    //check = false;
+                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
                     return;
-                }*//*
-=======
                 }
-//                else if(!password.equals(confirm_password)) {
-//
-//                    mConfirmPassword.requestFocus();
-//                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
-//                    //check = false;
-//                    return;
-//                }
->>>>>>> c7acbf8770aa3ada2ccec55ace47b54bac8ed095:app/src/main/java/com/example/rentalcarsapp/ui/register/RegisterActivity.java
+                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
 
-                else if(confirm_password.length() == 0){
-                    mConfirmPassword.requestFocus();
-                    mConfirmPassword.setError("Please enter confirm password.");
-                // Check validation regex
-                }
-//                else if (!email.matches(RegexValidate.VALID_EMAIL)) {
-//                    mEmail.requestFocus();
-//                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
-//                }
-                else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
-                    mPassword.requestFocus();
-                    mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
-                }else if(!phone.matches(RegexValidate.VALID_PHONE_NUMBER)){
-                    mPhone.requestFocus();
-                    mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
-                } else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
-                    mFullName.requestFocus();
-                    mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                }else{*/
-                    progressBar.setVisibility(View.VISIBLE);
+                intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
+                intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
+                intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));
+                intent.putExtra("phoneNumber", String.valueOf(mPhone.getEditText().getText()));
 
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-
-                                // send verification link
-
-//                                FirebaseUser fuser = fAuth.getCurrentUser();
-//                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        Toast.makeText(Register.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-//                                    }
-//                                });
-                                userID = fAuth.getCurrentUser().getUid();
-
-                                User userInfo = new User(email, fullName, phone, "Customer");
-                                Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                            //    userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-<<<<<<< HEAD:app/src/main/java/com/example/rentalcarsapp/ui/login/RegisterActivity.java
-                                startActivity(new Intent(getApplicationContext(), TestActivity.class));
-=======
-                                startActivity(new Intent(getApplicationContext(),RegisterInforActivity.class));
->>>>>>> c7acbf8770aa3ada2ccec55ace47b54bac8ed095:app/src/main/java/com/example/rentalcarsapp/ui/register/RegisterActivity.java
-
-                            }else {
-                                Log.e("massage",task.getException().toString());
-                                Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-                //}
+                startActivity(intent);
             }
         });
+
+
+        // Back login
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,6 +99,9 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
             }
         });
+
+
+        // Back login page
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +114,98 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
             }
         });
+
+    }
+
+    private boolean ValidateFullName(){
+        String fullName = String.valueOf(mFullName.getEditText().getText());
+
+        if(fullName.isEmpty()){
+            mFullName.setError("Please enter full name.");
+            return false;
+        }else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
+            mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
+            return false;
+        }else{
+            mFullName.setError(null);
+            mFullName.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean ValidatePhoneNumber(){
+        String phoneNumber = String.valueOf(mPhone.getEditText().getText());
+        if(phoneNumber.isEmpty()){
+            mPhone.setError("Please enter phone number.");
+            return false;
+        }else if(!phoneNumber.matches(RegexValidate.VALID_PHONE_NUMBER)){
+            mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
+            return false;
+        }else{
+            mPhone.setError(null);
+            mPhone.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean ValidatePassword(){
+        String passWord = String.valueOf(mPassword.getEditText().getText());
+        if(passWord.isEmpty()){
+            mPassword.setError("Please enter full name.");
+            return false;
+        }else if(!passWord.matches(RegexValidate.VALID_PASSWORD)){
+            mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
+            return false;
+        }else{
+            mPassword.setError(null);
+            mPassword.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean ValidateConfirmPassword(){
+        String passWord = String.valueOf(mConfirmPassword.getEditText().getText());
+        if(passWord.isEmpty()){
+            mConfirmPassword.setError("Please enter confirm password.");
+            return false;
+        }else{
+            mConfirmPassword.setError(null);
+            mConfirmPassword.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean ComparePassword(){
+        String passWord = String.valueOf(mPassword.getEditText().getText());
+        String re_passWord = String.valueOf(mConfirmPassword.getEditText().getText());
+        if(!passWord.equals(re_passWord)){
+            mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
+            return false;
+        }else{
+            mConfirmPassword.setError(null);
+            mConfirmPassword.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean ValidateEmail(){
+        String email = String.valueOf(mEmail.getEditText().getText());
+        if(email.isEmpty()){
+            mEmail.setError("Please enter email.");
+            return false;
+        }else if(!email.matches(RegexValidate.VALID_EMAIL)){
+            mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
+            return false;
+        }else{
+            mEmail.setError(null);
+            mEmail.setErrorEnabled(false);
+            return true;
+        }
 
     }
 
