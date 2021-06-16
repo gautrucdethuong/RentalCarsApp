@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Rental Application</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_closed">Closed</string>
 </resources>
