@@ -1,5 +1,6 @@
 package com.example.rentalcarsapp.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -13,23 +14,21 @@ public class User {
 
     private int userId;
     private String userEmail;
-
-
     private String fullName;
     private String userPassword;
-    private boolean userGender;
-    private Date userBirthday;
+    private int userGender;
+    private LocalDateTime userBirthday;
     private String userAddress;
     private String userPhoneNumber;
     private String userImages;
-    private Date userCreatedDate;
+    private LocalDateTime userCreatedDate;
     private Date userDeletedDate;
     private String roleName;
     private boolean userStatus;
     private String staffCode;
     private int storeId;
 
-    public User(int userId, String userEmail, String userPassword, boolean userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
+/*    public User(int userId, String userEmail, String userPassword, int userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -44,13 +43,16 @@ public class User {
         this.userStatus = userStatus;
         this.staffCode = staffCode;
         this.storeId = storeId;
-    }
+    }*/
 
-    public User(String userEmail, String fullName, String userPhoneNumber, String roleName) {
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, LocalDateTime userBirthday, LocalDateTime userCreatedDate) {
         this.userEmail = userEmail;
         this.fullName = fullName;
         this.userPhoneNumber = userPhoneNumber;
         this.roleName = roleName;
+        this.userCreatedDate = userCreatedDate;
+        this.userBirthday = userBirthday;
+        this.userGender = userGender;
     }
 
     public User() {
@@ -89,19 +91,19 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public boolean isUserGender() {
+    public int isUserGender() {
         return userGender;
     }
 
-    public void setUserGender(boolean userGender) {
+    public void setUserGender(int userGender) {
         this.userGender = userGender;
     }
 
-    public Date getUserBirthday() {
+    public LocalDateTime getUserBirthday() {
         return userBirthday;
     }
 
-    public void setUserBirthday(Date userBirthday) {
+    public void setUserBirthday(LocalDateTime userBirthday) {
         this.userBirthday = userBirthday;
     }
 
@@ -129,11 +131,11 @@ public class User {
         this.userImages = userImages;
     }
 
-    public Date getUserCreatedDate() {
+    public LocalDateTime getUserCreatedDate() {
         return userCreatedDate;
     }
 
-    public void setUserCreatedDate(Date userCreatedDate) {
+    public void setUserCreatedDate(LocalDateTime userCreatedDate) {
         this.userCreatedDate = userCreatedDate;
     }
 

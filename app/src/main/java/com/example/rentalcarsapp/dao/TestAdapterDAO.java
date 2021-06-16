@@ -70,7 +70,7 @@ public class TestAdapterDAO extends ArrayAdapter<User> {
         // in below line we are using Picasso to
         // load image from URL in our Image VIew.
         Picasso.get().load(R.drawable.user)
-                .error(R.drawable.carbackground)
+                .error(R.drawable.add)
                 .into(courseIV);
 
         // below line is use to add item click listener

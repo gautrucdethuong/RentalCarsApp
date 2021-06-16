@@ -50,7 +50,7 @@ public class AuthenticationDAO {
         return isStatusLogin();
     }
 
-    public boolean registerFirebaseAuthentication(String email, String password, String fullName, String phone) {
+/*    public boolean registerFirebaseAuthentication(String email, String password, String fullName, String phone) {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -78,5 +78,5 @@ public class AuthenticationDAO {
             }
         });
         return isStatusLogin();
-    }
+    }*/
 }
