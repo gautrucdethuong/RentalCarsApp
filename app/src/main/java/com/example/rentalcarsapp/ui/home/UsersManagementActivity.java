@@ -25,7 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestActivity extends AppCompatActivity{
+public class UsersManagementActivity extends AppCompatActivity{
     // creating a variable for our list view,
     // arraylist and firebase Firestore.
     ListView coursesLV;
@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_user_management);
 
         // below line is use to initialize our variables
         coursesLV = findViewById(R.id.idLVCourses);
@@ -74,14 +74,14 @@ public class TestActivity extends AppCompatActivity{
                                 dataModalArrayList.add(dataModal);
                             }
                             // after that we are passing our array list to our adapter class.
-                            TestAdapterDAO adapter = new TestAdapterDAO(TestActivity.this, dataModalArrayList);
+                            TestAdapterDAO adapter = new TestAdapterDAO(UsersManagementActivity.this, dataModalArrayList);
 
                             // after passing this array list to our adapter
                             // class we are setting our adapter to our list view.
                             coursesLV.setAdapter(adapter);
                         } else {
                             // if the snapshot is empty we are displaying a toast message.
-                            Toast.makeText(TestActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UsersManagementActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -89,7 +89,7 @@ public class TestActivity extends AppCompatActivity{
             public void onFailure(@NonNull Exception e) {
                 // we are displaying a toast message
                 // when we get any error from Firebase.
-                Toast.makeText(TestActivity.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UsersManagementActivity.this, "Fail to load data..", Toast.LENGTH_SHORT).show();
             }
         });
     }

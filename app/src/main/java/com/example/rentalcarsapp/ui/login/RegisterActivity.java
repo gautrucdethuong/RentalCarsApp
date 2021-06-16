@@ -35,8 +35,8 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
-    Button mRegisterBtn,mLoginBtn;
+    TextInputLayout mFullName, mEmail, mPassword, mPhone, mConfirmPassword;
+    Button mRegisterBtn, mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
@@ -48,20 +48,20 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFullName   = findViewById(R.id.fullName);
-        mEmail      = findViewById(R.id.Email);
-        mPassword   = findViewById(R.id.password);
+        mFullName = findViewById(R.id.fullName);
+        mEmail = findViewById(R.id.Email);
+        mPassword = findViewById(R.id.password);
         mConfirmPassword = findViewById(R.id.re_confirm_password);
-        mPhone      = findViewById(R.id.phone);
-        mRegisterBtn= findViewById(R.id.registerBtn);
-        mLoginBtn   = findViewById(R.id.createText);
+        mPhone = findViewById(R.id.phone);
+        mRegisterBtn = findViewById(R.id.registerBtn);
+        mLoginBtn = findViewById(R.id.createText);
 
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        if(fAuth.getCurrentUser() != null){
+        if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -71,11 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = mEmail.getEditText().toString().trim();
-                final String password = mPassword.getEditText().toString().trim();
-                final String fullName = mFullName.getEditText().toString();
-                final String phone    = mPhone.getEditText().toString();
-                final String confirm_password    = mConfirmPassword.getEditText().toString();
+                final String email = String.valueOf(mEmail.getEditText().getText());
+                final String password = String.valueOf(mPassword.getEditText().getText());
+                final String fullName = String.valueOf(mFullName.getEditText().getText());
+                final String phone = String.valueOf(mPhone.getEditText().getText());
+                final String confirm_password = String.valueOf(mConfirmPassword.getEditText().getText());
 
                 // Validation data fields when user input
                 if (fullName.length() == 0) {
@@ -87,40 +87,38 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (password.length() == 0) {
                     mPassword.requestFocus();
                     mPassword.setError("Please enter password");
-                } else if (phone.length() == 0 ) {
+                } else if (phone.length() == 0) {
                     mPhone.requestFocus();
                     mPhone.setError("Please enter phone number");
-                } else if(!password.equals(confirm_password)) {
+                } else if (!password.equals(confirm_password)) {
 
                     mConfirmPassword.requestFocus();
                     mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
                     //check = false;
                     return;
-                }
-
-                else if(confirm_password.length() == 0){
+                } else if (confirm_password.length() == 0) {
                     mEmail.requestFocus();
                     mEmail.setError("Please enter confirm password.");
-                // Check validation regex
+                    // Check validation regex
                 } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
                     mEmail.requestFocus();
                     mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
                 } else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
                     mPassword.requestFocus();
                     mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
-                }else if(!phone.matches(RegexValidate.VALID_PHONE_NUMBER)){
+                } else if (!phone.matches(RegexValidate.VALID_PHONE_NUMBER)) {
                     mPhone.requestFocus();
                     mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
-                } else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
+                } else if (!fullName.matches(RegexValidate.VALID_FULL_NAME)) {
                     mFullName.requestFocus();
                     mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                }else{
+                } else {
                     progressBar.setVisibility(View.VISIBLE);
 
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
                                 // send verification link
 
@@ -144,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -152,9 +150,9 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                            }else {
+                            } else {
                                 Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
@@ -174,11 +172,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean comparePassword(){
+    private boolean comparePassword() {
         final String password = mPassword.getEditText().toString().trim();
-        final String confirm_password    = mConfirmPassword.getEditText().toString();
+        final String confirm_password = mConfirmPassword.getEditText().toString();
         boolean check = true;
-        if(!password.equals(confirm_password)){
+        if (!password.equals(confirm_password)) {
             mConfirmPassword.requestFocus();
             mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
             check = false;
