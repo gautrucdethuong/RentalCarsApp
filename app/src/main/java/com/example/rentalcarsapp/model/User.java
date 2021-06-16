@@ -13,15 +13,6 @@ public class User {
 
     private int userId;
     private String userEmail;
-
-
-
-
-
-
-
-    
-
     private String fullName;
     private String userPassword;
     private boolean userGender;
