@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Choose Gender"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/black"
             android:textSize="18sp"/>
         <RadioGroup
             android:layout_width="wrap_content"
@@ -94,12 +94,12 @@
             android:layout_height="2dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/colorBlack" />
+            android:background="@color/black" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select Your Age"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/black"
             android:textSize="18sp"/>
         <DatePicker
             android:layout_width="match_parent"

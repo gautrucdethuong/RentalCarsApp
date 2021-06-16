@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp.ui.login;
+package com.example.rentalcarsapp.ui.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 //import android.widget.CheckBox;
 //import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +18,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,74 +26,38 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    TextInputLayout mFullName, mEmail, mPassword, mPhone, mConfirmPassword;
-    Button mRegisterBtn, mLoginBtn;
+    TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
+    Button mRegisterBtn,mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     AuthenticationDAO authDao;
     String userID;
-    //CheckBox isCustomerBox, isSaleStaffBox, isAdminBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFullName = findViewById(R.id.fullName);
-        mEmail = findViewById(R.id.Email);
-        mPassword = findViewById(R.id.password);
+        mFullName   = findViewById(R.id.fullName);
+        mEmail      = findViewById(R.id.Email);
+        mPassword   = findViewById(R.id.password);
         mConfirmPassword = findViewById(R.id.re_confirm_password);
-        mPhone = findViewById(R.id.phone);
-        mRegisterBtn = findViewById(R.id.registerBtn);
-        mLoginBtn = findViewById(R.id.createText);
-//        isCustomerBox = findViewById(R.id.isCustomer);
-//        isSaleStaffBox = findViewById(R.id.isSaleStaff);
-//        isAdminBox = findViewById(R.id.isAdmin);
+        mPhone      = findViewById(R.id.phone);
+        mRegisterBtn= findViewById(R.id.signup_next_button);
+        mLoginBtn   = findViewById(R.id.createText);
+
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
-        // check boxes logic
 
-//        isCustomerBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (buttonView.isChecked()) {
-//                    isSaleStaffBox.setChecked(false);
-//                    isAdminBox.setChecked(false);
-//                }
-//            }
-//        });
-//        isSaleStaffBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (buttonView.isChecked()) {
-//                    isCustomerBox.setChecked(false);
-//                    isAdminBox.setChecked(false);
-//                }
-//            }
-//        });
-//        isAdminBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (buttonView.isChecked()) {
-//                    isSaleStaffBox.setChecked(false);
-//                    isCustomerBox.setChecked(false);
-//                }
-//            }
-//        });
-        if (fAuth.getCurrentUser() != null) {
+        if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -107,13 +70,9 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = mEmail.getEditText().toString().trim();
                 final String password = mPassword.getEditText().toString().trim();
                 final String fullName = mFullName.getEditText().toString();
-                final String phone = mPhone.getEditText().toString();
-                final String confirm_password = mConfirmPassword.getEditText().toString();
-                //Check box validation
-//                if (!(isCustomerBox.isChecked() || isSaleStaffBox.isChecked() || isAdminBox.isChecked())) {
-//                    Toast.makeText(RegisterActivity.this, "Select the Role Type", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                final String phone    = mPhone.getEditText().toString();
+                final String confirm_password    = mConfirmPassword.getEditText().toString();
+
                 // Validation data fields when user input
                 if (fullName.length() == 0) {
                     mFullName.requestFocus();
@@ -124,38 +83,43 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (password.length() == 0) {
                     mPassword.requestFocus();
                     mPassword.setError("Please enter password");
-                } else if (phone.length() == 0) {
+                } else if (phone.length() == 0 ) {
                     mPhone.requestFocus();
                     mPhone.setError("Please enter phone number");
-                } else if (!password.equals(confirm_password)) {
+                }
+//                else if(!password.equals(confirm_password)) {
+//
+//                    mConfirmPassword.requestFocus();
+//                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
+//                    //check = false;
+//                    return;
+//                }
 
-                    mConfirmPassword.requestFocus();
-                    mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
-                    //check = false;
-                    return;
-                } else if (confirm_password.length() == 0) {
+                else if(confirm_password.length() == 0){
                     mEmail.requestFocus();
                     mEmail.setError("Please enter confirm password.");
                     // Check validation regex
-                } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
-                    mEmail.requestFocus();
-                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
-                } else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
+                }
+//                else if (!email.matches(RegexValidate.VALID_EMAIL)) {
+//                    mEmail.requestFocus();
+//                    mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
+//                }
+                else if (!password.matches(RegexValidate.VALID_PASSWORD)) {
                     mPassword.requestFocus();
                     mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
-                } else if (!phone.matches(RegexValidate.VALID_PHONE_NUMBER)) {
+                }else if(!phone.matches(RegexValidate.VALID_PHONE_NUMBER)){
                     mPhone.requestFocus();
                     mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
-                } else if (!fullName.matches(RegexValidate.VALID_FULL_NAME)) {
+                } else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
                     mFullName.requestFocus();
                     mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                } else {
+                }else{
                     progressBar.setVisibility(View.VISIBLE);
 
-                    fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                            if(task.isSuccessful()){
 
                                 // send verification link
 
@@ -173,20 +137,13 @@ public class RegisterActivity extends AppCompatActivity {
 //                                });
                                 userID = fAuth.getCurrentUser().getUid();
                                 User userInfo = new User(email, fullName, phone, "Customer");
-//                                if(isCustomerBox.isChecked()) {
-//                                    User userInfo = new User(email, fullName, phone, "Customer");
-//                                }else if(isSaleStaffBox.isChecked()){
-//                                    User userInfo = new User(email, fullName, phone, "SaleStaff");
-//                                }else if(isAdminBox.isChecked()){
-//                                    User userInfo = new User(email, fullName, phone, "Admin");
-//                                }
                                 Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
                                 documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -194,9 +151,9 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(),RegisterInforActivity.class));
 
-                            } else {
+                            }else {
                                 Toast.makeText(RegisterActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
@@ -216,11 +173,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean comparePassword() {
+    private boolean comparePassword(){
         final String password = mPassword.getEditText().toString().trim();
-        final String confirm_password = mConfirmPassword.getEditText().toString();
+        final String confirm_password    = mConfirmPassword.getEditText().toString();
         boolean check = true;
-        if (!password.equals(confirm_password)) {
+        if(!password.equals(confirm_password)){
             mConfirmPassword.requestFocus();
             mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
             check = false;
