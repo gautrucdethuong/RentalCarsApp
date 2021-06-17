@@ -22,7 +22,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
-import com.example.rentalcarsapp.ui.home.TestActivity;
+import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -91,7 +91,7 @@ public class RegisterInforActivity extends AppCompatActivity {
         //selectAge = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
         //selectAge.getText();
 
- /*       int day = mDatePicker.getDayOfMonth();
+        int day = mDatePicker.getDayOfMonth();
         int month = mDatePicker.getMonth();
         int year = mDatePicker.getYear();
         Calendar calendar = Calendar.getInstance();
@@ -106,7 +106,7 @@ public class RegisterInforActivity extends AppCompatActivity {
             System.out.println(newDateString);
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
         progressBar = findViewById(R.id.progressBar);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +141,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                startActivity(new Intent(getApplicationContext(), TestActivity.class));
+                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
 
                             }else {
                                 Log.e("massage",task.getException().toString());
