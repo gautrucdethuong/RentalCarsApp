@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
@@ -141,7 +142,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
 
                             }else {
                                 Log.e("massage",task.getException().toString());

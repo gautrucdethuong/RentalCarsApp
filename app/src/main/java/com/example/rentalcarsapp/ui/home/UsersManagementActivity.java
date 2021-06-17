@@ -29,6 +29,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.rentalcarsapp.DashboardActivity;
+import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
@@ -160,27 +161,27 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                                     menuBuilder.setCallback(new MenuBuilder.Callback() {
                                         @Override
                                         public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                                            switch (item.getItemId()) {
-                                                case R.id.edit_button:
-                                                    //call edit activity
+//                                            switch (item.getItemId()) {
+//                                                case R.id.edit_button:
+//                                                    call edit activity
 //                                                    Intent intent = new Intent(currentView.getContext(), UpdateActivity.class);
 //                                                    intent.putExtra("currentLecture", currentLecture);
 //                                                    startActivityForResult(intent, UPDATE_NEW_REQUEST_CODE);
-                                                    break;
-//                                                case R.id.block:
-//                                                    // function remove lecture
-////                                                    db.removeLecture(currentLecture.getId());
-////                                                    reloadView();
 //                                                    break;
-//                                                case R.id.change_role:
-//
-//                                                    // function remove lecture
-////                                                    db.removeLecture(currentLecture.getId());
-////                                                    reloadView();
-//                                                    break;
-                                                default:
-                                                    return false;
-                                            }
+////                                                case R.id.block:
+////                                                    // function remove lecture
+//////                                                    db.removeLecture(currentLecture.getId());
+//////                                                    reloadView();
+////                                                    break;
+////                                                case R.id.change_role:
+////
+////                                                    // function remove lecture
+//////                                                    db.removeLecture(currentLecture.getId());
+//////                                                    reloadView();
+////                                                    break;
+//                                                default:
+//                                                    return false;
+//                                            }
                                             return false;
                                         }
 
@@ -216,6 +217,12 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
             case R.id.nav_home:
                 Intent intentHome = new Intent(getApplicationContext(), DashboardActivity.class);
                 startActivity(intentHome);
+                finish();
+
+                break;
+            case R.id.nav_profile:
+                Intent intentProfile = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentProfile);
                 finish();
 
                 break;

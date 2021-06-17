@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
+import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.material.textfield.TextInputLayout;
@@ -85,7 +86,7 @@ public class CreateActivity extends AppCompatActivity {
                 pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
                 pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
                 ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class),options.toBundle());
             }
         });
 
