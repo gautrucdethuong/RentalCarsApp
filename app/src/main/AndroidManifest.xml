@@ -25,7 +25,9 @@
         <activity android:name=".ui.register.RegisterInforActivity"></activity>
 
 <!--        <activity android:name=".ui.login.LoginActivity">-->
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".DashboardActivity"/>
+        <activity android:name=".ui.home.HomePageActivity" />
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

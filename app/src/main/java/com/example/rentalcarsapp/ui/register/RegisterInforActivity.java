@@ -91,7 +91,7 @@ public class RegisterInforActivity extends AppCompatActivity {
         //selectAge = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
         //selectAge.getText();
 
- /*       int day = mDatePicker.getDayOfMonth();
+        int day = mDatePicker.getDayOfMonth();
         int month = mDatePicker.getMonth();
         int year = mDatePicker.getYear();
         Calendar calendar = Calendar.getInstance();
@@ -106,7 +106,7 @@ public class RegisterInforActivity extends AppCompatActivity {
             System.out.println(newDateString);
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
         progressBar = findViewById(R.id.progressBar);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
