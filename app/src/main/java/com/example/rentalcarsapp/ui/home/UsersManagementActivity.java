@@ -32,6 +32,7 @@ import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.admin.CreateActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -76,7 +77,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                 startActivity(intent);
                 finish();
             }
