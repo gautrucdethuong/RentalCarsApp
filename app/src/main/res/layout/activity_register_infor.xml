@@ -78,6 +78,7 @@
                 android:id="@+id/g_Male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="Male" />
 
             <RadioButton
@@ -117,7 +118,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/signup_next_button"
+        android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"

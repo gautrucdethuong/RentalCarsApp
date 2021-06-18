@@ -17,11 +17,11 @@ public class User {
     private String fullName;
     private String userPassword;
     private int userGender;
-    private LocalDateTime userBirthday;
+    private Date userBirthday;
     private String userAddress;
     private String userPhoneNumber;
     private String userImages;
-    private LocalDateTime userCreatedDate;
+    private Date userCreatedDate;
     private Date userDeletedDate;
     private String roleName;
     private boolean userStatus;
@@ -45,7 +45,7 @@ public class User {
         this.storeId = storeId;
     }*/
 
-    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, LocalDateTime userBirthday, LocalDateTime userCreatedDate) {
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, Date userBirthday, Date userCreatedDate) {
         this.userEmail = userEmail;
         this.fullName = fullName;
         this.userPhoneNumber = userPhoneNumber;
@@ -99,11 +99,11 @@ public class User {
         this.userGender = userGender;
     }
 
-    public LocalDateTime getUserBirthday() {
+    public Date getUserBirthday() {
         return userBirthday;
     }
 
-    public void setUserBirthday(LocalDateTime userBirthday) {
+    public void setUserBirthday(Date userBirthday) {
         this.userBirthday = userBirthday;
     }
 
@@ -131,11 +131,11 @@ public class User {
         this.userImages = userImages;
     }
 
-    public LocalDateTime getUserCreatedDate() {
+    public Date getUserCreatedDate() {
         return userCreatedDate;
     }
 
-    public void setUserCreatedDate(LocalDateTime userCreatedDate) {
+    public void setUserCreatedDate(Date userCreatedDate) {
         this.userCreatedDate = userCreatedDate;
     }
 
