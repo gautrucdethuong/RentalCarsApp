@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
@@ -114,43 +115,60 @@ public class RegisterInforActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
+                authDao.registerFirebaseAuthentication(emailAddress, passWord, fullName, phoneNumber, new Callback() {
+                    @Override
+                    public void isLogin(boolean status) {
 
-                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                    }
 
-                                LocalDateTime userCreatedDate = LocalDateTime.now();
+                    @Override
+                    public void isRegister(boolean status) {
+                        if(status){
+                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
 
-                                Log.e("time", userCreatedDate.toString());
-                                userID = fAuth.getCurrentUser().getUid();
-
-                                User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
-                                Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-
-                            //    userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-
-                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-
-                            }else {
-                                Log.e("massage",task.getException().toString());
-                                Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
+                        }else{
+                            Toast.makeText(RegisterInforActivity.this, "Error ! " , Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
-                    });
+                    }
+                });
+
+//                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if(task.isSuccessful()){
+//
+//                                LocalDateTime userCreatedDate = LocalDateTime.now();
+//
+//                                Log.e("time", userCreatedDate.toString());
+//                                userID = fAuth.getCurrentUser().getUid();
+//
+//                                User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
+//                                Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+//
+//                            //    userID = fAuth.getCurrentUser().getUid();
+//                                DocumentReference documentReference = fStore.collection("users").document(userID);
+//                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Log.d(TAG, "onFailure: " + e.toString());
+//                                    }
+//                                });
+//
+//                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+//
+//                            }else {
+//                                Log.e("massage",task.getException().toString());
+//                                Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                progressBar.setVisibility(View.GONE);
+//                            }
+//                        }
+//                    });
                 // }
             }
         });

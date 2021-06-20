@@ -113,10 +113,11 @@ tools:context=".MainActivity"
             android:layout_marginTop="28dp"
             android:text="Verify Now"
             android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/verifyMsg" />
+            app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
 
 
@@ -150,7 +151,7 @@ tools:context=".MainActivity"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileImage"
-            app:layout_constraintVertical_bias="0.050000012"
+            app:layout_constraintVertical_bias="0.232"
             app:srcCompat="@drawable/ic_person_black_24dp" />
 
         <ImageView

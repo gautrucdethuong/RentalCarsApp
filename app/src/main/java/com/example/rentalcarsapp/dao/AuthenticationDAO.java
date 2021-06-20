@@ -3,6 +3,7 @@ package com.example.rentalcarsapp.dao;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
 import com.example.rentalcarsapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,58 +26,47 @@ public class AuthenticationDAO {
     FirebaseFirestore fStore;
     boolean statusLogin;
 
-    public boolean isStatusLogin() {
-        return statusLogin;
-    }
 
-    public void setStatusLogin(boolean statusLogin) {
-        this.statusLogin = statusLogin;
-    }
-
-    public boolean loginFirebaseAuthentication(String email, String password) {
+    public void loginFirebaseAuthentication(String email, String password, Callback callback) {
         fAuth = FirebaseAuth.getInstance();
 
         fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    setStatusLogin(true);
-                } else {
-                    setStatusLogin(false);
-                }
+                callback.isLogin(task.isSuccessful());
             }
         });
 
-        return isStatusLogin();
     }
 
-/*    public boolean registerFirebaseAuthentication(String email, String password, String fullName, String phone) {
+
+    public void registerFirebaseAuthentication(String emailAddress, String password, String fullName, String phoneNumber, Callback callback) {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        User userInfo = new User(email, fullName, phone, "Customer");
+        User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
 
-        fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        fAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
                     String userID = fAuth.getCurrentUser().getUid();
+
                     DocumentReference documentReference = fStore.collection("users").document(userID);
                     documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            setStatusLogin(true);
+                            callback.isRegister(true);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            setStatusLogin(false);
+                            callback.isRegister(false);
                         }
                     });
                 }
             }
         });
-        return isStatusLogin();
-    }*/
+    }
 }

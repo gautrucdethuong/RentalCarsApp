@@ -93,7 +93,7 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
         String phoneNumber = String.valueOf(intent.getStringExtra("phoneNumber"));
         String passWord = String.valueOf(intent.getStringExtra("passWord"));
         progressBar = findViewById(R.id.progressBar);
-
+        fetchdata();
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -126,7 +126,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/next1Btn"
+        android:id="@+id/signup_next_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"

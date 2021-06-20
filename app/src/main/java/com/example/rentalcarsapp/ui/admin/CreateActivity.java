@@ -39,7 +39,7 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.usermanagement_create);
 
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
@@ -47,7 +47,7 @@ public class CreateActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-        mLoginBtn   = findViewById(R.id.createText);
+//        mLoginBtn   = findViewById(R.id.createText);
         imgBack   = findViewById(R.id.logoImage);
 
         authDao = new AuthenticationDAO();
@@ -92,18 +92,18 @@ public class CreateActivity extends AppCompatActivity {
 
 
         // Back login page
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
-            }
-        });
+//        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Pair[] pairs=new Pair[4];
+//                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+//                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+//                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+//                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+//                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
+//                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+//            }
+//        });
 
     }
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,10 +36,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextInputLayout mEmail,mPassword;
-    TextView mWelcome,mSlogan;
+    TextInputLayout mEmail, mPassword;
+    TextView mWelcome, mSlogan;
     Button mLoginBtn;
-    Button mCreateBtn,forgotTextLink;
+    Button mCreateBtn, forgotTextLink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
     AuthenticationDAO authDao;
@@ -56,12 +58,12 @@ public class LoginActivity extends AppCompatActivity {
         mCreateBtn = findViewById(R.id.createText);
         forgotTextLink = findViewById(R.id.forgotPassword);
         imglogo = findViewById(R.id.logoImage);
-        mWelcome=findViewById(R.id.logo_name);
-        mSlogan=findViewById(R.id.slogan_name);
+        mWelcome = findViewById(R.id.logo_name);
+        mSlogan = findViewById(R.id.slogan_name);
         fAuth = FirebaseAuth.getInstance();
 
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        if (fAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
             finish();
         }
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +72,12 @@ public class LoginActivity extends AppCompatActivity {
                 //startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
 
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imglogo,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(forgotTextLink,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+                Pair[] pairs = new Pair[4];
+                pairs[0] = new Pair<View, String>(imglogo, "logo_image");
+                pairs[1] = new Pair<View, String>(mWelcome, "logo_text");
+                pairs[2] = new Pair<View, String>(mSlogan, "logo_signup");
+                pairs[3] = new Pair<View, String>(forgotTextLink, "txt_transaction");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
                 startActivity(intent, options.toBundle());
             }
         });
@@ -84,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
                 final EditText resetMail = new EditText(v.getContext());
@@ -133,33 +134,50 @@ public class LoginActivity extends AppCompatActivity {
                 String email = String.valueOf(mEmail.getEditText().getText());
                 String password = String.valueOf(mPassword.getEditText().getText());
 
-                if(TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("Email is Required.");
                     return;
                 }
 
-                if(TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is Required.");
                     return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-
-                // authenticate the user
-
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                authDao.loginFirebaseAuthentication(email, password, new Callback() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                    public void isLogin(boolean status) {
+
+                        if(status) {
                             Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-                        }else {
-                            Toast.makeText(LoginActivity.this, "Logged in Failed ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Logged in Failed ! ", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
 
                     }
+
+                    @Override
+                    public void isRegister(boolean status) {
+
+                    }
                 });
+                // authenticate the user
+//                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){
+//                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+//                        }else {
+//                            Toast.makeText(LoginActivity.this, "Logged in Failed ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//
+//                    }
+//                });
 
             }
         });
