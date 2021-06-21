@@ -47,12 +47,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int GALLERY_INTENT_CODE = 1023 ;
-    TextView fullName,email,phone,verifyMsg;
+    TextView fullName,email,phone,nameUser;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-    Button resendCode;
-    Button resetPassLocal,changeProfileImage;
+    Button resetPassLocal,changeProfileImage,resendCode;
     FirebaseUser user;
     ImageView profileImage;
     StorageReference storageReference;
@@ -79,14 +78,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
+        nameUser = findViewById(R.id.txtName);
         phone = findViewById(R.id.profilePhone);
         fullName = findViewById(R.id.profileName);
         email    = findViewById(R.id.profileEmail);
         profileImage = findViewById(R.id.profileImage);
-
-
-
+        changeProfileImage = findViewById(R.id.changeProfile);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -108,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                    Log.e("TAG", "Cached document data: " + document.getData());
                     Map<String, Object> user = document.getData();
                     fullName.setText(String.valueOf(user.get("fullName")));
+                    nameUser.setText(String.valueOf(user.get("fullName")));
                     email.setText(String.valueOf(user.get("userEmail")));
                     phone.setText(String.valueOf(user.get("userPhoneNumber")));
 
@@ -127,15 +125,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         resendCode = findViewById(R.id.resendCode);
-        verifyMsg = findViewById(R.id.verifyMsg);
-
-
         userId = fAuth.getCurrentUser().getUid();
-         user = fAuth.getCurrentUser();
+        user = fAuth.getCurrentUser();
 
         if(!user.isEmailVerified()){
-            verifyMsg.setVisibility(View.VISIBLE);
-            resendCode.setVisibility(View.VISIBLE);
+            resendCode.setVisibility(View.GONE);
 
             resendCode.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -173,61 +167,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });*/
 
 
-//        resetPassLocal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                final EditText resetPassword = new EditText(v.getContext());
-//
-//                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-//                passwordResetDialog.setTitle("Reset Password ?");
-//                passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
-//                passwordResetDialog.setView(resetPassword);
-//
-//                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // extract the email and send reset link
-//                        String newPassword = resetPassword.getText().toString();
-//                        user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(MainActivity.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(MainActivity.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                });
-//
-//                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                       // close
-//                    }
-//                });
-//
-//                passwordResetDialog.create().show();
-//
-//            }
-//        });
+        resetPassLocal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//        changeProfileImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // open gallery
-//                Intent i = new Intent(v.getContext(), EditProfileActivity.class);
-//                i.putExtra("fullName",fullName.getText().toString());
-//                i.putExtra("email",email.getText().toString());
-//                i.putExtra("phone",phone.getText().toString());
-//                startActivity(i);
-////
-//
-//            }
-//        });
+                final EditText resetPassword = new EditText(v.getContext());
+
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Reset Password ?");
+                passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
+                passwordResetDialog.setView(resetPassword);
+
+                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // extract the email and send reset link
+                        String newPassword = resetPassword.getText().toString();
+                        user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(MainActivity.this, "Password Reset Successfully.", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, "Password Reset Failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       // close
+                    }
+                });
+
+                passwordResetDialog.create().show();
+
+            }
+        });
+
+        changeProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open gallery
+                Intent i = new Intent(v.getContext(), EditProfileActivity.class);
+                i.putExtra("fullName",fullName.getText().toString());
+                i.putExtra("email",email.getText().toString());
+                i.putExtra("phone",phone.getText().toString());
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -235,11 +227,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        finish();
-    }
+//    public void logout(View view) {
+//        FirebaseAuth.getInstance().signOut();//logout
+//        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//        finish();
+//    }
 
 
     @Override

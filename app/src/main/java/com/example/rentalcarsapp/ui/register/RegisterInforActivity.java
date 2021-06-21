@@ -58,103 +58,86 @@ public class RegisterInforActivity extends AppCompatActivity {
     ImageView imgBack;
     private Intent intent;
     RadioGroup mRadioGroupGender;
-    RadioButton selectAge;
+    RadioButton rGender;
     DatePicker mDatePicker;
     Date startDate;
+    int gender=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_infor);
-        //mRadioButton = fi
-       // mRadioGroupGender = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
-
         mDatePicker = findViewById(R.id.datePicker);
-        mRegisterBtn = findViewById(R.id.signup_next_button);
-
+        mRegisterBtn = findViewById(R.id.signup);
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         imgBack   = findViewById(R.id.logoImage);
-
+        progressBar = findViewById(R.id.progressBar);
+        mRadioGroupGender=findViewById(R.id.radioGender);
         intent = getIntent();
 
         String emailAddress = String.valueOf(intent.getStringExtra("email"));
         String fullName = String.valueOf(intent.getStringExtra("fullName"));
         String phoneNumber = String.valueOf(intent.getStringExtra("phoneNumber"));
         String passWord = String.valueOf(intent.getStringExtra("passWord"));
-
-        //String gender =
-
- /*       if(!validateAge() | !validateGender()){
-            return;
-        }*/
-
-        //selectAge = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
-        //selectAge.getText();
-
- /*       int day = mDatePicker.getDayOfMonth();
-        int month = mDatePicker.getMonth();
-        int year = mDatePicker.getYear();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        String birthday = day+"/"+month+"/"+year;
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        Date startDate;
-        try {
-            startDate = df.parse(birthday);
-            String newDateString = df.format(startDate);
-            System.out.println(newDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        //String gender =
-
- /*       if(!validateAge() | !validateGender()){
-            return;
-        }*/
-
-        //selectAge = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
-        //selectAge.getText();
-
- /*       int day = mDatePicker.getDayOfMonth();
-        int month = mDatePicker.getMonth();
-        int year = mDatePicker.getYear();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        String birthday = day+"/"+month+"/"+year;
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        Date startDate;
-        try {
-            startDate = df.parse(birthday);
-            String newDateString = df.format(startDate);
-            System.out.println(newDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-        progressBar = findViewById(R.id.progressBar);
+        int radioId=mRadioGroupGender.getCheckedRadioButtonId();
+        rGender=findViewById(radioId);
+        if(rGender.getText().equals("Male")){
+            gender=1;
+        }else if(rGender.getText().equals("Other")){
+            gender=2;
+        }
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    progressBar.setVisibility(View.VISIBLE);
-                authDao.registerFirebaseAuthentication(emailAddress, passWord, fullName, phoneNumber, new Callback() {
-                    @Override
-                    public void isLogin(boolean status) {
+                progressBar.setVisibility(View.VISIBLE);
 
-                    }
+                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                int day = mDatePicker.getDayOfMonth();
+                                int month = mDatePicker.getMonth();
+                                int year = mDatePicker.getYear();
+                                String birthday = day+"/"+month+"/"+year;
+                                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = new Date();
+                                SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                                String str=simpleDateFormat1.format(date);
+                                userID = fAuth.getCurrentUser().getUid();
+                                User userInfo = null;
+                                try {
+                                    userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", gender,simpleDateFormat.parse(birthday)  , simpleDateFormat1.parse(str) );
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void isRegister(boolean status) {
-                        if(status){
-                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                            //    userID = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
 
-                        }else{
-                            Toast.makeText(RegisterInforActivity.this, "Error ! " , Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
+                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+
+                            }else {
+                                Log.e("massage",task.getException().toString());
+                                Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
                         }
                     }
                 });
@@ -202,32 +185,18 @@ public class RegisterInforActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterInforActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class),options.toBundle());
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                finish();
             }
         });
 
-    }
-
-
-    private boolean validateGender(){
-        if(mRadioGroupGender.getCheckedRadioButtonId() == -1){
-            Toast.makeText(this, "Please choose gender", Toast.LENGTH_SHORT).show();
-            return false;
-        }else{
-            return true;
-        }
     }
     private boolean validateAge(){
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int userAge = mDatePicker.getYear();
         int isAgeValid = currentYear - userAge;
         if(isAgeValid < 18 ){
+            Toast.makeText(this,"You not eligible to apply",Toast.LENGTH_SHORT).show();
             return false;
         }else{
             return true;
