@@ -109,6 +109,32 @@ public class RegisterInforActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }*/
+
+        //String gender =
+
+ /*       if(!validateAge() | !validateGender()){
+            return;
+        }*/
+
+        //selectAge = findViewById(mRadioGroupGender.getCheckedRadioButtonId());
+        //selectAge.getText();
+
+ /*       int day = mDatePicker.getDayOfMonth();
+        int month = mDatePicker.getMonth();
+        int year = mDatePicker.getYear();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        String birthday = day+"/"+month+"/"+year;
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date startDate;
+        try {
+            startDate = df.parse(birthday);
+            String newDateString = df.format(startDate);
+            System.out.println(newDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
         progressBar = findViewById(R.id.progressBar);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
