@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Rental Application</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_closed">Closed</string>
+    <string name="ch_y_sprint_xin_nh_tay">Cháy Sprint Xin Nhẹ Tay</string>
+    <string name="edit">Edit</string>
+    <string name="block">Block</string>
+    <string name="change_role">Change Role</string>
+    <string name="customer">Customer</string>
+    <string name="staff">Staff</string>
+    <string name="admin">Admin</string>
+    <string name="create">Create</string>
+
 </resources>

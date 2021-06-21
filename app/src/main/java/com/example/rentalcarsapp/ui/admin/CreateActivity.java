@@ -1,70 +1,45 @@
-package com.example.rentalcarsapp.ui.register;
+package com.example.rentalcarsapp.ui.admin;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
-import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class RegisterActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
     TextView mWelcome,mSlogan,mStep;
+    FirebaseAuth fAuth;
+    ProgressBar progressBar;
+    FirebaseFirestore fStore;
+    AuthenticationDAO authDao;
+    String userID;
     ImageView imgBack;
 
-    //String fullName;
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("saveFullName", String.valueOf(mFullName.getEditText().getText()));
-        outState.putString("saveEmail", String.valueOf(mEmail.getEditText().getText()));
-        outState.putString("savePassWord", String.valueOf(mPassword.getEditText().getText()));
-        outState.putString("savePhoneNumber", String.valueOf(mPhone.getEditText().getText()));
-
-    }
-/*
-    void setLesson()
-    {
-        Log.e("savename", fullName);
-        mFullName.setHint(fullName);
-    }
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
+        setContentView(R.layout.usermanagement_create);
 
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
@@ -72,12 +47,15 @@ public class RegisterActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-        mLoginBtn   = findViewById(R.id.createText);
+//        mLoginBtn   = findViewById(R.id.createText);
         imgBack   = findViewById(R.id.logoImage);
 
+        authDao = new AuthenticationDAO();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
         mWelcome=findViewById(R.id.logo_name);
         mSlogan=findViewById(R.id.slogan_name);
-
+        progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,28 +85,25 @@ public class RegisterActivity extends AppCompatActivity {
                 pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
                 pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
                 pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class),options.toBundle());
             }
         });
 
 
         // Back login page
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
-            }
-        });
-
-
-
+//        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Pair[] pairs=new Pair[4];
+//                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+//                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+//                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+//                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+//                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
+//                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+//            }
+//        });
 
     }
 
@@ -168,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean ValidatePassword(){
         String passWord = String.valueOf(mPassword.getEditText().getText());
         if(passWord.isEmpty()){
-            mPassword.setError("Please enter password.");
+            mPassword.setError("Please enter full name.");
             return false;
         }else if(!passWord.matches(RegexValidate.VALID_PASSWORD)){
             mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);

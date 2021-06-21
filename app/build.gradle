@@ -46,6 +46,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.1.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.firebaseui:firebase-ui-database:6.2.1'
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    implementation 'org.jetbrains:annotations:15.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

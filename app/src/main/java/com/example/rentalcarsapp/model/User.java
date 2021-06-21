@@ -1,5 +1,6 @@
 package com.example.rentalcarsapp.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -13,11 +14,9 @@ public class User {
 
     private int userId;
     private String userEmail;
-
-
     private String fullName;
     private String userPassword;
-    private boolean userGender;
+    private int userGender;
     private Date userBirthday;
     private String userAddress;
     private String userPhoneNumber;
@@ -29,7 +28,7 @@ public class User {
     private String staffCode;
     private int storeId;
 
-    public User(int userId, String userEmail, String userPassword, boolean userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
+/*    public User(int userId, String userEmail, String userPassword, int userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -44,13 +43,16 @@ public class User {
         this.userStatus = userStatus;
         this.staffCode = staffCode;
         this.storeId = storeId;
-    }
+    }*/
 
-    public User(String userEmail, String fullName, String userPhoneNumber, String roleName) {
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, Date userBirthday, Date userCreatedDate) {
         this.userEmail = userEmail;
         this.fullName = fullName;
         this.userPhoneNumber = userPhoneNumber;
         this.roleName = roleName;
+        this.userCreatedDate = userCreatedDate;
+        this.userBirthday = userBirthday;
+        this.userGender = userGender;
     }
 
     public User() {
@@ -89,11 +91,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public boolean isUserGender() {
+    public int isUserGender() {
         return userGender;
     }
 
-    public void setUserGender(boolean userGender) {
+    public void setUserGender(int userGender) {
         this.userGender = userGender;
     }
 
@@ -145,11 +147,11 @@ public class User {
         this.userDeletedDate = userDeletedDate;
     }
 
-    public String getRoleId() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleName(String roleId) {
         this.roleName = roleName;
     }
 

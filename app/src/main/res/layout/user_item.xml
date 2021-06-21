@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewUrl"-->
+<!--        android:layout_width="110sp"-->
+<!--        android:layout_height="90sp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_launcher_foreground"-->
+<!--        tools:ignore="VectorDrawableCompat" />-->
+
+    <TextView
+        android:id="@+id/textFullName"
+        android:layout_width="259dp"
+        android:layout_height="43dp"
+        android:text="Country Name"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textRoleName"
+        android:layout_width="137dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="12dp"
+        android:text="Population"
+        android:textSize="22sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
