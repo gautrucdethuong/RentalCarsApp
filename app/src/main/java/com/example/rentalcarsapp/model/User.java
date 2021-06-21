@@ -17,44 +17,45 @@ public class User {
     private String fullName;
     private String userPassword;
     private int userGender;
-//    private LocalDateTime userBirthday;
+    private Date userBirthday;
     private String userAddress;
     private String userPhoneNumber;
     private String userImages;
-//    private LocalDateTime userCreatedDate;
-//    private Date userDeletedDate;
+    private Date userCreatedDate;
+    private Date userDeletedDate;
     private String roleName;
     private boolean userStatus;
     private String staffCode;
     private int storeId;
 
-    /*    public User(int userId, String userEmail, String userPassword, int userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
-            this.userId = userId;
-            this.userEmail = userEmail;
-            this.userPassword = userPassword;
-            this.userGender = userGender;
-            this.userBirthday = userBirthday;
-            this.userAddress = userAddress;
-            this.userPhoneNumber = userPhoneNumber;
-            this.userImages = userImages;
-            this.userCreatedDate = userCreatedDate;
-            this.userDeletedDate = userDeletedDate;
-            this.roleName = roleName;
-            this.userStatus = userStatus;
-            this.staffCode = staffCode;
-            this.storeId = storeId;
-        }*/
-    public User() {
-    }
+/*    public User(int userId, String userEmail, String userPassword, int userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.userGender = userGender;
+        this.userBirthday = userBirthday;
+        this.userAddress = userAddress;
+        this.userPhoneNumber = userPhoneNumber;
+        this.userImages = userImages;
+        this.userCreatedDate = userCreatedDate;
+        this.userDeletedDate = userDeletedDate;
+        this.roleName = roleName;
+        this.userStatus = userStatus;
+        this.staffCode = staffCode;
+        this.storeId = storeId;
+    }*/
 
-    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender) {
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, Date userBirthday, Date userCreatedDate) {
         this.userEmail = userEmail;
         this.fullName = fullName;
         this.userPhoneNumber = userPhoneNumber;
         this.roleName = roleName;
-//        this.userCreatedDate = userCreatedDate;
-//        this.userBirthday = userBirthday;
+        this.userCreatedDate = userCreatedDate;
+        this.userBirthday = userBirthday;
         this.userGender = userGender;
+    }
+
+    public User() {
     }
 
 
@@ -98,13 +99,13 @@ public class User {
         this.userGender = userGender;
     }
 
-//    public LocalDateTime getUserBirthday() {
-//        return userBirthday;
-//    }
-//
-//    public void setUserBirthday(LocalDateTime userBirthday) {
-//        this.userBirthday = userBirthday;
-//    }
+    public Date getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(Date userBirthday) {
+        this.userBirthday = userBirthday;
+    }
 
     public String getUserAddress() {
         return userAddress;
@@ -130,21 +131,21 @@ public class User {
         this.userImages = userImages;
     }
 
-//    public LocalDateTime getUserCreatedDate() {
-//        return userCreatedDate;
-//    }
-//
-//    public void setUserCreatedDate(LocalDateTime userCreatedDate) {
-//        this.userCreatedDate = userCreatedDate;
-//    }
-//
-//    public Date getUserDeletedDate() {
-//        return userDeletedDate;
-//    }
-//
-//    public void setUserDeletedDate(Date userDeletedDate) {
-//        this.userDeletedDate = userDeletedDate;
-//    }
+    public Date getUserCreatedDate() {
+        return userCreatedDate;
+    }
+
+    public void setUserCreatedDate(Date userCreatedDate) {
+        this.userCreatedDate = userCreatedDate;
+    }
+
+    public Date getUserDeletedDate() {
+        return userDeletedDate;
+    }
+
+    public void setUserDeletedDate(Date userDeletedDate) {
+        this.userDeletedDate = userDeletedDate;
+    }
 
     public String getRoleName() {
         return roleName;
