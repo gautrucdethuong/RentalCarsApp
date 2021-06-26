@@ -14,6 +14,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 /**
  * Author by HUYNH NHAT MINH (ミン).
  * Email: minhhnce140197@fpt.edu.vn.

@@ -24,16 +24,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class CreateActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
-    Button mRegisterBtn,mLoginBtn;
+    Button mRegisterBtn;
     TextView mWelcome,mSlogan,mStep;
-    FirebaseAuth fAuth;
     ProgressBar progressBar;
-    FirebaseFirestore fStore;
-    AuthenticationDAO authDao;
-    String userID;
     ImageView imgBack;
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        outState.putString("saveFullName", String.valueOf(mFullName.getEditText().getText()));
+        outState.putString("saveEmail", String.valueOf(mEmail.getEditText().getText()));
+        outState.putString("savePassWord", String.valueOf(mPassword.getEditText().getText()));
+        outState.putString("savePhoneNumber", String.valueOf(mPhone.getEditText().getText()));
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +51,7 @@ public class CreateActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-//        mLoginBtn   = findViewById(R.id.createText);
         imgBack   = findViewById(R.id.logoImage);
-
-        authDao = new AuthenticationDAO();
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
         mWelcome=findViewById(R.id.logo_name);
         mSlogan=findViewById(R.id.slogan_name);
         progressBar = findViewById(R.id.progressBar);
@@ -63,7 +63,7 @@ public class CreateActivity extends AppCompatActivity {
                 if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
                     return;
                 }
-                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateInforActivity.class);
 
                 intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
                 intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
@@ -88,21 +88,6 @@ public class CreateActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class),options.toBundle());
             }
         });
-
-
-        // Back login page
-//        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Pair[] pairs=new Pair[4];
-//                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-//                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-//                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-//                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-//                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
-//                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
-//            }
-//        });
 
     }
 

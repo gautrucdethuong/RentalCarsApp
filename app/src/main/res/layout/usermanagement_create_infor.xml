@@ -68,7 +68,7 @@
 
 
         <RadioGroup
-            android:id="@+id/radio_group"
+            android:id="@+id/radioGender"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -79,7 +79,8 @@
             <RadioButton
                 android:id="@+id/male"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:checked="true"
                 android:text="Male" />
 
 
