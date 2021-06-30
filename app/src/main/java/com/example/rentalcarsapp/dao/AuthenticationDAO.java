@@ -1,10 +1,9 @@
 package com.example.rentalcarsapp.dao;
 
-import android.util.Log;
+
+import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
-
-import com.example.rentalcarsapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,6 +12,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 /**
  * Author by HUYNH NHAT MINH (ミン).
@@ -24,8 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AuthenticationDAO {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    boolean statusLogin;
-
 
     public void loginFirebaseAuthentication(String email, String password, Callback callback) {
         fAuth = FirebaseAuth.getInstance();
@@ -39,12 +37,12 @@ public class AuthenticationDAO {
 
     }
 
-
-    public void registerFirebaseAuthentication(String emailAddress, String password, String fullName, String phoneNumber, Callback callback) {
+    /*public void registerFirebaseAuthentication(String emailAddress, String password, String fullName, String phoneNumber, Callback callback) {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
+
+        @SuppressLint("RestrictedApi") User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
 
         fAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -68,5 +66,5 @@ public class AuthenticationDAO {
                 }
             }
         });
-    }
+    }*/
 }

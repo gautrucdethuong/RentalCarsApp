@@ -2,7 +2,9 @@ package com.example.rentalcarsapp.ui.register;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
@@ -35,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
+    private SharedPreferences sharedPref;
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
     TextView mWelcome,mSlogan,mStep;
@@ -52,19 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
         outState.putString("savePhoneNumber", String.valueOf(mPhone.getEditText().getText()));
 
     }
-/*
-    void setLesson()
-    {
-        Log.e("savename", fullName);
-        mFullName.setHint(fullName);
-    }
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
@@ -83,11 +80,28 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
+/*                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
                     return;
-                }
-                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                }*/
 
+/*
+                RegexValidate obj = new RegexValidate();
+
+                obj.checkValidationFormInput(fullName,obj.VALID_FULL_NAME);
+                int check = sharedPref.getInt("RESULT_CHECK",0);
+
+                //Log.e("Ketqua", String.valueOf(check));
+
+                if(check == 1){
+                    mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
+                    return;
+                }else{
+                    mFullName.setError(null);
+                    mFullName.setErrorEnabled(false);
+                }
+*/
+
+                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
                 intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
                 intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
                 intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));

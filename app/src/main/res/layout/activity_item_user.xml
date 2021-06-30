@@ -24,7 +24,7 @@
                 android:layout_height="80dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_vertical"
-                android:id="@+id/img1"
+                android:id="@+id/image_car"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"
                 />
