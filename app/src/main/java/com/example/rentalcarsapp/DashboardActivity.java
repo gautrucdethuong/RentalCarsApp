@@ -9,13 +9,27 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Query;
 
-import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.admin.UpdateActivity;
+import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,11 +37,23 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    private TextView personCount, adminCount, saleStaffCount;
+    private DatabaseReference databaseReference;
+    FirebaseAuth fAuth;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseFirestore fStore;
+    FirebaseUser user;
+    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
+        storageReference = storage.getReference();
+        personCount = findViewById(R.id.textView3);
+        adminCount = findViewById(R.id.textView4);
+        saleStaffCount = findViewById(R.id.textView6);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -36,9 +62,38 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        fStore = FirebaseFirestore.getInstance();
+        fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int perCount = 0;
+                    int adCount = 0;
+                    int sataffCount = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.get("roleName").equals("Customer")) {
+                            perCount++;
+                        }
+                        else if(document.get("roleName").equals("Admin")){
+                            adCount++;
+                        }else{
+                            sataffCount++;
+                        }
+                    }
+                    if(perCount !=0 || adCount != 0 || sataffCount !=0) {
+                        personCount.setText(perCount + " Person");
+                        adminCount.setText(adCount + " Admin");
+                        saleStaffCount.setText(sataffCount + " Sale Staff");
+                    }else{
+                        personCount.setText("Person");
+                        adminCount.setText("Admin");
+                        saleStaffCount.setText("Sale Staff");
+                    }
+                }
+            }
+        });
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -49,7 +104,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
                 break;
             case R.id.nav_profile:
-                Intent intentProfile = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intentProfile = new Intent(getApplicationContext(), UpdateActivity.class);
                 startActivity(intentProfile);
                 finish();
 

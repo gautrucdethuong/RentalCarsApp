@@ -52,8 +52,6 @@ public class CreateActivity extends AppCompatActivity {
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
         imgBack   = findViewById(R.id.logoImage);
-        mWelcome=findViewById(R.id.logo_name);
-        mSlogan=findViewById(R.id.slogan_name);
         progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
 
