@@ -46,11 +46,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int GALLERY_INTENT_CODE = 1023 ;
+
     TextView fullName,email,phone,nameUser;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    String userId;
     Button resetPassLocal,changeProfileImage,resendCode;
     FirebaseUser user;
     ImageView profileImage;

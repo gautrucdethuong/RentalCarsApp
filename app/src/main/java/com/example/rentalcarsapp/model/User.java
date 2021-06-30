@@ -28,23 +28,6 @@ public class User {
     private String staffCode;
     private int storeId;
 
-/*    public User(int userId, String userEmail, String userPassword, int userGender, Date userBirthday, String userAddress, String userPhoneNumber, String userImages, Date userCreatedDate, Date userDeletedDate, String roleName, boolean userStatus, String staffCode, int storeId) {
-        this.userId = userId;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
-        this.userGender = userGender;
-        this.userBirthday = userBirthday;
-        this.userAddress = userAddress;
-        this.userPhoneNumber = userPhoneNumber;
-        this.userImages = userImages;
-        this.userCreatedDate = userCreatedDate;
-        this.userDeletedDate = userDeletedDate;
-        this.roleName = roleName;
-        this.userStatus = userStatus;
-        this.staffCode = staffCode;
-        this.storeId = storeId;
-    }*/
-
     public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender, Date userBirthday, Date userCreatedDate) {
         this.userEmail = userEmail;
         this.fullName = fullName;

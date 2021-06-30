@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+
                 authDao.loginFirebaseAuthentication(email, password, new Callback() {
                     @Override
                     public void isLogin(boolean status) {
@@ -163,6 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void isRegister(boolean status) {
 
                     }
+
                 });
                 // authenticate the user
 //                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
