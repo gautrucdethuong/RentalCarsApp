@@ -115,16 +115,8 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
                             SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                             String str=simpleDateFormat1.format(date);
                             userID = fAuth.getCurrentUser().getUid();
-                            User userInfo = null;
-                            if (item == "Choose role") {
-                                Toast.makeText(CreateInforActivity.this, "please select a role", Toast.LENGTH_SHORT).show();
-                            } else {
-                                try {
-                                    userInfo = new User(emailAddress, fullName, phoneNumber, item, gender, simpleDateFormat.parse(birthday), simpleDateFormat1.parse(str));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                            }
+
+                            User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1,null, null);
                             Toast.makeText(CreateInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
