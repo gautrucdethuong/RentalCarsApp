@@ -162,11 +162,11 @@ public class RegisterInforActivity extends AppCompatActivity {
     }
 
 
-    void register() {
+    void register(){
 
     }
 
-    void back() {
+    void back(){
         ImageView imgBack;
         imgBack = findViewById(R.id.logoImage);
         imgBack.setOnClickListener(new View.OnClickListener() {
