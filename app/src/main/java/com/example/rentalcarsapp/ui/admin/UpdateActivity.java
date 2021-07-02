@@ -47,6 +47,7 @@ public class UpdateActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -101,48 +102,48 @@ public class UpdateActivity extends AppCompatActivity {
                 }
             }
         });
-        mUpdateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!ValidateFullName() | !ValidateEmail()  | !ValidatePhoneNumber()){
-                    Toast.makeText(UpdateActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                final String email = mEmail.getEditText().getText().toString();
-                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String, Object> edited = new HashMap<>();
-                        edited.put("email",email);
-                        edited.put("fullName",mFullName.getEditText().getText().toString());
-                        edited.put("phone",mPhone.getEditText().getText().toString());
-                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-                        });
-                        Toast.makeText(UpdateActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UpdateActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-            }
-        });
-        mEmail.getEditText().setText(email);
-        mFullName.getEditText().setText(fullName);
-        mPhone.getEditText().setText(phone);
-
-        Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
+//        mUpdateBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(!ValidateFullName() | !ValidateEmail()  | !ValidatePhoneNumber()){
+//                    Toast.makeText(UpdateActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                final String email = mEmail.getEditText().getText().toString();
+//                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
+//                        Map<String, Object> edited = new HashMap<>();
+//                        edited.put("email",email);
+//                        edited.put("fullName",mFullName.getEditText().getText().toString());
+//                        edited.put("phone",mPhone.getEditText().getText().toString());
+//                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(UpdateActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                                finish();
+//                            }
+//                        });
+//                        Toast.makeText(UpdateActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(UpdateActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//
+//            }
+//        });
+//        mEmail.getEditText().setText(email);
+//        mFullName.getEditText().setText(fullName);
+//        mPhone.getEditText().setText(phone);
+//
+//        Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
 //                Intent intent = new Intent(getApplicationContext(), CreateInforActivity.class);
 //
 //                intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
@@ -152,6 +153,21 @@ public class UpdateActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+        mUpdateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!ValidateFullName() | !ValidateEmail() | !ValidatePhoneNumber()) {
+                    return;
+                }
+                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+
+                intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText().toString().trim()));
+                intent.putExtra("email", String.valueOf(mEmail.getEditText().getText().toString().trim()));
+                intent.putExtra("phone", String.valueOf(mPhone.getEditText().getText().toString().trim()));
+
+                startActivity(intent);
+            }
+        });
         // Back login
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

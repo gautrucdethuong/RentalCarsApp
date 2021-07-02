@@ -12,10 +12,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Query;
 
 import com.example.rentalcarsapp.ui.admin.UpdateActivity;
 import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,13 +37,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private TextView personCount, adminCount, saleStaffCount;
+    private TextView personCount, adminCount, saleStaffCount, carCount;
     private DatabaseReference databaseReference;
     FirebaseAuth fAuth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         personCount = findViewById(R.id.textView3);
         adminCount = findViewById(R.id.textView4);
         saleStaffCount = findViewById(R.id.textView6);
+        carCount = findViewById(R.id.textView7);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -74,18 +76,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if (document.get("roleName").equals("Customer")) {
                             perCount++;
-                        }
-                        else if(document.get("roleName").equals("Admin")){
+                        } else if (document.get("roleName").equals("Admin")) {
                             adCount++;
-                        }else{
+                        } else {
                             sataffCount++;
                         }
                     }
-                    if(perCount !=0 || adCount != 0 || sataffCount !=0) {
+                    if (perCount != 0 || adCount != 0 || sataffCount != 0) {
                         personCount.setText(perCount + " Person");
                         adminCount.setText(adCount + " Admin");
                         saleStaffCount.setText(sataffCount + " Sale Staff");
-                    }else{
+                    } else {
                         personCount.setText("Person");
                         adminCount.setText("Admin");
                         saleStaffCount.setText("Sale Staff");
@@ -93,7 +94,27 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 }
             }
         });
+        fStore.collection("cars").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int cCount = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.exists()) {
+                            cCount++;
+                        }
+                    }
+                    if (cCount != 0) {
+                        carCount.setText(cCount + " Car");
+                    } else {
+                        carCount.setText("Car");
+                    }
+                }
+            }
+        });
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
