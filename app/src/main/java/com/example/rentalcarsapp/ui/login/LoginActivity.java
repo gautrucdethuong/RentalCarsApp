@@ -79,41 +79,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                // final EditText resetMail = new EditText(v.getContext());
-                // final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                // passwordResetDialog.setTitle("Reset Your Password");
-                // passwordResetDialog.setMessage(RegexValidate.MESSAGE_SHOW_RESET_PASSWORD);
-                // passwordResetDialog.setView(resetMail);
-                //
-                // passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                //     @Override
-                //     public void onClick(DialogInterface dialog, int which) {
-                //         // extract the email and send reset link
-                //         String mail = resetMail.getText().toString();
-                //         fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-                //             @Override
-                //             public void onSuccess(Void aVoid) {
-                //                 Toast.makeText(LoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
-                //             }
-                //         }).addOnFailureListener(new OnFailureListener() {
-                //             @Override
-                //             public void onFailure(@NonNull Exception e) {
-                //                 Toast.makeText(LoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                //             }
-                //         });
-                //
-                //     }
-                // });
-                //
-                // passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                //     @Override
-                //     public void onClick(DialogInterface dialog, int which) {
-                //         // close the dialog
-                //     }
-                // });
-                //
-                // passwordResetDialog.create().show();
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                Pair[] pairs = new Pair[4];
+                pairs[0] = new Pair<View, String>(imglogo, "logo_image");
+                pairs[1] = new Pair<View, String>(mWelcome, "logo_text");
+                pairs[2] = new Pair<View, String>(mSlogan, "logo_signup");
+                pairs[3] = new Pair<View, String>(forgotTextLink, "txt_transaction");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, pairs);
+                startActivity(intent, options.toBundle());
 
             }
         });

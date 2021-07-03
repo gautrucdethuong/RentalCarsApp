@@ -51,6 +51,9 @@
         <activity android:name=".ui.home.car.CarDetailsActivity">
 
         </activity>
+    <activity android:name=".ui.admin.UpdateActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.forgot.ForgotPasswordActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
