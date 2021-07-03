@@ -139,7 +139,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
-                    }
+
                 });
 
 //                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

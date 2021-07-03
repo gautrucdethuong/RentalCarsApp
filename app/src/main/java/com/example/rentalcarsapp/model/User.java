@@ -54,7 +54,14 @@ public class User {
         this.userBirthday = userBirthday;
         this.userGender = userGender;
     }
+    public User(String userEmail, String fullName, String userPhoneNumber, String roleName, int userGender) {
+        this.userEmail = userEmail;
+        this.fullName = fullName;
+        this.userPhoneNumber = userPhoneNumber;
+        this.roleName = roleName;
 
+        this.userGender = userGender;
+    }
     public User() {
     }
 

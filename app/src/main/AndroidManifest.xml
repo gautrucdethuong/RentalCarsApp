@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.rentalcarsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,29 +16,68 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"  android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.home.UsersManagementActivity" android:screenOrientation="portrait"  />
-        <activity android:name=".ui.home.AddUserActivity"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.login.EditProfileActivity" android:screenOrientation="portrait"  />
-        <activity android:name=".ui.register.RegisterActivity" android:screenOrientation="portrait"  />
-        <activity android:name=".DashboardActivity" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.admin.CreateInforActivity" android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.home.UsersManagementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.home.AddUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.register.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DashboardActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.admin.CreateInforActivity"
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".ui.register.RegisterInforActivity" android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".ui.register.RegisterInforActivity"
+            android:screenOrientation="portrait"></activity>
 
-<!--        <activity android:name=".ui.login.LoginActivity">-->
-        <activity android:name=".ui.login.LoginActivity" android:screenOrientation="portrait" >
+        <!--        <activity android:name=".ui.login.LoginActivity">-->
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.admin.CreateActivity" android:screenOrientation="portrait"  />
-
+        <activity
+            android:name=".ui.admin.CreateActivity"
+            android:screenOrientation="portrait" />
+        <!-- [START firebase_service] -->
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_ic_notification" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
     </application>
 
 </manifest>
