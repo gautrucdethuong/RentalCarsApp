@@ -16,18 +16,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".MainActivity"  android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.admin.CreateCarActivity" android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.home.UsersManagementActivity" android:screenOrientation="portrait"  />
-        <activity android:name=".ui.home.AddUserActivity"  android:screenOrientation="portrait" />
+        <activity android:name=".ui.home.user.UsersManagementActivity" android:screenOrientation="portrait"  />
+        <activity android:name=".ui.home.user.AddUserActivity"  android:screenOrientation="portrait" />
         <activity android:name=".ui.login.EditProfileActivity" android:screenOrientation="portrait"  />
         <activity android:name=".ui.register.RegisterActivity" android:screenOrientation="portrait"  />
-        <activity android:name=".DashboardActivity" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".DashboardActivity" android:screenOrientation="portrait" >
+
+        </activity>
         <activity android:name=".ui.admin.CreateInforActivity" android:screenOrientation="portrait" ></activity>
 
         <activity android:name=".ui.register.RegisterInforActivity" android:screenOrientation="portrait" ></activity>
@@ -38,6 +33,17 @@
         </activity>
         <activity android:name=".ui.admin.CreateActivity" android:screenOrientation="portrait"  />
 
+        <activity android:name=".ui.home.user.MainCarActivity">
+        </activity>
+
+        <activity android:name=".ui.home.car.RecyclerCarActivity" android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+        </activity>
+        <activity android:name=".ui.home.car.CarDetailsActivity">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

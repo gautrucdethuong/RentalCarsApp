@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp.ui.home;
+package com.example.rentalcarsapp.ui.home.user;
 
 /**
  * Author by HUYNH NHAT MINH (ミン).
@@ -10,7 +10,6 @@ package com.example.rentalcarsapp.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,6 @@ import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.admin.CreateActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
-import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +47,6 @@ import java.util.List;
 
 public class UsersManagementActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     // creating a variable for our list view,
-    // arraylist and firebase Firestore.
     ListView coursesLV;
     ArrayList<User> dataModalArrayList;
     FirebaseFirestore db;
@@ -139,19 +136,6 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                             coursesLV.setAdapter(adapter);
                             coursesLV.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
 
-                                /**
-                                 * Callback method to be invoked when an item in this AdapterView has
-                                 * been clicked.
-                                 * <p>
-                                 * Implementers can call getItemAtPosition(position) if they need
-                                 * to access the data associated with the selected item.
-                                 *
-                                 * @param parent   The AdapterView where the click happened.
-                                 * @param view     The view within the AdapterView that was clicked (this
-                                 *                 will be a view provided by the adapter)
-                                 * @param position The position of the view in the adapter.
-                                 * @param id       The row id of the item that was clicked.
-                                 */
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     MenuPopupHelper optionMenu = new MenuPopupHelper(UsersManagementActivity.this, menuBuilder, view);
@@ -161,27 +145,6 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                                     menuBuilder.setCallback(new MenuBuilder.Callback() {
                                         @Override
                                         public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-//                                            switch (item.getItemId()) {
-//                                                case R.id.edit_button:
-//                                                    call edit activity
-//                                                    Intent intent = new Intent(currentView.getContext(), UpdateActivity.class);
-//                                                    intent.putExtra("currentLecture", currentLecture);
-//                                                    startActivityForResult(intent, UPDATE_NEW_REQUEST_CODE);
-//                                                    break;
-////                                                case R.id.block:
-////                                                    // function remove lecture
-//////                                                    db.removeLecture(currentLecture.getId());
-//////                                                    reloadView();
-////                                                    break;
-////                                                case R.id.change_role:
-////
-////                                                    // function remove lecture
-//////                                                    db.removeLecture(currentLecture.getId());
-//////                                                    reloadView();
-////                                                    break;
-//                                                default:
-//                                                    return false;
-//                                            }
                                             return false;
                                         }
 
@@ -192,7 +155,6 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                                     });
 
                                     optionMenu.show();
-//            Log.e("E",currentLecture.getName());
 
                                 }
                             });
