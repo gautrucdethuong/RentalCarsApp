@@ -33,4 +33,3 @@ public class CarListAdapter extends RecyclerView.ViewHolder {
 
     }
 }
-
