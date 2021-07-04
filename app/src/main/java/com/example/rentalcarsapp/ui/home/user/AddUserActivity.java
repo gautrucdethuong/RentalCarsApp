@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp.ui.home;
+package com.example.rentalcarsapp.ui.home.user;
 
 import android.content.Intent;
 import android.os.Bundle;

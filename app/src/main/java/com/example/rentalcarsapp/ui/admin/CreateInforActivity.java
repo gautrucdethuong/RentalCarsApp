@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.model.User;
-import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
