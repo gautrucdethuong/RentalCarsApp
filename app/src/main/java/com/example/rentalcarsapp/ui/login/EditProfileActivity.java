@@ -66,7 +66,7 @@ public class EditProfileActivity extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
         saveBtn = findViewById(R.id.saveProfileInfo);
-        fStore = FirebaseFirestore.getInstance();
+
         String userId = fAuth.getCurrentUser().getUid();
 
         // [START get_document_options]
@@ -86,18 +86,13 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.d("TAG", "Cached document data: " + document.getData());
                     Map<String, Object> user = document.getData();
                     profileFullName.setText(String.valueOf(user.get("fullName")));
-//                    user.put("roleId",newRoleId);
-//                    docRef.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//
-//                        }
-//                    });
                 } else {
                     Log.d("TAG", "Cached get failed: ", task.getException());
                 }
             }
         });
+
+
         // [END get_document_options]
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

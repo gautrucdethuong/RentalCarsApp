@@ -8,5 +8,5 @@ package com.example.rentalcarsapp.model;
  */
 
 public class Bill {
-    
+
 }
