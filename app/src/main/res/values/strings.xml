@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rental Application</string>
+    <string name="app_name">Rental Car</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_closed">Closed</string>
     <string name="ch_y_sprint_xin_nh_tay">Cháy Sprint Xin Nhẹ Tay</string>
