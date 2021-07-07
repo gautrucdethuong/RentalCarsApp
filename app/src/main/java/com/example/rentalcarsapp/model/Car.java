@@ -2,26 +2,44 @@ package com.example.rentalcarsapp.model;
 
 import java.util.Date;
 
+/**
+ * Author by HUYNH NHAT MINH (ミン).
+ * Email: minhhnce140197@fpt.edu.vn.
+ * Date on 6/29/2021.
+ * Company: FPT大学.
+ */
+
 public class Car {
     private int carId;
     private String carName;
-    private int brandId;
-    private int carTypeId;
-    private int storeId;
-    private double carPrice;
+    private Double carPrice;
     private String carColor;
-    private Date carCreatedDate;
-    private Date carDeleteDate;
     private String carLicensePlates;
-    private int carSeat;
-    private boolean carStatus;
-    private String carDescription;
+    private String carSeat;
     private String carImage;
-    private int staffId;
+    private String carDescription;
+    private Date carCreatedDate;
+    private Date carDeletedDate;
 
+    public Car(){
+
+    }
+
+    public Car(int carId, String carName, Double carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate) {
+        this.carId = carId;
+        this.carName = carName;
+        this.carPrice = carPrice;
+        this.carColor = carColor;
+        this.carLicensePlates = carLicensePlates;
+        this.carSeat = carSeat;
+        this.carImage = carImage;
+        this.carDescription = carDescription;
+        this.carCreatedDate = carCreatedDate;
+        this.carDeletedDate = carDeletedDate;
+    }
 
     public int getCarId() {
-        return this.carId;
+        return carId;
     }
 
     public void setCarId(int carId) {
@@ -36,11 +54,11 @@ public class Car {
         this.carName = carName;
     }
 
-    public double getCarPrice() {
+    public Double getCarPrice() {
         return this.carPrice;
     }
 
-    public void setCarPrice(double carPrice) {
+    public void setCarPrice(Double carPrice) {
         this.carPrice = carPrice;
     }
 
@@ -52,52 +70,20 @@ public class Car {
         this.carColor = carColor;
     }
 
-    public Date getCarCreatedDate() {
-        return this.carCreatedDate;
-    }
-
-    public void setCarCreatedDate(Date carCreatedDate) {
-        this.carCreatedDate = carCreatedDate;
-    }
-
-    public Date getCarDeleteDate() {
-        return this.carDeleteDate;
-    }
-
-    public void setCarDeleteDate(Date carDeleteDate) {
-        this.carDeleteDate = carDeleteDate;
-    }
-
     public String getCarLicensePlates() {
         return this.carLicensePlates;
     }
 
-    public void setCarLicensePlates(String aCarLicensePlates) {
-        this.carLicensePlates = aCarLicensePlates;
+    public void setCarLicensePlates(String carLicensePlates) {
+        this.carLicensePlates = carLicensePlates;
     }
 
-    public int getCarSeat() {
+    public String getCarSeat() {
         return this.carSeat;
     }
-    public void setCarSeat(int aCarSeat) {
-        this.carSeat = aCarSeat;
-    }
-    public Car() {
-    }
-    public boolean getCarStatus() {
-        return carStatus;
-    }
 
-    public void setCarStatus(boolean carStatus) {
-        this.carStatus = carStatus;
-    }
-
-    public String getCarDescription() {
-        return this.carDescription;
-    }
-
-    public void setCarDescription(String carDescription) {
-        this.carDescription = carDescription;
+    public void setCarSeat(String carSeat) {
+        this.carSeat = carSeat;
     }
 
     public String getCarImage() {
@@ -108,11 +94,27 @@ public class Car {
         this.carImage = carImage;
     }
 
-    public int getDetailsCar(int carId) {
-        return carId;
-    }
-    public void receiveAds(){
-        
+    public String getCarDescription() {
+        return carDescription;
     }
 
+    public void setCarDescription(String carDescription) {
+        this.carDescription = carDescription;
+    }
+
+    public Date getCarCreatedDate() {
+        return this.carCreatedDate;
+    }
+
+    public void setCarCreatedDate(Date carCreatedDate) {
+        this.carCreatedDate = carCreatedDate;
+    }
+
+    public Date getCarDeletedDate() {
+        return this.carDeletedDate;
+    }
+
+    public void setCarDeletedDate(Date carDeletedDate) {
+        this.carDeletedDate = carDeletedDate;
+    }
 }

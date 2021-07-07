@@ -49,19 +49,17 @@ public class RegisterInforActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
 
     Button mRegisterBtn;
-    TextView mWelcome, mSlogan, mStep;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     AuthenticationDAO authDao;
     String userID;
-    ImageView imgBack;
+
     private Intent intent;
     RadioGroup mRadioGroupGender;
     RadioButton rGender;
     DatePicker mDatePicker;
-    Date startDate;
-    int gender=0;
+    int gender = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,21 +70,21 @@ public class RegisterInforActivity extends AppCompatActivity {
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-        imgBack   = findViewById(R.id.logoImage);
+
         progressBar = findViewById(R.id.progressBar);
-        mRadioGroupGender=findViewById(R.id.radioGender);
+        mRadioGroupGender = findViewById(R.id.radioGender);
         intent = getIntent();
 
         String emailAddress = String.valueOf(intent.getStringExtra("email"));
         String fullName = String.valueOf(intent.getStringExtra("fullName"));
         String phoneNumber = String.valueOf(intent.getStringExtra("phoneNumber"));
         String passWord = String.valueOf(intent.getStringExtra("passWord"));
-        int radioId=mRadioGroupGender.getCheckedRadioButtonId();
-        rGender=findViewById(radioId);
-        if(rGender.getText().equals("Male")){
-            gender=1;
-        }else if(rGender.getText().equals("Other")){
-            gender=2;
+        int radioId = mRadioGroupGender.getCheckedRadioButtonId();
+        rGender = findViewById(radioId);
+        if (rGender.getText().equals("Male")) {
+            gender = 1;
+        } else if (rGender.getText().equals("Other")) {
+            gender = 2;
         }
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,94 +92,83 @@ public class RegisterInforActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                int day = mDatePicker.getDayOfMonth();
-                                int month = mDatePicker.getMonth();
-                                int year = mDatePicker.getYear();
-                                String birthday = day+"/"+month+"/"+year;
-                                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-                                Date date = new Date();
-                                SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-                                String str=simpleDateFormat1.format(date);
-                                userID = fAuth.getCurrentUser().getUid();
-                                User userInfo = null;
-                                try {
-                                    userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", gender,simpleDateFormat.parse(birthday)  , simpleDateFormat1.parse(str) );
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                fAuth.createUserWithEmailAndPassword(emailAddress, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            int day = mDatePicker.getDayOfMonth();
+                            int month = mDatePicker.getMonth();
+                            int year = mDatePicker.getYear();
+                            String birthday = day + "/" + month + "/" + year;
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = new Date();
+                            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                            String str = simpleDateFormat1.format(date);
+                            userID = fAuth.getCurrentUser().getUid();
+                            User userInfo = null;
+                            try {
+                                userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", gender, simpleDateFormat.parse(birthday), simpleDateFormat1.parse(str));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
 
                             //    userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
+                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: " + e.toString());
+                                }
+                            });
 
-                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                            startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
 
-                            }else {
-                                Log.e("massage",task.getException().toString());
-                                Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
+                        } else {
+                            Log.e("massage", task.getException().toString());
+                            Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
 
-                });
+                    }
 
-//                    fAuth.createUserWithEmailAndPassword(emailAddress,passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if(task.isSuccessful()){
-//
-//                                LocalDateTime userCreatedDate = LocalDateTime.now();
-//
-//                                Log.e("time", userCreatedDate.toString());
-//                                userID = fAuth.getCurrentUser().getUid();
-//
-//                                User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1);
-//                                Toast.makeText(RegisterInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-//
-//                            //    userID = fAuth.getCurrentUser().getUid();
-//                                DocumentReference documentReference = fStore.collection("users").document(userID);
-//                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.d(TAG, "onFailure: " + e.toString());
-//                                    }
-//                                });
-//
-//                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-//
-//                            }else {
-//                                Log.e("massage",task.getException().toString());
-//                                Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                                progressBar.setVisibility(View.GONE);
-//                            }
-//                        }
-//                    });
-                // }
+
+                });
+                back();
+
             }
+
+
         });
-        // Back login
+    }
+
+    private boolean validateAge() {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int userAge = mDatePicker.getYear();
+        int isAgeValid = currentYear - userAge;
+        if (isAgeValid < 18) {
+            Toast.makeText(this, "You not eligible to apply", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    void register() {
+
+    }
+
+    void back() {
+        ImageView imgBack;
+        imgBack = findViewById(R.id.logoImage);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,17 +176,5 @@ public class RegisterInforActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-    }
-    private boolean validateAge(){
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int userAge = mDatePicker.getYear();
-        int isAgeValid = currentYear - userAge;
-        if(isAgeValid < 18 ){
-            Toast.makeText(this,"You not eligible to apply",Toast.LENGTH_SHORT).show();
-            return false;
-        }else{
-            return true;
-        }
     }
 }

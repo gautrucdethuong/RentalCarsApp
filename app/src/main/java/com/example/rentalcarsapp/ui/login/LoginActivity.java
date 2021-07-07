@@ -25,6 +25,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.helper.RegexValidate;
+import com.example.rentalcarsapp.ui.admin.CreateCarActivity;
 import com.example.rentalcarsapp.ui.forgot.ForgotPasswordActivity;
 import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;
@@ -65,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+            startActivity(new Intent(getApplicationContext(), CreateCarActivity.class));
             finish();
         }
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+
                 authDao.loginFirebaseAuthentication(email, password, new Callback() {
                     @Override
                     public void isLogin(boolean status) {
@@ -163,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void isRegister(boolean status) {
 
                     }
+
                 });
                 // authenticate the user
 //                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
