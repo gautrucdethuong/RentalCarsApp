@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
+import com.example.rentalcarsapp.model.Car;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,26 +36,31 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDateTime;
+
 public class CreateCarActivity extends AppCompatActivity {
-    public static final int PICK_IMAGE_REQUEST=1;
+    public static final int PICK_IMAGE_REQUEST = 1;
     private Button btnCreate;
-    private TextInputLayout txtCarName,txtCarPrice,txtColor,txtSeat,txtDescription;
+    private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription,txtCarLicensePlates;
     private ImageView imgCar;
     private Uri imgUri;
     FirebaseFirestore fStore;
     private StorageReference mStorageRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carmanagement_create);
-        btnCreate=findViewById(R.id.btnCreateCar);
-        txtCarName=findViewById(R.id.txtCarname);
-        txtCarPrice=findViewById(R.id.txtCarprice);
-        txtColor=findViewById(R.id.txtCarColor);
-        txtSeat=findViewById(R.id.txtCarSeat);
-        txtDescription=findViewById(R.id.txtCarDescription);
-        imgCar=findViewById(R.id.imgCar);
-        mStorageRef= FirebaseStorage.getInstance().getReference("car");
+        btnCreate = findViewById(R.id.btnCreateCar);
+        txtCarName = findViewById(R.id.txtCarname);
+        txtCarPrice = findViewById(R.id.txtCarprice);
+        txtColor = findViewById(R.id.txtCarColor);
+        txtSeat = findViewById(R.id.txtCarSeat);
+        txtDescription = findViewById(R.id.txtCarDescription);
+        txtCarLicensePlates = findViewById(R.id.txtLicensePlates);
+
+        imgCar = findViewById(R.id.imgCar);
+        mStorageRef = FirebaseStorage.getInstance().getReference("car_images");
         imgCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,19 +68,56 @@ public class CreateCarActivity extends AppCompatActivity {
 
             }
         });
+        fStore = FirebaseFirestore.getInstance();
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadFile();
+                String imgName = System.currentTimeMillis()
+                        + "." + getFileExtension(imgUri);
+                String carName = String.valueOf(txtCarName.getEditText().getText());
+                Double carPrice = Double.valueOf(String.valueOf(txtCarPrice.getEditText().getText()));
+                String carColor = String.valueOf(txtColor.getEditText().getText());
+                String carSet = String.valueOf(txtSeat.getEditText().getText());
+                String carDescription = String.valueOf(txtDescription.getEditText().getText());
+                String carLicensePlates = String.valueOf(txtCarLicensePlates.getEditText().getText());
+
+                Car newCar = new Car();
+                newCar.setCarImage(imgName);
+                newCar.setCarName(carName);
+                newCar.setCarPrice(carPrice);
+                newCar.setCarColor(carColor);
+                newCar.setCarImage(imgName);
+                newCar.setCarSeat(carSet);
+                newCar.setCarDescription(carDescription);
+                newCar.setCarLicensePlates(carLicensePlates);
+                DocumentReference documentReference = fStore.collection("cars").document();
+                documentReference.set(newCar).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Log.d("TAG", "onSuccess: user Profile is created for " + userID);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+//                        Log.d(TAG, "onFailure: " + e.toString());
+                    }
+                });
+                if (imgUri != null) {
+                    uploadFile(imgName);
+                } else {
+                    Toast.makeText(CreateCarActivity.this,"No file selected", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
     }
-    private void openFileChooser(){
-        Intent intent=new Intent();
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
@@ -87,30 +131,32 @@ public class CreateCarActivity extends AppCompatActivity {
 
         }
     }
-    private String getFileExtension(Uri uri){
-        ContentResolver cR=getContentResolver();
-        MimeTypeMap mime=MimeTypeMap.getSingleton();
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-    private void uploadFile(){
-        if(imgUri!=null){
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-            +"."+getFileExtension(imgUri));
+
+    private void uploadFile(String imgName) {
+        if (imgUri != null) {
+            StorageReference fileReference = mStorageRef.child(imgName);
             fileReference.putFile(imgUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CreateCarActivity.this,"Create Car Successful",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateCarActivity.this, "Create Car Successful", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull @NotNull Exception e) {
-                            Toast.makeText(CreateCarActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Log.e("ERRRR", e.getLocalizedMessage());
+                            Toast.makeText(CreateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-        }else{
-            Toast.makeText(this,"No file selected",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
     }

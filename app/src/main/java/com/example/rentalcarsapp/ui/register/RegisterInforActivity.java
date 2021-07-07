@@ -137,12 +137,16 @@ public class RegisterInforActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
 
+                    }
+
+
                 });
+                back();
 
             }
-        });
-        back();
 
+
+        });
     }
 
     private boolean validateAge() {
@@ -158,11 +162,11 @@ public class RegisterInforActivity extends AppCompatActivity {
     }
 
 
-    void register(){
+    void register() {
 
     }
 
-    void back(){
+    void back() {
         ImageView imgBack;
         imgBack = findViewById(R.id.logoImage);
         imgBack.setOnClickListener(new View.OnClickListener() {
