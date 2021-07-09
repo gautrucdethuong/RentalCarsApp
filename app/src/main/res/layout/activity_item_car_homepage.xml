@@ -2,27 +2,30 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="500dp"
-    android:layout_height="wrap_content"
+
+    android:layout_width="400dp"
+    android:layout_height="270dp"
     android:elevation="5dp"
-    app:cardCornerRadius="5dp"
-    app:cardUseCompatPadding="true">
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginBottom="8dp">
 
     <LinearLayout
-        android:layout_width="500dp"
-        android:layout_height="276dp"
+        android:layout_width="389dp"
+        android:layout_height="259dp"
         android:orientation="horizontal"
         android:padding="15dp">
 
 
         <LinearLayout
-            android:layout_width="472dp"
+            android:layout_width="363dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/imageButtonCar"
-                android:layout_width="match_parent"
+                android:layout_width="351dp"
                 android:layout_height="158dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
@@ -36,32 +39,34 @@
                     android:layout_width="108dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Name" />
+                    android:text="Name"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewPrice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Price" />
+                    android:text="Price"
+                    android:textColor="#425FF6"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="333dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textViewRating"
-                    android:layout_width="match_parent"
+                    android:layout_width="363dp"
                     android:layout_height="match_parent"
-                    android:text="Rating" />
+                    android:text="Rating"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>

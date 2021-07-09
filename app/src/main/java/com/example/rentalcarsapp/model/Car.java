@@ -47,7 +47,7 @@ public class Car {
     }
 
     public String getCarName() {
-        return this.carName;
+        return carName;
     }
 
     public void setCarName(String carName) {
@@ -55,7 +55,7 @@ public class Car {
     }
 
     public Double getCarPrice() {
-        return this.carPrice;
+        return carPrice;
     }
 
     public void setCarPrice(Double carPrice) {
@@ -63,7 +63,7 @@ public class Car {
     }
 
     public String getCarColor() {
-        return this.carColor;
+        return carColor;
     }
 
     public void setCarColor(String carColor) {
@@ -71,7 +71,7 @@ public class Car {
     }
 
     public String getCarLicensePlates() {
-        return this.carLicensePlates;
+        return carLicensePlates;
     }
 
     public void setCarLicensePlates(String carLicensePlates) {
@@ -79,7 +79,7 @@ public class Car {
     }
 
     public String getCarSeat() {
-        return this.carSeat;
+        return carSeat;
     }
 
     public void setCarSeat(String carSeat) {
@@ -87,7 +87,7 @@ public class Car {
     }
 
     public String getCarImage() {
-        return this.carImage;
+        return carImage;
     }
 
     public void setCarImage(String carImage) {
@@ -103,7 +103,7 @@ public class Car {
     }
 
     public Date getCarCreatedDate() {
-        return this.carCreatedDate;
+        return carCreatedDate;
     }
 
     public void setCarCreatedDate(Date carCreatedDate) {
@@ -111,7 +111,7 @@ public class Car {
     }
 
     public Date getCarDeletedDate() {
-        return this.carDeletedDate;
+        return carDeletedDate;
     }
 
     public void setCarDeletedDate(Date carDeletedDate) {
