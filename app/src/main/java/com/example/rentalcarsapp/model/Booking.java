@@ -10,20 +10,43 @@ import java.util.Date;
  */
 
 public class Booking {
-    private Date bookingPickUpDate;
-    private Date bookingDropOffDate;
-    private Double bookingTotal;
-    private int bookingStatus;
+    public Date bookingPickUpDate;
+    public Date bookingDropOffDate;
+    public Double bookingTotal;
+    public int bookingStatus;
+    public String carId;
+    public String userId;
+    public String bookingId;
 
     public Booking() {
 
     }
 
-    public Booking(Date bookingPickUpDate, Date bookingDropOffDate, Double bookingTotal, int bookingStatus) {
+
+
+    public Booking(Date bookingPickUpDate, Date bookingDropOffDate, Double bookingTotal, int bookingStatus, String carId, String userId) {
         this.bookingPickUpDate = bookingPickUpDate;
         this.bookingDropOffDate = bookingDropOffDate;
         this.bookingTotal = bookingTotal;
         this.bookingStatus = bookingStatus;
+        this.carId=carId;
+        this.userId=userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCarId() {
+        return carId;
+    }
+
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 
     public Date getBookingPickUpDate() {
@@ -56,5 +79,12 @@ public class Booking {
 
     public void setBookingStatus(int bookingStatus) {
         this.bookingStatus = bookingStatus;
+    }
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
 }

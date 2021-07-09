@@ -28,13 +28,18 @@
 
         </activity>
         <activity android:name=".ui.register.RegisterInforActivity" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.login.LoginActivity" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.login.LoginActivity" android:screenOrientation="portrait" >
+
+        </activity>
         <activity android:name=".ui.admin.car.ListCarActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.admin.booking.ListBookingActivity" android:screenOrientation="portrait">
+
         </activity>
         <activity android:name=".ui.admin.CreateActivity" android:screenOrientation="portrait"  />
         <activity android:name=".ui.home.user.MainCarActivity">
