@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -126,12 +127,12 @@ public class EditProfileActivity extends AppCompatActivity {
                         Map<String, Object> edited = new HashMap<>();
                         edited.put("email",email);
                         edited.put("fullName",profileFullName.getText().toString());
-                        edited.put("phone",profilePhone.getText().toString());
+                        edited.put("userPhoneNumber",profilePhone.getText().toString());
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(EditProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                                 finish();
                             }
                         });
