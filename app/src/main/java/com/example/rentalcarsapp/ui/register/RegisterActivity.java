@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
         mLoginBtn   = findViewById(R.id.createText);
-        imgBack   = findViewById(R.id.logoImage);
+        imgBack   = findViewById(R.id.ImageBtnBack);
 
         mWelcome=findViewById(R.id.logo_name);
         mSlogan=findViewById(R.id.slogan_name);

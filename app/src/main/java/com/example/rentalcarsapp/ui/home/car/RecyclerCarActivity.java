@@ -1,31 +1,47 @@
 package com.example.rentalcarsapp.ui.home.car;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rentalcarsapp.DashboardActivity;
+import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.CarListAdapter;
 import com.example.rentalcarsapp.model.Car;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Author by HUYNH NHAT MINH (ミン).
@@ -34,12 +50,18 @@ import com.squareup.picasso.Picasso;
  * Company: FPT大学.
  */
 
-public class RecyclerCarActivity extends AppCompatActivity {
-
+public class RecyclerCarActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+    // variable initialization
     private RecyclerView recyclerView;
     private FirestoreRecyclerOptions<Car> options;
     private FirestoreRecyclerAdapter<Car, CarListAdapter> adapter;
     private FirebaseFirestore fireStore;
+    private SharedPreferences sharedpreferences;
+    private static final String SHARED_PREFERENCE_PRICE = "myPrefs";
+
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +69,31 @@ public class RecyclerCarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listview_car);
 
         fireStore = FirebaseFirestore.getInstance();
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
 
+        init();
         loadListViewCar("");
         searchByName();
-
     }
 
+    // Function initializing our UI components of list view item.
+    private void init(){
+        sharedpreferences = getSharedPreferences(SHARED_PREFERENCE_PRICE, Context.MODE_PRIVATE);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    // Search by name
     private void searchByName(){
         EditText inputSearch = findViewById(R.id.inputSearch);
 
@@ -82,17 +120,18 @@ public class RecyclerCarActivity extends AppCompatActivity {
         });
     }
 
+    // Load list car
     private void loadListViewCar(String searchName){
         // Query
-        Query query = fireStore.collection("cars").limit(5).orderBy("carName").startAt(searchName).endAt(searchName+"\uf8ff");
+        Query query = fireStore.collection("cars").limit(5).orderBy("carName").startAt(searchName.toLowerCase()).endAt(searchName+"\uf8ff");
 
         options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
         adapter = new FirestoreRecyclerAdapter<Car, CarListAdapter>(options) {
             @Override
             protected void onBindViewHolder(@NonNull CarListAdapter holder, int position, @NonNull Car model) {
                 holder.textViewNameCar.setText(model.getCarName());
-                holder.textViewPrice.setText("$ "+model.getCarPrice().toString() +" / Daily");
-                holder.textViewRating.setText("Rating: "+ "🌟🌟🌟🌟🌟");
+                holder.textViewPrice.setText("$ "+model.getCarPrice() +" / Daily");
+                holder.ratingBar.setRating(model.getCarRating());
                 // load image from URL in our Image VIew.
                 Picasso.get().load(model.getCarImage())
                         .error(R.drawable.user)
@@ -102,15 +141,22 @@ public class RecyclerCarActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(RecyclerCarActivity.this, CarDetailsActivity.class);
+                        // Get value Price from sharedPreferences
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putFloat("CAR_PRICE",model.getCarPrice());
+                        editor.apply();
                         intent.putExtra("carName", model.getCarName());
                         intent.putExtra("carPrice", model.getCarPrice());
-                        intent.putExtra("carRating", "Rating: "+ "🌟🌟🌟🌟🌟");
+                        intent.putExtra("carRating", model.getCarRating());
                         intent.putExtra("carImage", model.getCarImage());
                         intent.putExtra("carSeat", model.getCarSeat());
+                        intent.putExtra("carDescription", model.getCarDescription());
                         startActivity(intent);
                     }
                 });
             }
+
+
 
             @NonNull
             @Override
@@ -119,7 +165,41 @@ public class RecyclerCarActivity extends AppCompatActivity {
                 return new CarListAdapter(view);
             }
         };
+
+        // Return new list
         adapter.startListening();
         recyclerView.setAdapter(adapter);
+    }
+
+    // Drawer function user
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                Intent intentHome = new Intent(getApplicationContext(), RecyclerCarActivity.class);
+                startActivity(intentHome);
+                finish();
+
+                break;
+            case R.id.nav_profile:
+/*                Intent intentProfile = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intentProfile);
+                finish();*/
+
+                break;
+            case R.id.nav_history_rental_car:
+/*                Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
+                startActivity(intentUsersManagement);
+                finish();*/
+                break;
+
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();//logout
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

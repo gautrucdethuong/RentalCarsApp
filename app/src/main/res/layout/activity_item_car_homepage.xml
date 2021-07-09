@@ -13,14 +13,14 @@
 
     <LinearLayout
         android:layout_width="389dp"
-        android:layout_height="259dp"
+        android:layout_height="286dp"
         android:orientation="horizontal"
         android:padding="15dp">
 
 
         <LinearLayout
             android:layout_width="363dp"
-            android:layout_height="match_parent"
+            android:layout_height="249dp"
             android:orientation="vertical">
 
             <ImageButton
@@ -44,7 +44,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewPrice"
+                    android:id="@+id/txtPriceTotal"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -54,16 +54,20 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="333dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewRating"
-                    android:layout_width="363dp"
-                    android:layout_height="match_parent"
-                    android:text="Rating"
-                    android:textSize="18sp" />
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:numStars="5"
+                    android:progressTint="#E7FD03"
+                    android:scaleX="0.5"
+                    android:scaleY="0.5" />
+
             </LinearLayout>
 
         </LinearLayout>

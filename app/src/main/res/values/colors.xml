@@ -6,4 +6,10 @@
     <color name="black">#111111</color>
     <color name="colorBlack">#000000</color>
     <color name="colorYellowPrimary">#FFC107</color>
+    <color name="purple_200">#B388FF</color>
+
+
+    <color name="colorPrimary2">#607D8B</color>
+    <color name="colorPrimaryDark2">#455A64</color>
+    <color name="colorAccent2">#4CAF50</color>
 </resources>

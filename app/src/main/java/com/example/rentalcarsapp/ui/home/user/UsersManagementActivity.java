@@ -60,6 +60,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_management);
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -68,6 +69,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
         // below line is use to initialize our variables
         coursesLV = findViewById(R.id.idLVCourses);
         dataModalArrayList = new ArrayList<>();

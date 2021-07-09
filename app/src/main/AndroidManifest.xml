@@ -30,21 +30,19 @@
 
         </activity>
         <activity android:name=".ui.register.RegisterInforActivity" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.login.LoginActivity" android:screenOrientation="portrait" >
 
+<!--        <activity android:name=".ui.login.LoginActivity">-->
+        <activity android:name=".ui.login.LoginActivity" android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.admin.car.ListCarActivity" android:screenOrientation="portrait">
         <activity android:name=".ui.admin.CreateActivity" android:screenOrientation="portrait"  />
 
-        <activity android:name=".ui.home.user.MainCarActivity">
-        </activity>
-
         <activity android:name=".ui.home.car.RecyclerCarActivity" android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.admin.booking.ListBookingActivity" android:screenOrientation="portrait">
 
@@ -62,6 +60,17 @@
     <activity android:name=".ui.admin.UpdateActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.forgot.ForgotPasswordActivity" />
         <activity android:name=".ui.home.car.CarDetailsActivity">
+
+        </activity>
+        <activity android:name=".ui.home.payment.CreditCard"></activity>
+        <activity android:name=".ui.home.payment.ChoosePaymentActivity"></activity>
+
+        <activity android:name=".ui.home.payment.ChooseTimeActivity">
+
+
+        </activity>
+
+        <activity android:name=".ui.home.booking.BookingDetails">
 
         </activity>
         <meta-data
