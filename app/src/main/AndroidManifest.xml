@@ -38,13 +38,8 @@
 
         </activity>
         <activity
-            android:name=".ui.admin.CreateInforActivity"
+            android:name=".ui.admin.user.CreateInforActivity"
             android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".ui.admin.car.CreateCarActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
         <activity
             android:name=".ui.register.RegisterInforActivity"
             android:screenOrientation="portrait"></activity>
@@ -62,7 +57,7 @@
             android:name=".ui.admin.car.ListCarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.admin.CreateActivity"
+            android:name=".ui.admin.user.CreateActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -81,7 +76,7 @@
 
         </activity>
         <activity
-            android:name=".ui.admin.UpdateActivity"
+            android:name=".ui.admin.user.UpdateActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.forgot.ForgotPasswordActivity" />
 

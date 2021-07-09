@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp.ui.admin;
+package com.example.rentalcarsapp.ui.admin.user;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
-import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -13,18 +13,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.rentalcarsapp.ui.admin.UpdateActivity;
+import com.example.rentalcarsapp.ui.admin.user.UpdateActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
-import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;

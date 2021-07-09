@@ -104,6 +104,7 @@
         android:layout_height="43dp"
         android:layout_marginEnd="8dp"
         android:background="#B388FF"
+
         android:text="APPLY"
         app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"

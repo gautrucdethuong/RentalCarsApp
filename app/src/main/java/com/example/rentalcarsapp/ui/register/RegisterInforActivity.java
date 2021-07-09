@@ -118,9 +118,7 @@ public class RegisterInforActivity extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-
                             startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
-
                         } else {
                             Log.e("massage", task.getException().toString());
                             Toast.makeText(RegisterInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -128,14 +126,10 @@ public class RegisterInforActivity extends AppCompatActivity {
                         }
 
                     }
-
-
                 });
                 back();
 
             }
-
-
         });
     }
 

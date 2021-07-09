@@ -32,7 +32,7 @@ import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
-import com.example.rentalcarsapp.ui.admin.CreateActivity;
+import com.example.rentalcarsapp.ui.admin.user.CreateActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
