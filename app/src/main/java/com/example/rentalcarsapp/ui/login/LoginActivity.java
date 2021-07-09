@@ -27,7 +27,6 @@ import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.admin.CreateCarActivity;
 import com.example.rentalcarsapp.ui.forgot.ForgotPasswordActivity;
-import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
 
 import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;

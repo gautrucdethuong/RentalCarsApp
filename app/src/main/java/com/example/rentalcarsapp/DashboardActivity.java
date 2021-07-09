@@ -14,7 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.rentalcarsapp.ui.admin.UpdateActivity;
-import com.example.rentalcarsapp.ui.home.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

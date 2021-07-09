@@ -73,7 +73,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 String imgName = System.currentTimeMillis()
                         + "." + getFileExtension(imgUri);
                 String carName = String.valueOf(txtCarName.getEditText().getText());
-                Double carPrice = Double.valueOf(String.valueOf(txtCarPrice.getEditText().getText()));
+                float carPrice = Float.parseFloat(String.valueOf(txtCarPrice.getEditText().getText()));
                 String carColor = String.valueOf(txtColor.getEditText().getText());
                 String carSet = String.valueOf(txtSeat.getEditText().getText());
                 String carDescription = String.valueOf(txtDescription.getEditText().getText());

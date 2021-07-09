@@ -27,10 +27,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:transitionName="logo_text"
             android:text="Welcome"
             android:textColor="#000000"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            android:transitionName="logo_text" />
 
         <TextView
             android:id="@+id/txtStep"

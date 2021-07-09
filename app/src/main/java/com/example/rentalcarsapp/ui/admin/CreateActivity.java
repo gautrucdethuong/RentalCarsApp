@@ -28,7 +28,9 @@ public class CreateActivity extends AppCompatActivity {
     TextView mWelcome,mSlogan,mStep;
     ProgressBar progressBar;
     ImageView imgBack;
-
+    AuthenticationDAO authDao;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
