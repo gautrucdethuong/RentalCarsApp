@@ -51,7 +51,14 @@ public class CreateActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-        imgBack   = findViewById(R.id.logoImage);
+//        mLoginBtn   = findViewById(R.id.createText);
+        imgBack   = findViewById(R.id.ImageBtnBack);
+
+        authDao = new AuthenticationDAO();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        mWelcome=findViewById(R.id.logo_name);
+        mSlogan=findViewById(R.id.slogan_name);
         progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
 

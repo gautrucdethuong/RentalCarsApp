@@ -31,37 +31,4 @@ public class UserDAO {
     public void setStatusLogin(boolean statusLogin) {
         this.response = statusLogin;
     }
-
-
-
-
-   /* public boolean addUser(String email, String image, String fullName, String phone) {
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        User userInfo = new User(email, fullName, phone, "Customer");
-
-        fAuth.createUserWithEmailAndPassword(email, image).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-
-                    String userID = fAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fStore.collection("users").document(userID);
-                    documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                            setStatusLogin(true);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            setStatusLogin(false);
-                        }
-                    });
-                }
-            }
-        });
-        return isStatusLogin();
-    }*/
 }

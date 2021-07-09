@@ -21,59 +21,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-<!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/tab_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:background="#FFD180"
-        android:contentDescription="Booking"
-        android:text="Booking"
-        app:icon="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />-->
 
     <TextView
         android:id="@+id/txtCarNameDetails"
         android:layout_width="173dp"
         android:layout_height="41dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
         android:text="Car Name"
-        android:textSize="24sp"
+        android:textColor="#FF9E80"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txtRatingDetails"
-        android:layout_width="67dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:text="Rating"
-        app:layout_constraintEnd_toStartOf="@+id/txtPriceCarDetails"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCarDetails" />
 
     <TextView
         android:id="@+id/txtDescriptionDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         android:text="Description"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
         android:id="@+id/txtPriceCarDetails"
-        android:layout_width="132dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="161dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="Price"
-        android:textSize="18sp"
+        android:textColor="#FF8A80"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewCarDetails" />
 
@@ -88,13 +69,61 @@
 
     <TextView
         android:id="@+id/txtSeatCarDetails"
-        android:layout_width="66dp"
-        android:layout_height="25dp"
+        android:layout_width="177dp"
+        android:layout_height="29dp"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Seat"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Car Deatils"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingBtn_Booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="#F4FF81"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_local_phone_black_24dp" />
+
+    <ImageView
+        android:id="@+id/ImageBtnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBar_all"
+        android:layout_width="238dp"
+        android:layout_height="50dp"
+        android:progressTint="#E7FD03"
+        android:isIndicator="true"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCarDetails" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

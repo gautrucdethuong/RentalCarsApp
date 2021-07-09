@@ -10,7 +10,7 @@
     tools:context=".ui.admin.CreateActivity">
 
     <ImageView
-        android:id="@+id/logoImage"
+        android:id="@+id/ImageBtnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_arrow_back_24"

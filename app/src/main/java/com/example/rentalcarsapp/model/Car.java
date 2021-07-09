@@ -12,11 +12,21 @@ import java.util.Date;
 public class Car {
     private int carId;
     private String carName;
-    private Double carPrice;
+    private float carPrice;
     private String carColor;
     private String carLicensePlates;
     private String carSeat;
     private String carImage;
+    private float carRating;
+
+    public float getCarRating() {
+        return carRating;
+    }
+
+    public void setCarRating(float carRating) {
+        this.carRating = carRating;
+    }
+
     private String carDescription;
     private Date carCreatedDate;
     private Date carDeletedDate;
@@ -25,7 +35,7 @@ public class Car {
 
     }
 
-    public Car(int carId, String carName, Double carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate) {
+    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating) {
         this.carId = carId;
         this.carName = carName;
         this.carPrice = carPrice;
@@ -36,6 +46,7 @@ public class Car {
         this.carDescription = carDescription;
         this.carCreatedDate = carCreatedDate;
         this.carDeletedDate = carDeletedDate;
+        this.carRating = carRating;
     }
 
     public int getCarId() {
@@ -54,11 +65,11 @@ public class Car {
         this.carName = carName;
     }
 
-    public Double getCarPrice() {
+    public float getCarPrice() {
         return carPrice;
     }
 
-    public void setCarPrice(Double carPrice) {
+    public void setCarPrice(float carPrice) {
         this.carPrice = carPrice;
     }
 

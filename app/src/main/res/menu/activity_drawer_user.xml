@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Home">
+        </item>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Profile">
+        </item>
+        <item
+            android:id="@+id/nav_history_rental_car"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="History Rental Car">
+        </item>
+        <item
+            android:id="@+id/nav_support"
+            android:icon="@drawable/ic_baseline_lock_24"
+            android:title="Support">
+
+        </item>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_arrow_back_24"
+            android:title="Logout">
+
+        </item>
+    </group>
+</menu>

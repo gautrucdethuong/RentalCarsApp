@@ -16,17 +16,8 @@
     <string name="subscribe_to_weather">Subscribe To Weather</string>
     <string name="log_token">Log Token</string>
 
-    <string name="msg_subscribed">Subscribed to weather topic</string>
-    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
 
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <!--
-        This is the name that users will see when interacting with this channel.
-        It should describe the category of notifications that will be sent through this channel
-     -->
-    <!-- [START fcm_default_icon_string] -->
-    <string name="default_notification_channel_name" translatable="true">Weather</string>
-    <!-- [END fcm_default_icon_string] -->
-    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
-    <string name="fcm_message">FCM Message</string>
+    <string name="nav_header_desc">Create</string>
+    <string name="nav_header_title">HUYNH NHAT MINH</string>
+    <string name="nav_header_subtitle">minhhn@gmail.com</string>
 </resources>

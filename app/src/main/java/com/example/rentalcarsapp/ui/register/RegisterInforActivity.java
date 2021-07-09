@@ -158,7 +158,7 @@ public class RegisterInforActivity extends AppCompatActivity {
 
     void back(){
         ImageView imgBack;
-        imgBack = findViewById(R.id.logoImage);
+        imgBack = findViewById(R.id.ImageBtnBack);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

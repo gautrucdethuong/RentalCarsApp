@@ -45,10 +45,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtEmail"
             android:hint="Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-             <com.google.android.material.textfield.TextInputEditText
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content" />
+            style ="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +57,7 @@
             android:id="@+id/txtPassword"
             android:hint="Password"
             app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style ="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,5 +103,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-
