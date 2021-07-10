@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.dao.Callback;
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(status) {
                             Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                         }else{
                             Toast.makeText(LoginActivity.this, "Logged in Failed ! ", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
