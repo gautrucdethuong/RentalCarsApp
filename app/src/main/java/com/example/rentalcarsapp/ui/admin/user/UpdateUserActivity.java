@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
+import com.example.rentalcarsapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,7 +32,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 
-public class UpdateActivity extends AppCompatActivity {
+public class UpdateUserActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     TextInputLayout mFullName, mEmail, mPhone;
     Button mUpdateBtn;
@@ -42,6 +43,7 @@ public class UpdateActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
+    public User person;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -61,22 +63,26 @@ public class UpdateActivity extends AppCompatActivity {
         final String fullName = data.getStringExtra("fullName");
         String email = data.getStringExtra("email");
         String phone = data.getStringExtra("phone");
+        User person = (User) data.getSerializableExtra("person");
+        Log.d("TAG", "Mih meo person: " +person.getFullName());
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference();
         mFullName = findViewById(R.id.fullName);
         mEmail = findViewById(R.id.Email);
+        mEmail.setEnabled(false);
         mPhone = findViewById(R.id.phone);
         mUpdateBtn = findViewById(R.id.signup_next_button);
         imgBack = findViewById(R.id.logoImage);
         progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
         fStore = FirebaseFirestore.getInstance();
+        //String userId = fAuth.getCurrentUser().getUid();
         String userId = fAuth.getCurrentUser().getUid();
+        Log.d("TAG", "Mih meo person id: " +userId);
         // [START get_document_options]
-        DocumentReference docRef = fStore.collection("users").document(userId);
-
+        DocumentReference docRef = fStore.collection("users").document(person.getStaffCode());
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
         // Get the document, forcing the SDK to use the offline cache
@@ -101,7 +107,7 @@ public class UpdateActivity extends AppCompatActivity {
 //            @Override
 //            public void onClick(View v) {
 //                if(!ValidateFullName() | !ValidateEmail()  | !ValidatePhoneNumber()){
-//                    Toast.makeText(UpdateActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(UpdateUserActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
 //
@@ -117,17 +123,17 @@ public class UpdateActivity extends AppCompatActivity {
 //                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                            @Override
 //                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(UpdateActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(UpdateUserActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
 //                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //                                finish();
 //                            }
 //                        });
-//                        Toast.makeText(UpdateActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(UpdateUserActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
 //                    }
 //                }).addOnFailureListener(new OnFailureListener() {
 //                    @Override
 //                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(UpdateActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(UpdateUserActivity.this,   e.getMessage(), Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 //
@@ -154,11 +160,12 @@ public class UpdateActivity extends AppCompatActivity {
                 if (!ValidateFullName() | !ValidateEmail() | !ValidatePhoneNumber()) {
                     return;
                 }
-                Intent intent = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UpdateUserInfoActivity.class);
 
                 intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText().toString().trim()));
                 intent.putExtra("email", String.valueOf(mEmail.getEditText().getText().toString().trim()));
                 intent.putExtra("phone", String.valueOf(mPhone.getEditText().getText().toString().trim()));
+                intent.putExtra("person", String.valueOf(person.getStaffCode()));
 
                 startActivity(intent);
             }
@@ -170,7 +177,7 @@ public class UpdateActivity extends AppCompatActivity {
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(imgBack, "logo_image");
                 pairs[1] = new Pair<View, String>(mStep, "txt_transaction");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UpdateActivity.this, pairs);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UpdateUserActivity.this, pairs);
                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class), options.toBundle());
             }
         });

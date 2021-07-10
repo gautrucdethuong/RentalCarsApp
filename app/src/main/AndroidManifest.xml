@@ -38,7 +38,7 @@
 
         </activity>
         <activity
-            android:name=".ui.admin.user.CreateInforActivity"
+            android:name=".ui.admin.user.CreateUserInfoActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.register.RegisterInforActivity"
@@ -57,7 +57,7 @@
             android:name=".ui.admin.car.ListCarActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.admin.user.CreateActivity"
+            android:name=".ui.admin.user.CreateUserActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -76,7 +76,10 @@
 
         </activity>
         <activity
-            android:name=".ui.admin.user.UpdateActivity"
+            android:name=".ui.admin.user.UpdateUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.admin.user.UpdateUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.forgot.ForgotPasswordActivity" />
 

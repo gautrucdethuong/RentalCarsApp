@@ -7,7 +7,7 @@
     android:background="#fff"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".ui.admin.user.CreateInforActivity">
+    tools:context=".ui.admin.user.CreateUserInfoActivity">
 
     <ImageView
         android:id="@+id/ImageBtnBack"

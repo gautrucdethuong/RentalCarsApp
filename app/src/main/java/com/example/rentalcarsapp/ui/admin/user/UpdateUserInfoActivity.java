@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
-public class UpdateInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class UpdateUserInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "TAG";
     Button mUpdateBtn;
     FirebaseAuth fAuth;
@@ -84,7 +85,7 @@ public class UpdateInfoActivity extends AppCompatActivity implements AdapterView
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setOnItemSelectedListener(this);
         fStore = FirebaseFirestore.getInstance();
-        user= fAuth.getCurrentUser();
+        user = fAuth.getCurrentUser();
         imgBack = findViewById(R.id.logoImage);
         progressBar = findViewById(R.id.progressBar);
         mRadioGroupGender = findViewById(R.id.radioGender);
@@ -94,17 +95,11 @@ public class UpdateInfoActivity extends AppCompatActivity implements AdapterView
         String fullName = String.valueOf(intent.getStringExtra("fullName"));
         String phoneNumber = String.valueOf(intent.getStringExtra("phone"));
         String role = intent.getStringExtra("roleName");
-        int radioId = mRadioGroupGender.getCheckedRadioButtonId();
-        rGender = findViewById(radioId);
-        if (rGender.getText().equals("Male")) {
-            gender = 1;
-        } else if (rGender.getText().equals("Other")) {
-            gender = 2;
-        }
+        String person = intent.getStringExtra("person");
         fStore = FirebaseFirestore.getInstance();
-        String userId = fAuth.getCurrentUser().getUid();
+        //String userId = fAuth.getCurrentUser().getUid();
         // [START get_document_options]
-        DocumentReference docRef = fStore.collection("users").document(userId);
+        DocumentReference docRef = fStore.collection("users").document(person);
 
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
@@ -146,55 +141,52 @@ public class UpdateInfoActivity extends AppCompatActivity implements AdapterView
         mUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG", "Mih Meo email: " +emailAddress);
                 progressBar.setVisibility(View.VISIBLE);
                 String email = emailAddress;
                 int day = mDatePicker.getDayOfMonth();
                 int month = mDatePicker.getMonth();
                 int year = mDatePicker.getYear();
-                String birthday = day+"/"+month+"/"+year;
-                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
+                String birthday = day + "/" + month + "/" + year;
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 Date date = new Date();
-                SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-                String str=simpleDateFormat1.format(date);
-                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                String str = simpleDateFormat1.format(date);
+                int radioId = mRadioGroupGender.getCheckedRadioButtonId();
+                rGender = findViewById(radioId);
+                if (rGender.getText().equals("Male")) {
+                    gender = 1;
+                } else if (rGender.getText().equals("Other")) {
+                    gender = 2;
+                }
+                DocumentReference docRef = fStore.collection("users").document(person);
+                Map<String, Object> edited = new HashMap<>();
+                edited.put("userEmail", email);
+                edited.put("fullName", fullName);
+                edited.put("userPhoneNumber", phoneNumber);
+                edited.put("roleName", textView.getText().toString());
+                edited.put("userGender", gender);
+                try {
+                    edited.put("userBirthday", simpleDateFormat.parse(birthday));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String, Object> edited = new HashMap<>();
-                        edited.put("userEmail", email);
-                        edited.put("fullName", fullName);
-                        edited.put("userPhoneNumber", phoneNumber);
-                        edited.put("roleName",textView.getText().toString());
-                        edited.put("userGender",gender);
-                        try {
-                            edited.put("userBirthday",simpleDateFormat.parse(birthday));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateInfoActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-                                finish();
-                            }
-                        });
-                        Toast.makeText(UpdateInfoActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(UpdateInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateUserInfoActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                        finish();
                     }
                 });
+                Log.d(TAG, "onCreate: " + fullName + " " + emailAddress + " " + phoneNumber + " " + role + " " + gender);
             }
         });
+
 //        mEmail.getEditText().setText(emailAddress);
 //        mFullName.getEditText().setText(fullName);
 //        mPhone.getEditText().setText(phoneNumber);
-        textView.setText(role);
-        Log.d(TAG, "onCreate: " + fullName + " " + emailAddress + " " + phoneNumber + " "+ role + " " +gender);
+        //textView.setText(role);
+
     }
 
     @Override

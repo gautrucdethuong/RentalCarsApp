@@ -13,23 +13,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateUserActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn;
     TextView mWelcome,mSlogan,mStep;
     ProgressBar progressBar;
     ImageView imgBack;
-    AuthenticationDAO authDao;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -52,14 +47,7 @@ public class CreateActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-//        mLoginBtn   = findViewById(R.id.createText);
-        imgBack   = findViewById(R.id.ImageBtnBack);
-
-        authDao = new AuthenticationDAO();
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        mWelcome=findViewById(R.id.logo_name);
-        mSlogan=findViewById(R.id.slogan_name);
+        imgBack   = findViewById(R.id.logoImage);
         progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
 
@@ -69,7 +57,7 @@ public class CreateActivity extends AppCompatActivity {
                 if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
                     return;
                 }
-                Intent intent = new Intent(getApplicationContext(), CreateInforActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateUserInfoActivity.class);
 
                 intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
                 intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
@@ -90,7 +78,7 @@ public class CreateActivity extends AppCompatActivity {
                 pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
                 pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
                 pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateActivity.this, pairs);
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateUserActivity.this, pairs);
                 startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class),options.toBundle());
             }
         });

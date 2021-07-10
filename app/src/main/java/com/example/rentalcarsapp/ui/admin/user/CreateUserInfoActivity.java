@@ -34,13 +34,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CreateInforActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
+public class CreateUserInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "TAG";
 
@@ -114,9 +114,17 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
                             SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                             String str=simpleDateFormat1.format(date);
                             userID = fAuth.getCurrentUser().getUid();
-
-                            User userInfo = new User(emailAddress, fullName, phoneNumber, "Customer", 1,null, null);
-                            Toast.makeText(CreateInforActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                            User userInfo = null;
+                            if (item == "Choose role") {
+                                Toast.makeText(CreateUserInfoActivity.this, "please select a role", Toast.LENGTH_SHORT).show();
+                            } else {
+                                try {
+                                    userInfo = new User(emailAddress, fullName, phoneNumber, item, gender, simpleDateFormat.parse(birthday), simpleDateFormat1.parse(str));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            Toast.makeText(CreateUserInfoActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -136,7 +144,7 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
 
                         } else {
                             Log.e("message", task.getException().toString());
-                            Toast.makeText(CreateInforActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateUserInfoActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
@@ -147,7 +155,7 @@ public class CreateInforActivity extends AppCompatActivity implements AdapterVie
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), CreateActivity.class));
+                startActivity(new Intent(getApplicationContext(), CreateUserActivity.class));
                 finish();
             }
         });
