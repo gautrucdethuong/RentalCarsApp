@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.DashboardActivity;
@@ -22,8 +24,16 @@ import com.example.rentalcarsapp.ui.forgot.ForgotPasswordActivity;
 
 import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.example.rentalcarsapp.ui.register.RegisterActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
+
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     AuthenticationDAO authDao;
     ImageView imglogo;
+    FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +62,42 @@ public class LoginActivity extends AppCompatActivity {
         mWelcome = findViewById(R.id.logo_name);
         mSlogan = findViewById(R.id.slogan_name);
         fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
+            String userId= fAuth.getCurrentUser().getUid();
+
+            DocumentReference docRef = fStore.collection("users").document(userId);
+            Source source = Source.CACHE;
+
+            docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        // Document found in the offline cache
+                        DocumentSnapshot document = task.getResult();
+
+                        Log.d("TAG", "Cached document data: " + document.getData());
+                        Map<String, Object> user = document.getData();
+                        String role=String.valueOf(user.get("roleName"));
+                        Log.e("roleName",role);
+                        switch (role){
+                            case "Admin":
+                                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                break;
+                            case "Customer":
+                                Toast.makeText(LoginActivity.this, "Customer", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        Log.d("TAG", "Cached get failed: ", task.getException());
+                    }
+                }
+            });
             startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
             finish();
         }
@@ -105,11 +150,22 @@ public class LoginActivity extends AppCompatActivity {
 
                 authDao.loginFirebaseAuthentication(email, password, new Callback() {
                     @Override
-                    public void isLogin(boolean status) {
+                    public void isLogin(String roleName) {
 
-                        if(status) {
-                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                        if(!roleName.isEmpty()) {
+                            switch (roleName){
+                                case "Admin":
+                                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                    break;
+                                case "Customer":
+                                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                                    break;
+                                default:
+                                    break;
+                            }
+
                         }else{
                             Toast.makeText(LoginActivity.this, "Logged in Failed ! ", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
