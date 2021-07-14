@@ -32,7 +32,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="76dp"
-        android:text="Received date"
+        android:hint="Received date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -42,7 +42,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="Resend time"
+        android:hint="Resend time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDateTo" />
 
@@ -52,7 +52,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
-        android:text="Resend date"
+        android:hint="Resend date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -62,7 +62,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="24dp"
-        android:text="Received time"
+        android:hint="Received time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDateFrom" />
 

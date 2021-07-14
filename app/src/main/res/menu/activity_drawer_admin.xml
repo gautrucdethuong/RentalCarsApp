@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Dashboard / Brand">
+        </item>
+
+        <item
+            android:id="@+id/nav_home_month"
+            android:title="Dashboard / Month">
+        </item>
+        <item
+            android:id="@+id/nav_profile"
+            android:title="User Management">
+
+        </item>
+        <item
+            android:id="@+id/nav_users_management"
+            android:title="Booking Management">
+
+        </item>
+
+        <item
+            android:id="@+id/nav_car_management"
+            android:title="Car Management">
+        </item>
+
+        <item
+            android:id="@+id/nav_bill_management"
+            android:title="Bill Management">
+        </item>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout">
+
+        </item>
+    </group>
+</menu>
