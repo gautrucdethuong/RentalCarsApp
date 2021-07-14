@@ -76,6 +76,7 @@ public class RegisterInforActivity extends AppCompatActivity {
         } else if (rGender.getText().equals("Other")) {
             gender = 2;
         }
+        validateAge();
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,10 +128,11 @@ public class RegisterInforActivity extends AppCompatActivity {
 
                     }
                 });
-                back();
+
 
             }
         });
+        back();
     }
 
     private boolean validateAge() {
@@ -146,11 +148,7 @@ public class RegisterInforActivity extends AppCompatActivity {
     }
 
 
-    void register(){
-
-    }
-
-    void back(){
+    private void back(){
         ImageView imgBack;
         imgBack = findViewById(R.id.ImageBtnBack);
         imgBack.setOnClickListener(new View.OnClickListener() {

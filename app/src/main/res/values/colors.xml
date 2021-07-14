@@ -11,4 +11,9 @@
     <color name="colorPrimary2">#607D8B</color>
     <color name="colorPrimaryDark2">#455A64</color>
     <color name="colorAccent2">#4CAF50</color>
+
+
+    <color name="colorPrimaryDialog">#008577</color>
+    <color name="colorPrimaryDarkDialog">#00574B</color>
+    <color name="colorAccentDialog">#D81B60</color>
 </resources>

@@ -14,19 +14,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
+import com.example.rentalcarsapp.dao.Callback;
+import com.example.rentalcarsapp.dao.CallbackValidation;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    private SharedPreferences sharedPref;
+
     TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
     Button mRegisterBtn,mLoginBtn;
     TextView mWelcome,mSlogan,mStep;
     ImageView imgBack;
 
-    //String fullName;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -43,7 +44,82 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        init();
+        btnContinue();
+        back();
+        btnRegister();
+
+
+    }
+    private void btnRegister(){
+        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+/*                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
+                    return;
+                }*/
+
+                String fullName = String.valueOf(mFullName.getEditText().getText());
+
+                RegexValidate.checkPhoneExist(fullName, RegexValidate.VALID_FULL_NAME, new CallbackValidation() {
+                    @Override
+                    public void response(boolean result) {
+                        if(!result){
+                            mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
+                        }else{
+                            mPhone.setError(null);
+                            mPhone.setErrorEnabled(false);
+
+                            Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                            intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
+                            intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
+                            intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));
+                            intent.putExtra("phoneNumber", String.valueOf(mPhone.getEditText().getText()));
+
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+            }
+        });
+
+    }
+
+
+    private void btnContinue(){
+        // Back login page
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair[] pairs=new Pair[4];
+                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+            }
+        });
+    }
+
+    private void back(){
+        // Back login
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pair[] pairs=new Pair[4];
+                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
+                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
+                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
+                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+            }
+        });
+    }
+    private void init(){
 
         mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
@@ -58,74 +134,6 @@ public class RegisterActivity extends AppCompatActivity {
         mSlogan=findViewById(R.id.slogan_name);
 
         mStep = findViewById(R.id.txtStep);
-
-        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-/*                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
-                    return;
-                }*/
-
-/*
-                RegexValidate obj = new RegexValidate();
-
-                obj.checkValidationFormInput(fullName,obj.VALID_FULL_NAME);
-                int check = sharedPref.getInt("RESULT_CHECK",0);
-
-                //Log.e("Ketqua", String.valueOf(check));
-
-                if(check == 1){
-                    mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                    return;
-                }else{
-                    mFullName.setError(null);
-                    mFullName.setErrorEnabled(false);
-                }
-*/
-
-                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
-                intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
-                intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
-                intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));
-                intent.putExtra("phoneNumber", String.valueOf(mPhone.getEditText().getText()));
-
-                startActivity(intent);
-            }
-        });
-
-
-        // Back login
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
-            }
-        });
-
-
-        // Back login page
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
-            }
-        });
-
-
-
-
     }
 
     private boolean ValidateFullName(){

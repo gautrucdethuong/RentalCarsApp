@@ -43,11 +43,14 @@
         <activity
             android:name=".ui.register.RegisterInforActivity"
             android:screenOrientation="portrait"></activity>
-
-        <!--        <activity android:name=".ui.login.LoginActivity">-->
         <activity
             android:name=".ui.login.LoginActivity"
             android:windowSoftInputMode="stateHidden">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -71,10 +74,7 @@
         </activity>
 
         <activity android:name=".ui.admin.bill.ListBillActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+     
         </activity>
         <activity android:name=".ui.home.car.CarDetailsActivity">
 
@@ -98,6 +98,10 @@
         <activity android:name=".ui.home.booking.BookingDetails">
 
         </activity>
+
+        <activity android:name=".ui.admin.statistical.BarChartActivity"></activity>
+        <activity android:name=".ui.admin.statistical.PieChartActivity"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

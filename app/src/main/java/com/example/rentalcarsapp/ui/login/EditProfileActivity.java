@@ -69,6 +69,7 @@ public class EditProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveProfileInfo);
 
         String userId = fAuth.getCurrentUser().getUid();
+        System.out.println("Authen:"+userId);
 
         // [START get_document_options]
         DocumentReference docRef = fStore.collection("users").document(userId);

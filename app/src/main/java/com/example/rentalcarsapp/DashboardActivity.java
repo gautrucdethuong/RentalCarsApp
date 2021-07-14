@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
@@ -116,7 +117,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                Intent intentHome = new Intent(getApplicationContext(), DashboardActivity.class);
+                Intent intentHome = new Intent(getApplicationContext(), PieChartActivity.class);
                 startActivity(intentHome);
                 finish();
 
@@ -138,6 +139,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
                 break;
+
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

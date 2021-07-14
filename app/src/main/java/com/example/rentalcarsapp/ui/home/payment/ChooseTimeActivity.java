@@ -59,8 +59,11 @@ public class ChooseTimeActivity extends AppCompatActivity {
         buttonSaveTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(dayTo - dayFrom >= 0){
+                if(editTextDateFrom.getText().toString().isEmpty() || editTextDateTo.getText().toString().isEmpty() ||
+                editTextTimeFrom.getText().toString().isEmpty() || editTextTimeTo.getText().toString().isEmpty()
+                ){
+                    Toast.makeText(ChooseTimeActivity.this, "Please select a rental date !!", Toast.LENGTH_SHORT).show();
+                } else if(dayTo - dayFrom > 0){
                     Intent intent = new Intent(ChooseTimeActivity.this, BookingDetails.class);
                     intent.putExtra("dateFrom", dayFrom+"/"+monthFrom+"/"+yearFrom);
                     intent.putExtra("dateTo", dayTo+"/"+monthTo+"/"+yearTo);
@@ -97,6 +100,7 @@ public class ChooseTimeActivity extends AppCompatActivity {
                             }
                         }, yearFrom, monthFrom, dayFrom);
                 datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
                 datePickerDialog.show();
             }
         });
