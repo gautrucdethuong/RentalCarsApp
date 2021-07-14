@@ -79,7 +79,7 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setOnItemSelectedListener(this);
         fStore = FirebaseFirestore.getInstance();
-        imgBack = findViewById(R.id.logoImage);
+        imgBack = findViewById(R.id.ImageBtnBack);
         progressBar = findViewById(R.id.progressBar);
         mRadioGroupGender=findViewById(R.id.radioGender);
         fetchdata();

@@ -47,7 +47,7 @@ public class CreateUserActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.re_confirm_password);
         mPhone      = findViewById(R.id.phone);
         mRegisterBtn= findViewById(R.id.signup_next_button);
-        imgBack   = findViewById(R.id.logoImage);
+        imgBack   = findViewById(R.id.ImageBtnBack);
         progressBar = findViewById(R.id.progressBar);
         mStep = findViewById(R.id.txtStep);
 
