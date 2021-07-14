@@ -1,6 +1,7 @@
 package com.example.rentalcarsapp.apdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,11 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentalcarsapp.R;
+import com.example.rentalcarsapp.dao.BookingDAO;
+import com.example.rentalcarsapp.dao.IdCallback;
 import com.example.rentalcarsapp.model.Booking;
+import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -48,6 +53,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, BookingListAdapter.Bookingviewholder>{
+    private BookingDAO bookingDAO=new BookingDAO();
     public BookingListAdapter(@NonNull FirestoreRecyclerOptions<Booking> options)
     {
         super(options);
@@ -55,20 +61,10 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
 
     @Override
     protected void onBindViewHolder(@NonNull @NotNull BookingListAdapter.Bookingviewholder holder, int position, @NonNull @NotNull Booking model) {
-        ArrayList<String> lstbooking=new ArrayList<>();
-        FirebaseFirestore.getInstance().collection("bookings").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        bookingDAO.getBookingId(new IdCallback() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<DocumentSnapshot> snapshotList=queryDocumentSnapshots.getDocuments();
-                    for(DocumentSnapshot snapshot:snapshotList){
-                        String bookingid= snapshot.getId();
-                        lstbooking.add(bookingid);
-                    }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                System.out.println("Failed get value");
+            public void isIdExist(Booking arrId) {
+                Log.e("ID:", arrId.getBookingId());
             }
         });
         //if booking status is 1 normal
@@ -86,14 +82,17 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
                         e.printStackTrace();
                     }
                     map.put("billStatus", 1);
+                    map.put("bookingTotal",model.getBookingTotal());
                     map.put("billUpdateddate", null);
-                    map.put("bookingId", "ciOEJTKLBWwq3VQDeo1g");
+                    map.put("bookingId", model.getBookingId());
                     FirebaseFirestore.getInstance().collection("bills").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
+                            map.put("billId",String.valueOf(documentReference.getId()));
+                            FirebaseFirestore.getInstance().collection("bills").document(String.valueOf(documentReference.getId())).set(map);
                             Map<String,Object> bookingMap = new HashMap<>();
                             bookingMap.put("bookingStatus",2);
-                            FirebaseFirestore.getInstance().collection("bookings").document(model.getCarId()).update(bookingMap);
+                            FirebaseFirestore.getInstance().collection("bookings").document(model.getBookingId()).update(bookingMap);
                             holder.linearLayout.setBackgroundColor(Color.GREEN);
                             holder.imageAccpet.setVisibility(View.INVISIBLE);
                             holder.imageCancel.setVisibility(View.INVISIBLE);
@@ -117,7 +116,7 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
                 public void onClick(View v) {
                     Map<String,Object> bookingMap = new HashMap<>();
                     bookingMap.put("bookingStatus",0);
-                    FirebaseFirestore.getInstance().collection("bookings").document().update(bookingMap);
+                    FirebaseFirestore.getInstance().collection("bookings").document(model.getBookingId()).update(bookingMap);
                     holder.linearLayout.setBackgroundColor(Color.RED);
                     holder.imageAccpet.setVisibility(View.INVISIBLE);
                     holder.imageCancel.setVisibility(View.INVISIBLE);
@@ -153,10 +152,11 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
             holder.textViewPick.setTextColor(Color.WHITE);
             holder.textViewReturn.setTextColor(Color.WHITE);
         }
-        holder.textViewPrice.setText("$ " + model.getBookingTotal().toString() + " / Daily");
+        holder.textViewPrice.setText("$ " + String.valueOf(model.getBookingTotal())+ " / Daily");
         holder.textViewPick.setText(String.valueOf(model.getBookingPickUpDate()));
         holder.textViewReturn.setText(String.valueOf(model.getBookingDropOffDate()));
-        ////                holder.textViewNameCar.setText(model.getCarId());
+        holder.textViewIdBooking.setText(model.getBookingId());
+//        holder.textViewNameCar.setText(model.getCarId());
 ////                holder.textViewFullname.setText(model.getUserId());
 ////                Picasso.get().load(model.get())
 ////                        .error(R.drawable.user)
@@ -177,6 +177,7 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
         public TextView textViewFullname;
         public TextView textViewPick;
         public TextView textViewReturn;
+        public TextView textViewIdBooking;
         public ImageView imageView,imageAccpet,imageCancel;
         public LinearLayout linearLayout;
         public Bookingviewholder(@NonNull View itemView)
@@ -188,6 +189,7 @@ public class BookingListAdapter extends FirestoreRecyclerAdapter<Booking, Bookin
             textViewFullname = itemView.findViewById(R.id.txtUser);
             textViewPick= itemView.findViewById(R.id.txtCar_pick);
             textViewReturn= itemView.findViewById(R.id.txtCar_return);
+            textViewIdBooking= itemView.findViewById(R.id.txtIdbooking);
             imageView = itemView.findViewById(R.id.image_car);
             imageAccpet=itemView.findViewById(R.id.check_icon);
             imageCancel=itemView.findViewById(R.id.cancel_icon);

@@ -147,7 +147,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-
                 authDao.loginFirebaseAuthentication(email, password, new Callback() {
                     @Override
                     public void isLogin(String roleName) {

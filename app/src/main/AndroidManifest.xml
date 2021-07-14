@@ -48,14 +48,13 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.admin.car.ListCarActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".ui.admin.user.CreateUserActivity"
             android:screenOrientation="portrait" />
@@ -71,7 +70,12 @@
 
         </activity>
 
-
+        <activity android:name=".ui.admin.bill.ListBillActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.home.car.CarDetailsActivity">
 
         </activity>
