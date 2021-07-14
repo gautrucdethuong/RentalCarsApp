@@ -174,7 +174,7 @@ public class BookingDetails extends AppCompatActivity {
 
             Booking booking = null;
             try {
-                booking = new Booking(simpleDateFormat.parse(dateFrom), simpleDateFormat.parse(dateTo), totalBooking, 1,carId, userUid);
+                booking = new Booking(simpleDateFormat.parse(dateFrom), simpleDateFormat.parse(dateTo), totalBooking, 1,carId, userUid,null);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
