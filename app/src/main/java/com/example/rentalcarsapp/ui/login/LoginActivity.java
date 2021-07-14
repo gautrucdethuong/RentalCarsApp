@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             String userId= fAuth.getCurrentUser().getUid();
 
             DocumentReference docRef = fStore.collection("users").document(userId);
-            Source source = Source.CACHE;
+            Source source = Source.SERVER;
 
             docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -85,10 +85,13 @@ public class LoginActivity extends AppCompatActivity {
                             case "Admin":
                                 Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                finish();
                                 break;
                             case "Customer":
                                 Toast.makeText(LoginActivity.this, "Customer", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), EditProfileActivity.class));
+                                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                                finish();
+
                                 break;
                             default:
                                 break;
@@ -157,10 +160,12 @@ public class LoginActivity extends AppCompatActivity {
                                 case "Admin":
                                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                    finish();
                                     break;
                                 case "Customer":
                                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                                    finish();
                                     break;
                                 default:
                                     break;
