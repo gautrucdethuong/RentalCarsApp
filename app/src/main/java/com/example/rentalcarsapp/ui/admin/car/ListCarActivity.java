@@ -87,6 +87,7 @@ public class ListCarActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull CarListAdapter holder, int position, @NonNull Car model) {
                 holder.textViewNameCar.setText(model.getCarName());
                 holder.textViewPrice.setText("$ "+model.getCarPrice() +" / Daily");
+                holder.ratingBar.setRating(model.getCarRating());
                 // load image from URL in our Image VIew.
                 Picasso.get().load(model.getCarImage())
                         .error(R.drawable.user)

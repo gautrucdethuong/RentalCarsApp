@@ -12,7 +12,7 @@ import java.util.Date;
 public class Booking {
     public Date bookingPickUpDate;
     public Date bookingDropOffDate;
-    public Double bookingTotal;
+    public float bookingTotal;
     public int bookingStatus;
     public String carId;
     public String userId;
@@ -24,13 +24,14 @@ public class Booking {
 
 
 
-    public Booking(Date bookingPickUpDate, Date bookingDropOffDate, Double bookingTotal, int bookingStatus, String carId, String userId) {
+    public Booking(Date bookingPickUpDate, Date bookingDropOffDate, float bookingTotal, int bookingStatus, String carId, String userId, String bookingId) {
         this.bookingPickUpDate = bookingPickUpDate;
         this.bookingDropOffDate = bookingDropOffDate;
         this.bookingTotal = bookingTotal;
         this.bookingStatus = bookingStatus;
         this.carId=carId;
         this.userId=userId;
+        this.bookingId=bookingId;
     }
 
     public String getUserId() {
@@ -65,11 +66,11 @@ public class Booking {
         this.bookingDropOffDate = bookingDropOffDate;
     }
 
-    public Double getBookingTotal() {
+    public float getBookingTotal() {
         return bookingTotal;
     }
 
-    public void setBookingTotal(Double bookingTotal) {
+    public void setBookingTotal(float bookingTotal) {
         this.bookingTotal = bookingTotal;
     }
 

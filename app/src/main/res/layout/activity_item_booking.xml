@@ -39,6 +39,16 @@
                     android:textColor="#000"
                     android:textSize="25sp" />
                 <TextView
+                    android:id="@+id/txtIdbooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="ID"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:textSize="25sp" />
+                <TextView
                     android:id="@+id/txtCar_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,29 +71,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Car Pick"
-                    android:textColor="#000"
-                    android:textSize="25sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="#000"
-                    android:textSize="25sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="#000"
-                    android:textSize="25sp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:textColor="#000"
                     android:textSize="25sp" />
                 <TextView

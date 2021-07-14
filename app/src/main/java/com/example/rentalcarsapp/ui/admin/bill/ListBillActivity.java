@@ -1,5 +1,4 @@
-package com.example.rentalcarsapp.ui.admin.booking;
-
+package com.example.rentalcarsapp.ui.admin.bill;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,8 +7,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.rentalcarsapp.R;
+import com.example.rentalcarsapp.apdapter.BillListAdapter;
 import com.example.rentalcarsapp.apdapter.BookingListAdapter;
+import com.example.rentalcarsapp.model.Bill;
 import com.example.rentalcarsapp.model.Booking;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,11 +23,11 @@ import com.google.firebase.firestore.Query;
  * Date on 7/4/2021.
  * Company: FPT大学.
  */
-public class ListBookingActivity extends AppCompatActivity {
+public class ListBillActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private FirestoreRecyclerOptions<Booking> options;
+    private FirestoreRecyclerOptions<Bill> options;
     private FirebaseFirestore fireStore;
-    private BookingListAdapter adapter;
+    private BillListAdapter adapter;
     private EditText inputSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,9 @@ public class ListBookingActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         inputSearch = findViewById(R.id.inputSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        Query querybooking = fireStore.collection("bookings");
-        options = new FirestoreRecyclerOptions.Builder<Booking>().setQuery(querybooking, Booking.class).build();
-        adapter=new BookingListAdapter(options);
+        Query querybill = fireStore.collection("bills");
+        options = new FirestoreRecyclerOptions.Builder<Bill>().setQuery(querybill, Bill.class).build();
+        adapter=new BillListAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         inputSearch.addTextChangedListener(new TextWatcher() {
@@ -63,9 +65,9 @@ public class ListBookingActivity extends AppCompatActivity {
         });
     }
     private void processsearch(String text){
-        Query querybooking = fireStore.collection("bookings").orderBy("carId").startAt(text).endAt(text+"\uf8ff");
-        options = new FirestoreRecyclerOptions.Builder<Booking>().setQuery(querybooking, Booking.class).build();
-        adapter=new BookingListAdapter(options);
+        Query querybill = fireStore.collection("bills").orderBy("billCreateddate").startAt(text).endAt(text+"\uf8ff");
+        options = new FirestoreRecyclerOptions.Builder<Bill>().setQuery(querybill, Bill.class).build();
+        adapter=new BillListAdapter(options);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
