@@ -14,7 +14,7 @@
         android:transitionName="logo_image"
         android:layout_width="150dp"
         android:layout_height="113dp"
-        android:background="@drawable/ic_email" />
+        android:background="@drawable/car" />
 
     <TextView
         android:id="@+id/logo_name"
@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtEmail"
             android:hint="Email"
+            android:paddingBottom="20dp"
             style ="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

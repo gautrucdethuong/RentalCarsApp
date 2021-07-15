@@ -28,6 +28,7 @@ import com.example.rentalcarsapp.apdapter.CarListAdapter;
 import com.example.rentalcarsapp.model.Car;
 import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
 import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -174,10 +175,9 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
 
                 break;
             case R.id.nav_profile:
-/*                Intent intentProfile = new Intent(getApplicationContext(), BarChartActivity.class);
-                startActivity(intentProfile);
-                finish();*/
-
+                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(profile);
+                finish();
                 break;
             case R.id.nav_history_rental_car:
 /*                Intent intentHistory = new Intent(getApplicationContext(), PieChartActivity.class);

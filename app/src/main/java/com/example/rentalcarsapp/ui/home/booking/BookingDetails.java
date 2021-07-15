@@ -188,6 +188,7 @@ public class BookingDetails extends AppCompatActivity {
                     Booking booking = null;
                     try {
                         booking = new Booking(simpleDateFormat.parse(dateFrom), simpleDateFormat.parse(dateTo), totalBooking, 1,carId, userUid,getId);
+                        showAlertDialog(R.layout.dialog_success);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -198,22 +199,22 @@ public class BookingDetails extends AppCompatActivity {
         }
     }
 
-//    private void showAlertDialog(int layout){
-//        dialogBuilder = new AlertDialog.Builder(BookingDetails.this);
-//        View layoutView = getLayoutInflater().inflate(layout, null);
-//        Button dialogButton = layoutView.findViewById(R.id.btnDialog);
-//        dialogBuilder.setView(layoutView);
-//        alertDialog = dialogBuilder.create();
-//        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-//        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        alertDialog.show();
-//        dialogButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                alertDialog.dismiss();
-//                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
-//                finish();
-//            }
-//        });
-//    }
+    private void showAlertDialog(int layout){
+       dialogBuilder = new AlertDialog.Builder(BookingDetails.this);
+        View layoutView = getLayoutInflater().inflate(layout, null);
+        Button dialogButton = layoutView.findViewById(R.id.btnDialog);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                finish();
+            }
+        });
+    }
 }

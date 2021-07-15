@@ -160,19 +160,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_user_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
-                //sao k qia
-                finish();
-                break;
-            case R.id.profile:
-                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
-                startActivity(profile);
                 finish();
                 break;
 
             case R.id.nav_booking_management:
                 Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
                 startActivity(booking);
-                //nay no k chay bro fix đi bấm k dc
                 finish();
                 break;
             case R.id.nav_car_management:

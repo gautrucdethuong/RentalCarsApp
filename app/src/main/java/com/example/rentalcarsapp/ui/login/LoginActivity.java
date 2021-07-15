@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (fAuth.getCurrentUser() != null) {
             String userId= fAuth.getCurrentUser().getUid();
-Log.e("ID",userId);
+
             DocumentReference docRef = fStore.collection("users").document(userId);
             Source source = Source.SERVER;
 
@@ -183,21 +183,6 @@ Log.e("ID",userId);
                     }
 
                 });
-                // authenticate the user
-//                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-//                        }else {
-//                            Toast.makeText(LoginActivity.this, "Logged in Failed ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                            progressBar.setVisibility(View.GONE);
-//                        }
-//
-//                    }
-//                });
-
             }
         });
 

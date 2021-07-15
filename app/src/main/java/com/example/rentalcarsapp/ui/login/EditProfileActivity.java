@@ -52,10 +52,11 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
         Intent data = getIntent();
         final String fullName = data.getStringExtra("fullName");
-        String email = data.getStringExtra("email");
-        String phone = data.getStringExtra("phone");
+        final String email = data.getStringExtra("email");
+        final String phone = data.getStringExtra("phone");
         
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -69,7 +70,6 @@ public class EditProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveProfileInfo);
 
         String userId = fAuth.getCurrentUser().getUid();
-        System.out.println("Authen:"+userId);
 
         // [START get_document_options]
         DocumentReference docRef = fStore.collection("users").document(userId);
@@ -88,6 +88,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     Log.d("TAG", "Cached document data: " + document.getData());
                     Map<String, Object> user = document.getData();
                     profileFullName.setText(String.valueOf(user.get("fullName")));
+                    profileEmail.setText("tientien@gmail.com");
+                    profilePhone.setText("84832511369");
                 } else {
                     Log.d("TAG", "Cached get failed: ", task.getException());
                 }
@@ -115,7 +117,7 @@ public class EditProfileActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() || profilePhone.getText().toString().isEmpty()){
+                if(profileFullName.getText().toString().isEmpty() || profilePhone.getText().toString().isEmpty()){
                     Toast.makeText(EditProfileActivity.this, "One or Many fields are empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -132,12 +134,11 @@ public class EditProfileActivity extends AppCompatActivity {
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(EditProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditProfileActivity.this, "Update successful !!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
                                 finish();
                             }
                         });
-                        Toast.makeText(EditProfileActivity.this, "Email is changed.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -164,8 +165,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
-
-                //profileImage.setImageURI(imageUri);
 
                 uploadImageToFirebase(imageUri);
 

@@ -163,11 +163,6 @@ public class ListBillActivity extends AppCompatActivity implements NavigationVie
                 //sao k qia
                 finish();
                 break;
-            case R.id.profile:
-                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
-                startActivity(profile);
-                finish();
-                break;
 
             case R.id.nav_booking_management:
                 Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
