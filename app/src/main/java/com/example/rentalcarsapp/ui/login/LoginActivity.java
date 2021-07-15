@@ -20,6 +20,7 @@ import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.dao.Callback;
+import com.example.rentalcarsapp.ui.admin.car.CreateCarActivity;
 import com.example.rentalcarsapp.ui.forgot.ForgotPasswordActivity;
 
 import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
@@ -158,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                             switch (roleName){
                                 case "Admin":
                                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                    startActivity(new Intent(getApplicationContext(), CreateCarActivity.class));
                                     finish();
                                     break;
                                 case "Customer":

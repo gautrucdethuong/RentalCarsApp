@@ -15,7 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
+import com.example.rentalcarsapp.dao.CarDAO;
+import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.Car;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,11 +34,12 @@ import org.jetbrains.annotations.NotNull;
 public class CreateCarActivity extends AppCompatActivity {
     public static final int PICK_IMAGE_REQUEST = 1;
     private Button btnCreate;
-    private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription,txtCarLicensePlates;
+    private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription, txtCarLicensePlates;
     private ImageView imgCar;
     private Uri imgUri;
     FirebaseFirestore fStore;
-    private StorageReference mStorageRef;
+    CarDAO carDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +51,8 @@ public class CreateCarActivity extends AppCompatActivity {
         txtSeat = findViewById(R.id.txtCarSeat);
         txtDescription = findViewById(R.id.txtCarDescription);
         txtCarLicensePlates = findViewById(R.id.txtLicensePlates);
-
+        carDAO = new CarDAO();
         imgCar = findViewById(R.id.imgCar);
-        mStorageRef = FirebaseStorage.getInstance().getReference("car_images");
         imgCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +72,6 @@ public class CreateCarActivity extends AppCompatActivity {
                 String carSet = String.valueOf(txtSeat.getEditText().getText());
                 String carDescription = String.valueOf(txtDescription.getEditText().getText());
                 String carLicensePlates = String.valueOf(txtCarLicensePlates.getEditText().getText());
-
                 Car newCar = new Car();
                 newCar.setCarImage(imgName);
                 newCar.setCarName(carName);
@@ -83,7 +85,9 @@ public class CreateCarActivity extends AppCompatActivity {
                 documentReference.set(newCar).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-//                        Log.d("TAG", "onSuccess: user Profile is created for " + userID);
+                        Toast.makeText(CreateCarActivity.this, "Car created", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), ListCarActivity.class));
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -92,9 +96,9 @@ public class CreateCarActivity extends AppCompatActivity {
                     }
                 });
                 if (imgUri != null) {
-                    uploadFile(imgName);
+                    carDAO.uploadFile(imgUri, imgName, CreateCarActivity.this, "car_images");
                 } else {
-                    Toast.makeText(CreateCarActivity.this,"No file selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCarActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -127,25 +131,4 @@ public class CreateCarActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void uploadFile(String imgName) {
-        if (imgUri != null) {
-            StorageReference fileReference = mStorageRef.child(imgName);
-            fileReference.putFile(imgUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CreateCarActivity.this, "Create Car Successful", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull @NotNull Exception e) {
-                            Toast.makeText(CreateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 }
