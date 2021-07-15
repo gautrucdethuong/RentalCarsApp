@@ -15,16 +15,26 @@ private String billId;
 private Date billCreateDate;
 private Date billUpdatedDate;
 private int billStatus;
+public float bookingTotal;
     public Bill() {
 
     }
 
-    public Bill(String bookingId, String billId, Date billCreateDate, Date billUpdatedDate, int billStatus) {
+    public Bill(String bookingId, String billId, Date billCreateDate, Date billUpdatedDate, int billStatus,float bookingTotal) {
         this.bookingId = bookingId;
         this.billId = billId;
         this.billCreateDate = billCreateDate;
         this.billUpdatedDate = billUpdatedDate;
         this.billStatus = billStatus;
+        this.bookingTotal=bookingTotal;
+    }
+
+    public float getBookingTotal() {
+        return bookingTotal;
+    }
+
+    public void setBookingTotal(float bookingTotal) {
+        this.bookingTotal = bookingTotal;
     }
 
     public String getBookingId() {

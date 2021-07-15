@@ -9,12 +9,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
+import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
+import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,12 +42,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     NavigationView navigationView;
     Toolbar toolbar;
     private TextView personCount, adminCount, saleStaffCount, carCount;
-    private DatabaseReference databaseReference;
     FirebaseAuth fAuth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     FirebaseFirestore fStore;
     FirebaseUser user;
+    private View header;
     StorageReference storageReference;
+    private TextView textViewName, textViewEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         fStore = FirebaseFirestore.getInstance();
+
+        header = navigationView.getHeaderView(0);
+        textViewName = header.findViewById(R.id.textViewName);
+        textViewEmail = header.findViewById(R.id.textViewEmail);
+        toolbar = findViewById(R.id.toolbar);
+
         fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             @Override
@@ -111,28 +125,58 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             }
         });
     }
+    // get information user login
+    private void getInfoUserByDrawer() {
+        if (user != null) {
+            String email = user.getEmail();
+            String phone = user.getPhoneNumber();
 
+            textViewName.setText(email);
+            textViewEmail.setText(phone);
+
+        }
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                Intent intentHome = new Intent(getApplicationContext(), DashboardActivity.class);
+            case R.id.nav_home_month:
+                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
-            case R.id.nav_profile:
-                Intent intentProfile = new Intent(getApplicationContext(), UpdateUserActivity.class);
+            case R.id.nav_home_brand:
+                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
                 startActivity(intentProfile);
                 finish();
 
                 break;
-            case R.id.nav_users_management:
+            case R.id.nav_user_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
                 finish();
                 break;
+            case R.id.profile:
+                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(profile);
+                finish();
+                break;
 
+            case R.id.nav_booking_management:
+                Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
+                startActivity(booking);
+                finish();
+                break;
+            case R.id.nav_car_management:
+                Intent car = new Intent(getApplicationContext(), ListCarActivity.class);
+                startActivity(car);
+                finish();
+                break;
+            case R.id.nav_bill_management:
+                Intent bill = new Intent(getApplicationContext(), ListBillActivity.class);
+                startActivity(bill);
+                finish();
+                break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();//logout
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

@@ -23,6 +23,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.rentalcarsapp.dao.Callback;
+import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
+import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
+import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
@@ -149,22 +154,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
         }
 
-        DocumentReference documentReference = fStore.collection("users").document(userId);
-/*        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentReference != null && documentSnapshot.exists()){
-                    phone.setText(documentSnapshot.getString("phone"));
-                    fullName.setText(documentSnapshot.getString("fName"));
-                    email.setText(documentSnapshot.getString("email"));
-
-                }else {
-                    Log.d("tag", "onEvent: Document do not exists");
-                }
-            }
-        });*/
-
-
         resetPassLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,36 +212,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-
-//    public void logout(View view) {
-//        FirebaseAuth.getInstance().signOut();//logout
-//        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-//        finish();
-//    }
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_home:
-                Intent intentHome = new Intent(getApplicationContext(), DashboardActivity.class);
+            case R.id.nav_home_month:
+                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
-            case R.id.nav_profile:
-                Intent intentProfile = new Intent(getApplicationContext(), MainActivity.class);
+            case R.id.nav_home_brand:
+                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
                 startActivity(intentProfile);
                 finish();
 
                 break;
-            case R.id.nav_users_management:
+            case R.id.nav_user_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
                 finish();
                 break;
 
+            case R.id.nav_booking_management:
+                Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
+                startActivity(booking);
+                finish();
+                break;
+            case R.id.nav_car_management:
+                Intent car = new Intent(getApplicationContext(), ListCarActivity.class);
+                startActivity(car);
+                finish();
+                break;
+            case R.id.nav_bill_management:
+                Intent bill = new Intent(getApplicationContext(), ListBillActivity.class);
+                startActivity(bill);
+                finish();
+                break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();//logout
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.dao.Callback;
+import com.example.rentalcarsapp.dao.CallbackValidation;
+import com.google.firebase.database.core.utilities.Validation;
 
 /**
  * Author by HUYNH NHAT MINH.
@@ -18,17 +20,12 @@ import com.example.rentalcarsapp.dao.Callback;
  * Date on 5/21/2021.
  * Company: FPT大学.
  */
-public class RegexValidate extends AppCompatActivity {
+public class RegexValidate{
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        initPreferences();
-        super.onCreate(savedInstanceState);
 
-    }
 
     // String regex
     public static final String VALID_FULL_NAME = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
@@ -49,22 +46,11 @@ public class RegexValidate extends AppCompatActivity {
 
 
 
-    public int checkValidationFormInput(String input, String regex) {
-        if (!input.matches(regex)) {
-            editor.putInt("RESULT_CHECK", 1);
-            editor.apply();
-
-            int check = sharedPreferences.getInt("RESULT_CHECK",0);
-            System.out.println("Result" +check);
 
 
+    public static void checkPhoneExist(String input, String regex, CallbackValidation validation){
+        if(!input.matches(regex)){
+            validation.response(false);
         }
-        return 2;
-    }
-
-
-    private void initPreferences() {
-        sharedPreferences=getSharedPreferences("SHARED_PREF_VALID", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
     }
 }

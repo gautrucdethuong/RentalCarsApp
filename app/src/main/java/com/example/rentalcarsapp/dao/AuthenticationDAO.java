@@ -47,7 +47,7 @@ public class AuthenticationDAO {
                     DocumentReference docRef = fStore.collection("users").document(userId);
 
                     // Source can be CACHE, SERVER, or DEFAULT.
-                    Source source = Source.CACHE;
+                    Source source = Source.SERVER;
                     docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -59,7 +59,6 @@ public class AuthenticationDAO {
                                 Map<String, Object> user = document.getData();
                                 String role=String.valueOf(user.get("roleName"));
                                 Log.e("fStoreID",role);
-
                                 callback.isLogin(role);
 
                             } else {

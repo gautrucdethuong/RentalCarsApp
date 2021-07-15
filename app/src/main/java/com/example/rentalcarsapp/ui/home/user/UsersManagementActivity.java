@@ -276,7 +276,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                 finish();
 
                 break;
-            case R.id.nav_users_management:
+            case R.id.nav_user_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
                 finish();

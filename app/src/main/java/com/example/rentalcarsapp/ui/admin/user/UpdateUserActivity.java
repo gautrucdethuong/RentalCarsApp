@@ -64,7 +64,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         String email = data.getStringExtra("email");
         String phone = data.getStringExtra("phone");
         User person = (User) data.getSerializableExtra("person");
-        Log.d("TAG", "Mih meo person: " +person.getFullName());
+//        Log.d("TAG", "Mih meo person: " +person.getFullName());
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
@@ -82,6 +82,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         String userId = fAuth.getCurrentUser().getUid();
         Log.d("TAG", "Mih meo person id: " +userId);
         // [START get_document_options]
+
         DocumentReference docRef = fStore.collection("users").document(person.getStaffCode());
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;

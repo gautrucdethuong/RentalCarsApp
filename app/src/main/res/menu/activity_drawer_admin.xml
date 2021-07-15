@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_month"
+            android:title="Revenue Month">
+        </item>
+
+        <item
+            android:id="@+id/nav_home_brand"
+            android:title="Revenue Brand">
+        </item>
+        <item
+            android:id="@+id/profile"
+            android:title="Profile">
+
+        </item>
+        <item
+            android:id="@+id/nav_user_management"
+            android:title="User Management">
+
+        </item>
+        <item
+            android:id="@+id/nav_booking_management"
+            android:title="Booking Management">
+
+        </item>
+
+        <item
+            android:id="@+id/nav_car_management"
+            android:title="Car Management">
+        </item>
+
+        <item
+            android:id="@+id/nav_bill_management"
+            android:title="Bill Management">
+        </item>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout">
+
+        </item>
+    </group>
+</menu>

@@ -13,17 +13,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
-import com.example.rentalcarsapp.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-
+/**
+ * Author by Tieu Ha Anh Khoi
+ * Email: khoithace140252@fpt.edu.vn.
+ * Date on 13/6/2021.
+ * Company: FPT大学.
+ */
 public class ForgotPasswordActivity extends AppCompatActivity {
     ImageView imgBack,imgLock;
     TextInputLayout mEmail;

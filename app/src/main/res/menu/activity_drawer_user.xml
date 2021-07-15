@@ -19,14 +19,13 @@
         <item
             android:id="@+id/nav_support"
             android:icon="@drawable/ic_baseline_lock_24"
-            android:title="Support">
+            android:title="Support / Radar Chart">
 
         </item>
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_baseline_arrow_back_24"
             android:title="Logout">
-
         </item>
     </group>
 </menu>

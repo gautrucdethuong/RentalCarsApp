@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 public class ListCarActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirestoreRecyclerOptions<Car> options;
-    private FirestoreRecyclerAdapter<Car, CarListAdapter> adapter;
+    private FirestoreRecyclerAdapter adapter;
     private FirebaseFirestore fireStore;
     private FloatingActionButton fb;
     @Override
@@ -82,37 +82,38 @@ public class ListCarActivity extends AppCompatActivity {
         Query query = fireStore.collection("cars").orderBy("carName").startAt(searchName).endAt(searchName+"\uf8ff");
 
         options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
-        adapter = new FirestoreRecyclerAdapter<Car, CarListAdapter>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull CarListAdapter holder, int position, @NonNull Car model) {
-                holder.textViewNameCar.setText(model.getCarName());
-                holder.textViewPrice.setText("$ "+model.getCarPrice() +" / Daily");
-                // load image from URL in our Image VIew.
-                Picasso.get().load(model.getCarImage())
-                        .error(R.drawable.user)
-                        .into(holder.imageView);
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(ListCarActivity.this, CarDetailsActivity.class);
-                        intent.putExtra("carName", model.getCarName());
-                        intent.putExtra("carPrice", model.getCarPrice());
-                        intent.putExtra("carRating", "Rating: "+ "🌟🌟🌟🌟🌟");
-                        intent.putExtra("carImage", model.getCarImage());
-                        intent.putExtra("carSeat", model.getCarSeat());
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            @NonNull
-            @Override
-            public CarListAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_car,parent,false);
-                return new CarListAdapter(view);
-            }
-        };
+//        adapter = new FirestoreRecyclerAdapter<Car, CarListAdapter>(options) {
+//            @Override
+//            protected void onBindViewHolder(@NonNull CarListAdapter holder, int position, @NonNull Car model) {
+//                holder.textViewNameCar.setText(model.getCarName());
+//                holder.textViewPrice.setText("$ "+model.getCarPrice() +" / Daily");
+//                holder.ratingBar.setRating(model.getCarRating());
+//                // load image from URL in our Image VIew.
+//                Picasso.get().load(model.getCarImage())
+//                        .error(R.drawable.user)
+//                        .into(holder.imageView);
+//
+//                holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(ListCarActivity.this, CarDetailsActivity.class);
+//                        intent.putExtra("carName", model.getCarName());
+//                        intent.putExtra("carPrice", model.getCarPrice());
+//                        intent.putExtra("carRating", "Rating: "+ "🌟🌟🌟🌟🌟");
+//                        intent.putExtra("carImage", model.getCarImage());
+//                        intent.putExtra("carSeat", model.getCarSeat());
+//                        startActivity(intent);
+//                    }
+//                });
+//            }
+//
+//            @NonNull
+//            @Override
+//            public CarListAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_car,parent,false);
+//                return new CarListAdapter(view);
+//            }
+//        };
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }

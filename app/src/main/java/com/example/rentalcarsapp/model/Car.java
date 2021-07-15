@@ -18,6 +18,15 @@ public class Car {
     private String carSeat;
     private String carImage;
     private float carRating;
+    private String carBrand;
+
+    public String getCarBrand() {
+        return carBrand;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
+    }
 
     public float getCarRating() {
         return carRating;
@@ -35,7 +44,7 @@ public class Car {
 
     }
 
-    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating) {
+    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating, String carBrand) {
         this.carId = carId;
         this.carName = carName;
         this.carPrice = carPrice;
@@ -47,6 +56,7 @@ public class Car {
         this.carCreatedDate = carCreatedDate;
         this.carDeletedDate = carDeletedDate;
         this.carRating = carRating;
+        this.carBrand = carBrand;
     }
 
     public int getCarId() {
