@@ -73,11 +73,9 @@ public class CreateUserActivity extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
+                Pair[] pairs=new Pair[2];
+                pairs[0] = new Pair<View, String>(imgBack, "logo_image");
+                pairs[1] = new Pair<View, String>(mStep, "txt_transaction");
                 ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(CreateUserActivity.this, pairs);
                 startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class),options.toBundle());
             }

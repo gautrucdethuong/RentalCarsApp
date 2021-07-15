@@ -30,6 +30,9 @@
             android:name=".ui.login.EditProfileActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.login.EditUserProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.register.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity

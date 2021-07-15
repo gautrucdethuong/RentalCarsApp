@@ -18,6 +18,7 @@ import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -179,7 +180,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                 pairs[0] = new Pair<View, String>(imgBack, "logo_image");
                 pairs[1] = new Pair<View, String>(mStep, "txt_transaction");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UpdateUserActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), DashboardActivity.class), options.toBundle());
+                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class), options.toBundle());
             }
         });
     }
