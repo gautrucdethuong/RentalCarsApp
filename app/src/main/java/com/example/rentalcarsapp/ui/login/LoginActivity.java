@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (fAuth.getCurrentUser() != null) {
             String userId= fAuth.getCurrentUser().getUid();
-
+Log.e("ID",userId);
             DocumentReference docRef = fStore.collection("users").document(userId);
             Source source = Source.SERVER;
 
@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                         // Document found in the offline cache
                         DocumentSnapshot document = task.getResult();
 
-                        Log.d("TAG", "Cached document data: " + document.getData());
                         Map<String, Object> user = document.getData();
                         String role=String.valueOf(user.get("roleName"));
                         Log.e("roleName",role);

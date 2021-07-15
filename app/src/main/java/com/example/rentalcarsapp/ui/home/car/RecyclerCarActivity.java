@@ -56,12 +56,14 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
     private FirebaseFirestore fireStore;
     private SharedPreferences sharedpreferences;
     private static final String SHARED_PREFERENCE_PRICE = "myPrefs";
+
     private View header;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private TextView textViewName, textViewEmail;
     private FirebaseUser user;
+
     private CarListAdapter adapter;
 
     @Override
