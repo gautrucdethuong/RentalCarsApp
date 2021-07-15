@@ -44,7 +44,7 @@ public class UsersListApdapter extends ArrayAdapter<User> {
         TextView textFullName = listitemView.findViewById(R.id.textFullName);
         TextView textRoleName = listitemView.findViewById(R.id.textRoleName);
 
-        textFullName.setText(dataModal.getFullName());
+        textFullName.setText(dataModal.getUserEmail());
         textRoleName.setText(dataModal.getRoleName());
 
         return listitemView;

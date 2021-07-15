@@ -100,55 +100,52 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-
-                fAuth.createUserWithEmailAndPassword(emailAddress, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            int day = mDatePicker.getDayOfMonth();
-                            int month = mDatePicker.getMonth();
-                            int year = mDatePicker.getYear();
-                            String birthday = day+"/"+month+"/"+year;
-                            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd/MM/yyyy");
-                            Date date = new Date();
-                            SimpleDateFormat simpleDateFormat1=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-                            String str=simpleDateFormat1.format(date);
-                            userID = fAuth.getCurrentUser().getUid();
-                            User userInfo = null;
-                            if (item == "Choose role") {
-                                Toast.makeText(CreateUserInfoActivity.this, "please select a role", Toast.LENGTH_SHORT).show();
-                            } else {
+                if (item == "Choose role") {
+                    Toast.makeText(CreateUserInfoActivity.this, "please select a role", Toast.LENGTH_SHORT).show();
+                } else {
+                    fAuth.createUserWithEmailAndPassword(emailAddress, passWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                int day = mDatePicker.getDayOfMonth();
+                                int month = mDatePicker.getMonth();
+                                int year = mDatePicker.getYear();
+                                String birthday = day + "/" + month + "/" + year;
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                Date date = new Date();
+                                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                                String str = simpleDateFormat1.format(date);
+                                userID = fAuth.getCurrentUser().getUid();
+                                User userInfo = null;
                                 try {
                                     userInfo = new User(emailAddress, fullName, phoneNumber, item, gender, simpleDateFormat.parse(birthday), simpleDateFormat1.parse(str));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
+                                Toast.makeText(CreateUserInfoActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+                                documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                        startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
+                                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                            } else {
+                                Log.e("message", task.getException().toString());
+                                Toast.makeText(CreateUserInfoActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
                             }
-                            Toast.makeText(CreateUserInfoActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
-                            documentReference.set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                    startActivity(new Intent(getApplicationContext(),UsersManagementActivity.class));
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
-                                }
-                            });
-
-                            startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
-
-                        } else {
-                            Log.e("message", task.getException().toString());
-                            Toast.makeText(CreateUserInfoActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
                         }
-                    }
-                });
+                    });
+                }
             }
         });
         // Back login
