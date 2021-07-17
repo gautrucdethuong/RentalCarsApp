@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         switch (role){
                             case "Admin":
                                 Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                startActivity(new Intent(getApplicationContext(), CreateCarActivity.class));
                                 finish();
                                 break;
                             case "Customer":
