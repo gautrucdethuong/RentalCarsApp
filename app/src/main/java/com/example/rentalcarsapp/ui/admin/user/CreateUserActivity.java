@@ -25,6 +25,10 @@ public class CreateUserActivity extends AppCompatActivity {
     ProgressBar progressBar;
     ImageView imgBack;
 
+    /**
+     *
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -36,6 +40,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +91,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for validatefullname
+     */
     private boolean ValidateFullName(){
         String fullName = String.valueOf(mFullName.getEditText().getText());
 
@@ -100,6 +112,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for validatephonenumber
+     */
     private boolean ValidatePhoneNumber(){
         String phoneNumber = String.valueOf(mPhone.getEditText().getText());
         if(phoneNumber.isEmpty()){
@@ -116,6 +132,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for validatepassword
+     */
     private boolean ValidatePassword(){
         String passWord = String.valueOf(mPassword.getEditText().getText());
         if(passWord.isEmpty()){
@@ -132,6 +152,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for ValidateConfirmPassword
+     */
     private boolean ValidateConfirmPassword(){
         String passWord = String.valueOf(mConfirmPassword.getEditText().getText());
         if(passWord.isEmpty()){
@@ -145,6 +169,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for ComparePassword
+     */
     private boolean ComparePassword(){
         String passWord = String.valueOf(mPassword.getEditText().getText());
         String re_passWord = String.valueOf(mConfirmPassword.getEditText().getText());
@@ -159,6 +187,10 @@ public class CreateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @return true, false for ValidateEmail
+     */
     private boolean ValidateEmail(){
         String email = String.valueOf(mEmail.getEditText().getText());
         if(email.isEmpty()){

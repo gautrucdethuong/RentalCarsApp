@@ -57,6 +57,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
     DatePicker mDatePicker;
     int gender = 0;
 
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

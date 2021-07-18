@@ -60,6 +60,10 @@ public class EditProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     StorageReference storageReference;
 
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,6 +206,12 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Maybe this code to check image to upload firebase (not use)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -217,6 +227,10 @@ public class EditProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * uploadImageToFirebase
+     * @param imageUri
+     */
     private void uploadImageToFirebase(Uri imageUri) {
         // uplaod image to firebase storage
         final StorageReference fileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
@@ -238,7 +252,10 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
     }
-
+    /**
+     *
+     * @return true, false for validatefullname
+     */
     private boolean ValidateFullName() {
         String fullName = String.valueOf(mFullName.getEditText().getText());
 
@@ -255,7 +272,10 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     *
+     * @return true, false for validatephonenumber
+     */
     private boolean ValidatePhoneNumber() {
         String phoneNumber = String.valueOf(mPhone.getEditText().getText());
         if (phoneNumber.isEmpty()) {
@@ -271,7 +291,10 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     *
+     * @return true, false for ValidateEmail
+     */
     private boolean ValidateEmail() {
         String email = String.valueOf(mEmail.getEditText().getText());
         if (email.isEmpty()) {

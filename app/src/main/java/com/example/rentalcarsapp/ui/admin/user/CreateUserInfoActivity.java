@@ -63,6 +63,11 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
     RadioButton rGender;
     DatePicker mDatePicker;
     int gender=0;
+
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +163,11 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
         });
 
     }
+
+    /**
+     *
+     * @return true, false for validateAge
+     */
     private boolean validateAge(){
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int userAge = mDatePicker.getYear();
@@ -170,6 +180,13 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
         }
     }
 
+    /**
+     * get spinner role on select item to bind it into textview
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         item = spinner.getSelectedItem().toString();
@@ -181,6 +198,9 @@ public class CreateUserInfoActivity extends AppCompatActivity implements Adapter
 
     }
 
+    /**
+     * fetchdata from role firebase data to spinner(not use)
+     */
     public void fetchdata() {
         fStore = FirebaseFirestore.getInstance();
 

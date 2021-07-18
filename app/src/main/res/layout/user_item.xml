@@ -23,9 +23,9 @@
         android:id="@+id/textFullName"
         android:layout_width="359dp"
         android:layout_height="43dp"
-        android:text="Country Name"
+        android:text="@string/country_name"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="24dp"
-        android:gravity="center"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_width="137dp"
         android:layout_height="43dp"
         android:layout_marginEnd="12dp"
-        android:text="Population"
+        android:text="@string/population"
         android:textSize="22sp"
 
         app:layout_constraintEnd_toEndOf="parent"

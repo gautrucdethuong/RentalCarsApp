@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:text="Update"
+            android:text="update"
             android:textColor="#000000"
             android:textSize="40sp" />
 
@@ -39,7 +39,7 @@
             android:background="@drawable/border"
             android:fontFamily="@font/concert_one"
             android:padding="30dp"
-            android:text="1/2"
+            android:text="@string/_1_2"
             android:textSize="18dp" />
     </LinearLayout>
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
-        android:text="Update to start an old Journey"
+        android:text="@string/update_to_start_an_old_journey"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -62,7 +62,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name">
+            android:hint="@string/full_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email">
+            android:hint="@string/email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -88,7 +88,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone No">
+            android:hint="@string/phone_no">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="#fff" />
 
 

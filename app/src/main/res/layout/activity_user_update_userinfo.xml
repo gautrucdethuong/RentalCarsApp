@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:text="Update"
+            android:text="update"
             android:textColor="#000000"
             android:textSize="40sp" />
 
@@ -39,7 +39,7 @@
             android:background="@drawable/border"
             android:fontFamily="@font/concert_one"
             android:padding="30dp"
-            android:text="2/2"
+            android:text="@string/_2_2"
             android:textSize="18dp" />
     </LinearLayout>
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
-        android:text="Upgrade yourself to start a new Journey"
+        android:text="upgrade yourself to start a new journey"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose Gender"
+            android:text="@string/choose_gender"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:checked="true"
-                android:text="Male" />
+                android:text="@string/male" />
 
 
             <RadioButton
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Female" />
+                android:text="@string/female" />
 
 
             <RadioButton
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Other" />
+                android:text="@string/other" />
         </RadioGroup>
 
         <View
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Your Age"
+            android:text="@string/select_your_age"
             android:textColor="@color/black"
             android:textSize="18sp" />
 
@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"
-        android:text="Update"
+        android:text="update"
         android:textColor="#fff" />
 
     <ProgressBar
