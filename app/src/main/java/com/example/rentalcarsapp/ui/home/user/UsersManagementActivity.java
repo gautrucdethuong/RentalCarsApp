@@ -198,11 +198,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                                                     intent.putExtra("person", currentLecture);
                                                     startActivity(intent);
                                                     finish();
-                                                    break;
-                                                case R.id.two:
-//                                                    // function remove lecture
-                                                    //      db.removeLecture(currentLecture.getId());
-                                                    //      reloadView();
+
                                                     break;
                                                 case R.id.three:
                                                     DocumentReference docRef = db.collection("users").document(currentLecture.getStaffCode());

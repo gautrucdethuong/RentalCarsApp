@@ -20,4 +20,14 @@
     <string name="nav_header_desc">Create</string>
     <string name="nav_header_title">HUYNH NHAT MINH</string>
     <string name="nav_header_subtitle">minhhn@gmail.com</string>
+    <string name="update_car_information">Update car information</string>
+    <string name="car_name">Car Name</string>
+    <string name="brand">Brand</string>
+    <string name="_0">0</string>
+    <string name="color">Color</string>
+    <string name="seat">Seat</string>
+    <string name="description">Description</string>
+    <string name="licenseplates">LicensePlates</string>
+    <string name="create">Create</string>
+    <string name="create_new_car">Create new car</string>
 </resources>

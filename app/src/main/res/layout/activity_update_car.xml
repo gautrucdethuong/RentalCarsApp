@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:text="@string/create_new_car"
+            android:text="@string/update_car_information"
             android:textColor="#000000"
             android:textSize="30sp" />
         <ImageView

@@ -16,11 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.dao.CallbackValidation;
 import com.example.rentalcarsapp.dao.CarDAO;
-import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.Car;
-import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -33,7 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CreateCarActivity extends AppCompatActivity {
+public class UpdateCarActivity extends AppCompatActivity {
     public static final int PICK_IMAGE_REQUEST = 1;
     private Button btnCreate;
     private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription, txtCarLicensePlates, txtCarBrand;
@@ -46,7 +43,7 @@ public class CreateCarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.carmanagement_create);
+        setContentView(R.layout.activity_update_car);
         btnCreate = findViewById(R.id.btnCreateCar);
         txtCarName = findViewById(R.id.txtCarname);
         txtCarPrice = findViewById(R.id.txtCarprice);
@@ -110,7 +107,7 @@ public class CreateCarActivity extends AppCompatActivity {
                                                 documentReference.set(newCar).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        Toast.makeText(CreateCarActivity.this, "Create Car Successful", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(UpdateCarActivity.this, "Create Car Successful", Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(getApplicationContext(), ListCarActivity.class));
                                                         finish();
                                                     }
@@ -128,11 +125,11 @@ public class CreateCarActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
-                                    Toast.makeText(CreateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                 } else {
-                    Toast.makeText(CreateCarActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateCarActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
                 }
 
 

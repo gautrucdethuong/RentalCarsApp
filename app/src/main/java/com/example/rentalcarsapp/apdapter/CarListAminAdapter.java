@@ -1,11 +1,6 @@
 package com.example.rentalcarsapp.apdapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,13 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.model.Car;
-import com.example.rentalcarsapp.ui.home.car.CarDetailsActivity;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Author by HUYNH NHAT MINH (ミン).
@@ -102,20 +90,5 @@ public class CarListAminAdapter extends FirestoreRecyclerAdapter<Car, CarListAmi
 
 
 
-    class CarViewHolder extends RecyclerView.ViewHolder
-    {
-        public TextView textViewNameCar;
-        public TextView textViewPrice;
-        public ImageView imageView;
-        public RatingBar ratingBar;
-        public CarViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
-            // initializing our UI components of list view item.
-            textViewNameCar = itemView.findViewById(R.id.textViewNameCar);
-            textViewPrice = itemView.findViewById(R.id.txtPriceTotal);
-            ratingBar = itemView.findViewById(R.id.ratingBar);
-            imageView = itemView.findViewById(R.id.imageButtonCar);
-        }
     }
 }

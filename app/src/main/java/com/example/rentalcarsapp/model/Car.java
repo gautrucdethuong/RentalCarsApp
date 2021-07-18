@@ -1,5 +1,6 @@
 package com.example.rentalcarsapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * Company: FPT大学.
  */
 
-public class Car {
+public class Car implements Serializable {
     private int carId;
     private String carName;
     private float carPrice;

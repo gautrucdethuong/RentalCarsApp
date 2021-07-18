@@ -16,4 +16,5 @@
     <color name="colorPrimaryDialog">#008577</color>
     <color name="colorPrimaryDarkDialog">#00574B</color>
     <color name="colorAccentDialog">#D81B60</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
