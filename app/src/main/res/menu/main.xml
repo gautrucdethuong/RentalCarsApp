@@ -7,16 +7,40 @@
 
         </item>
         <item
+            android:id="@+id/nav_home_month"
+            android:title="Revenue by month">
+
+        </item>
+        <item
+            android:id="@+id/nav_home_brand"
+            android:title="Revenue by car brand">
+
+        </item>
+        <item
             android:id="@+id/nav_profile"
             android:title="Profile">
 
         </item>
         <item
             android:id="@+id/nav_users_management"
-            android:title="User Managerment">
+            android:title="Users Managerment">
 
         </item>
+        <item
+            android:id="@+id/nav_car_management"
+            android:title="Cars Management">
 
+        </item>
+        <item
+            android:id="@+id/nav_booking_management"
+            android:title="Bookings Management">
+
+        </item>
+        <item
+            android:id="@+id/nav_bill_management"
+            android:title="Bills Management">
+
+        </item>
         <item
             android:id="@+id/nav_logout"
             android:title="Logout">

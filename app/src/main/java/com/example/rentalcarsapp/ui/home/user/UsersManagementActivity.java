@@ -35,9 +35,14 @@ import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
+import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
+import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
 import com.example.rentalcarsapp.ui.admin.user.CreateUserActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
-import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,6 +56,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -272,26 +279,51 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull @org.jetbrains.annotations.NotNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
-                Intent intentHome = new Intent(getApplicationContext(), DashboardActivity.class);
+                Intent intentDashboard = new Intent(getApplicationContext(), DashboardActivity.class);
+                startActivity(intentDashboard);
+                finish();
+                break;
+            case R.id.nav_home_month:
+                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
-            case R.id.nav_profile:
-                Intent intentProfile = new Intent(getApplicationContext(), MainActivity.class);
+            case R.id.nav_home_brand:
+                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
                 startActivity(intentProfile);
                 finish();
 
                 break;
-            case R.id.nav_user_management:
+            case R.id.nav_users_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
                 finish();
                 break;
+            case R.id.nav_profile:
+                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(profile);
+                finish();
+                break;
 
+            case R.id.nav_booking_management:
+                Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
+                startActivity(booking);
+                finish();
+                break;
+            case R.id.nav_car_management:
+                Intent car = new Intent(getApplicationContext(), ListCarActivity.class);
+                startActivity(car);
+                finish();
+                break;
+            case R.id.nav_bill_management:
+                Intent bill = new Intent(getApplicationContext(), ListBillActivity.class);
+                startActivity(bill);
+                finish();
+                break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();//logout
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

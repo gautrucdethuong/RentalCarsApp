@@ -92,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Customer", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
                                 finish();
-
                                 break;
                             default:
                                 break;
@@ -102,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-            startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
             finish();
         }
         mCreateBtn.setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -51,7 +52,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     FirebaseUser user;
     StorageReference storageReference;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,16 +64,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         adminCount = findViewById(R.id.textView4);
         saleStaffCount = findViewById(R.id.textView6);
         carCount = findViewById(R.id.textView7);
-        fStore = FirebaseFirestore.getInstance();
 
+        fStore = FirebaseFirestore.getInstance();
         drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        fStore = FirebaseFirestore.getInstance();
-        toolbar = findViewById(R.id.toolbar);
-
+        navigationView.setNavigationItemSelectedListener(this);
         fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             @Override
@@ -123,20 +123,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             }
         });
     }
-    // get information user login
-    private void getInfoUserByDrawer() {
-        if (user != null) {
-            String email = user.getEmail();
-            String phone = user.getPhoneNumber();
 
-            textViewName.setText(email);
-            textViewEmail.setText(phone);
-
-        }
-    }
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                Intent intentDashboard = new Intent(getApplicationContext(), DashboardActivity.class);
+                Log.e("HEHE", "herreeeee");
+                startActivity(intentDashboard);
+                finish();
+                break;
             case R.id.nav_home_month:
                 Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
                 startActivity(intentHome);
@@ -149,9 +145,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 finish();
 
                 break;
-            case R.id.nav_user_management:
+            case R.id.nav_users_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
+                finish();
+                break;
+            case R.id.nav_profile:
+                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(profile);
                 finish();
                 break;
 
