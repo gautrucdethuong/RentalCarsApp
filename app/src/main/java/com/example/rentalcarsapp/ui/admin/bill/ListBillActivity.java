@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.apdapter.BillListAdapter;
-import com.example.rentalcarsapp.apdapter.BookingListAdapter;
+import com.example.rentalcarsapp.apdapter.admin.BillListAdapter;
 import com.example.rentalcarsapp.model.Bill;
-import com.example.rentalcarsapp.model.Booking;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -24,11 +22,16 @@ import com.google.firebase.firestore.Query;
  * Company: FPT大学.
  */
 public class ListBillActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private FirestoreRecyclerOptions<Bill> options;
-    private FirebaseFirestore fireStore;
-    private BillListAdapter adapter;
-    private EditText inputSearch;
+    private RecyclerView recyclerView;//declare variable recyclerView
+    private FirestoreRecyclerOptions<Bill> options;//declare variable options
+    private FirebaseFirestore fireStore;//declare variable fireStore
+    private BillListAdapter adapter;//declare variable adapter
+    private EditText inputSearch;//declare variable inputSearch
+
+    /**
+     * Method to interface initialization
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,19 +67,30 @@ public class ListBillActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Function to search value into database
+     * @param text user input
+     */
     private void processsearch(String text){
-        Query querybill = fireStore.collection("bills").orderBy("billCreateddate").startAt(text).endAt(text+"\uf8ff");
+        Query querybill = fireStore.collection("bills").orderBy("bookingTotal").startAt(text).endAt(text+"\uf8ff");
         options = new FirestoreRecyclerOptions.Builder<Bill>().setQuery(querybill, Bill.class).build();
         adapter=new BillListAdapter(options);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
+
+    /**
+     * Method to star to connect adapter
+     */
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
     }
-
+    /**
+     * Method to stop to connect adapter
+     */
     @Override
     protected void onStop() {
         super.onStop();

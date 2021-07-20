@@ -63,9 +63,7 @@ public class CarDetailsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_car_details);
-
         init();
         getDetailsCar();
         booking();

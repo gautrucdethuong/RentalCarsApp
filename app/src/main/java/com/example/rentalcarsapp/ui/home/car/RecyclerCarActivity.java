@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.apdapter.CarListAdapter;
+import com.example.rentalcarsapp.apdapter.admin.CarListAdapter;
 import com.example.rentalcarsapp.model.Car;
 import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
 import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;

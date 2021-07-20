@@ -16,27 +16,26 @@
             android:id="@+id/txtBillId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Bill ID"
+            android:layout_marginLeft="@dimen/layout_marginLeft"
+            android:text="@string/bill_id"
             android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="25sp" />
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textSize" />
         <TextView
             android:id="@+id/txtIdbooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Booking ID"
-            android:textColor="#000"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:layout_marginLeft="@dimen/layout_marginLeft"
+            android:text="@string/booking_id"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textSize" />
         <TextView
             android:id="@+id/txtBill_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Bill Create"
-            android:textColor="#000"
-            android:textSize="25sp" />
+            android:layout_marginLeft="@dimen/layout_marginLeft"
+            android:text="@string/bill_create"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textSize" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

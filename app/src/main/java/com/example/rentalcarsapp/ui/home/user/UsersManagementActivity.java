@@ -33,7 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.apdapter.UsersListApdapter;
+import com.example.rentalcarsapp.apdapter.admin.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
 import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;

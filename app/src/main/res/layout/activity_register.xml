@@ -27,8 +27,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/browser_actions_context_menu_min_padding"
             android:fontFamily="@font/bungee"
-            android:text="Welcome"
-            android:textColor="#000000"
+            android:text="@string/welcome"
+            android:textColor="@color/colorBlack"
             android:textSize="40sp"
             android:transitionName="logo_text" />
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
         android:transitionName="logo_signup"
-        android:text="SignUp to start your new Journey"
+        android:text="@string/signup_to_start_your_new_journey"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -64,7 +64,7 @@
             android:id="@+id/fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
+            android:hint="@string/full_name"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
             android:id="@+id/Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +99,7 @@
             android:id="@+id/re_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:hint="@string/confirm_password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +111,7 @@
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone No"
+            android:hint="@string/phone_no"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -125,14 +125,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Next"
-        android:background="#000"
-        android:textColor="#fff"/>
+        android:background="@color/colorBlack"
+        android:textColor="@color/colorWhite"/>
     <Button
         android:id="@+id/createText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Sign In"
-        android:background="#00000000"/>
+        android:text="@string/already_have_an_account_sign_in"
+        android:background="@color/overColor"
+        android:fontFamily="@font/antic"
+        android:textColor="@color/colorBlack"/>
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

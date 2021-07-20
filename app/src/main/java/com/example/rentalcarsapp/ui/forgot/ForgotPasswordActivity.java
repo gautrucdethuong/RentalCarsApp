@@ -27,12 +27,16 @@ import com.google.firebase.auth.FirebaseAuth;
  * Company: FPT大学.
  */
 public class ForgotPasswordActivity extends AppCompatActivity {
-    ImageView imgBack,imgLock;
-    TextInputLayout mEmail;
-    TextView txtLogo,txtSlogan;
-    Button btnForgot;
-    ProgressBar progressBar;
-    FirebaseAuth fAuth;
+    ImageView imgBack,imgLock;//declare variable imgBack and imgLock
+    TextInputLayout mEmail;//declare variable mEmail
+    TextView txtLogo,txtSlogan;//declare variable txtLogo and txtSlogan
+    Button btnForgot;//declare variable btnForgot
+    ProgressBar progressBar;//declare variable progressBar
+    FirebaseAuth fAuth;//declare variable fAuth
+    /**
+     * Method to interface initialization
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +52,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ValidateEmail()){
+                if(!ValidateEmail()){//call function to check condition of email
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
@@ -81,6 +85,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Function to validate email
+     * @return true if no error, false if there's an error
+     */
     private boolean ValidateEmail(){
         String email = String.valueOf(mEmail.getEditText().getText());
         if(email.isEmpty()){
