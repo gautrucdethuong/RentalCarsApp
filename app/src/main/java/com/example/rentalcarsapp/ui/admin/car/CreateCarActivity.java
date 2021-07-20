@@ -7,8 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,15 +37,20 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CreateCarActivity extends AppCompatActivity {
+public class CreateCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final int PICK_IMAGE_REQUEST = 1;
     private Button btnCreate;
-    private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription, txtCarLicensePlates, txtCarBrand;
+    private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription, txtCarLicensePlates;
+    private TextView txtCarBrand;
     private ImageView imgCar;
     private Uri imgUri;
     FirebaseFirestore fStore;
     CarDAO carDAO;
     private StorageReference mStorageRef;
+    ArrayAdapter<String> adapter;
+    String[] brand = {"Choose brand", "Audi", "Toyota", "Ford", "Honda", "Hyundai", "BMW","Vinfast"};
+    Spinner spinner;
+    String carBrand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +60,17 @@ public class CreateCarActivity extends AppCompatActivity {
         txtCarName = findViewById(R.id.txtCarname);
         txtCarPrice = findViewById(R.id.txtCarprice);
         txtCarBrand = findViewById(R.id.txtCarBrand);
-
+        spinner = findViewById(R.id.spinnerBrand);
         txtColor = findViewById(R.id.txtCarColor);
         txtSeat = findViewById(R.id.txtCarSeat);
         txtDescription = findViewById(R.id.txtCarDescription);
         txtCarLicensePlates = findViewById(R.id.txtLicensePlates);
         carDAO = new CarDAO();
         imgCar = findViewById(R.id.imgCar);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, brand);
+        spinner.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setOnItemSelectedListener(this);
         imgCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +107,7 @@ public class CreateCarActivity extends AppCompatActivity {
                                             String carSet = String.valueOf(txtSeat.getEditText().getText());
                                             String carDescription = String.valueOf(txtDescription.getEditText().getText());
                                             String carLicensePlates = String.valueOf(txtCarLicensePlates.getEditText().getText());
-                                            String carBrand = String.valueOf(txtCarBrand.getEditText().getText());
+                                            String carBrand = String.valueOf(txtCarBrand.getText());
 
                                             newCar.setCarName(carName);
                                             newCar.setCarPrice(carPrice);
@@ -175,8 +188,8 @@ public class CreateCarActivity extends AppCompatActivity {
             txtColor.setError("Please enter car color.");
             return false;
         }
-        if (car.getCarBrand().isEmpty()) {
-            txtCarBrand.setError("Please enter car brand.");
+        if (car.getCarBrand().isEmpty() || car.getCarBrand().equalsIgnoreCase(brand[0])) {
+//            txtCarBrand.setError("Please enter car brand.");
             return false;
         }
         if (car.getCarImage().isEmpty()) {
@@ -199,4 +212,15 @@ public class CreateCarActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        carBrand = spinner.getSelectedItem().toString();
+        Log.e("herree",carBrand);
+        txtCarBrand.setText(carBrand);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

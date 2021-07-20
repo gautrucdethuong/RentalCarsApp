@@ -50,7 +50,6 @@ public class ListCarActivity extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     private FirebaseFirestore fireStore;
     private FloatingActionButton fb;
-    MenuBuilder menuBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,67 +101,16 @@ public class ListCarActivity extends AppCompatActivity {
         // Query
         // below line is use to get data from Firebase
         // firestore using collection in android.
-        menuBuilder = new MenuBuilder(this);
-        MenuInflater inflater = new MenuInflater(this);
-        inflater.inflate(R.menu.poupup_menu, menuBuilder);
+//        Query query = fireStore.collection("cars").limit(7).orderBy("carName").startAt(text.toUpperCase()).endAt(text+"\uf8ff");
+//        options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
+//        adapter = new CarListAminAdapter(options);
+
+
+
 
         Query query = fireStore.collection("cars").orderBy("carName").startAt(searchName).endAt(searchName+"\uf8ff");
-
         options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
-        adapter = new FirestoreRecyclerAdapter<Car, CarListAminAdapter>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull CarListAminAdapter holder, int position, @NonNull Car model) {
-                holder.textViewNameCar.setText(model.getCarName());
-                holder.textViewPrice.setText("$ "+model.getCarPrice() +" / Daily");
-                holder.ratingBar.setRating(model.getCarRating());
-                // load image from URL in our Image VIew.
-                Picasso.get().load(model.getCarImage())
-                        .error(R.drawable.user)
-                        .into(holder.imageView);
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        MenuPopupHelper optionMenu = new MenuPopupHelper(ListCarActivity.this, menuBuilder, v);
-
-                        menuBuilder.setCallback(new MenuBuilder.Callback() {
-                            @Override
-                            public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.one:
-                                        Intent intent = new Intent(ListCarActivity.this, CarDetailsActivity.class);
-                                        DocumentSnapshot snapshot = getSnapshots().getSnapshot(position);
-
-                                        intent.putExtra("carObject", model);
-                                        startActivity(intent);
-                                        break;
-                                    case R.id.three:
-
-                                        break;
-                                    default:
-                                        return false;
-                                }
-                                return false;
-                            }
-
-                            @Override
-                            public void onMenuModeChange(@NonNull MenuBuilder menu) {
-
-                            }
-                        });
-                        optionMenu.show();
-
-                    }
-                });
-            }
-
-            @NonNull
-            @Override
-            public CarListAminAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_item_car,parent,false);
-                return new CarListAminAdapter(view);
-            }
-        };
+        adapter = new CarListAminAdapter(options,ListCarActivity.this);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }

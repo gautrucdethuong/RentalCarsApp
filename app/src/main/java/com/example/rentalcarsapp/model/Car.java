@@ -20,7 +20,14 @@ public class Car implements Serializable {
     private String carImage;
     private float carRating;
     private String carBrand;
+    private int carStatus;
+    public int getCarStatus() {
+        return carStatus;
+    }
 
+    public void setCarStatus(int carStatus) {
+        this.carStatus = carStatus;
+    }
     public String getCarBrand() {
         return carBrand;
     }
@@ -45,7 +52,7 @@ public class Car implements Serializable {
 
     }
 
-    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating, String carBrand) {
+    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating, String carBrand, int carStatus) {
         this.carId = carId;
         this.carName = carName;
         this.carPrice = carPrice;
@@ -58,6 +65,7 @@ public class Car implements Serializable {
         this.carDeletedDate = carDeletedDate;
         this.carRating = carRating;
         this.carBrand = carBrand;
+        this.carStatus = carStatus;
     }
 
     public int getCarId() {

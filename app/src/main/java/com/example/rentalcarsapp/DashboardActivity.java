@@ -67,20 +67,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         fStore = FirebaseFirestore.getInstance();
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
-        navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
-        header = navigationView.getHeaderView(0);
-        textViewName = header.findViewById(R.id.textViewName);
-        textViewEmail = header.findViewById(R.id.textViewEmail);
-
-
-
-        getInfoUserByDrawer();
+        fStore = FirebaseFirestore.getInstance();
+        toolbar = findViewById(R.id.toolbar);
 
         fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 

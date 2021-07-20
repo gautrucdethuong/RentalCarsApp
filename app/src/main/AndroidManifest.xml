@@ -102,6 +102,7 @@
         <activity android:name=".ui.admin.statistical.BarChartActivity"></activity>
         <activity android:name=".ui.admin.statistical.PieChartActivity"></activity>
         <activity android:name=".ui.admin.car.CreateCarActivity" />
+        <activity android:name=".ui.admin.car.UpdateCarActivity" />
 
 
         <meta-data
