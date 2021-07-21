@@ -51,7 +51,7 @@ import java.util.Random;
  */
 
 public class VerifyOTPActivity extends AppCompatActivity {
-
+    // variable initializing
     private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private TextView textViewMobile;
     private ProgressBar progressBar;
@@ -63,7 +63,10 @@ public class VerifyOTPActivity extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private float totalMoneyRental = 0;
 
-
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,9 @@ public class VerifyOTPActivity extends AppCompatActivity {
         textViewMobile.setText(getIntent().getStringExtra("phoneNumber"));
     }
 
+    /**
+     * Get init
+     */
     private void init() {
         inputCode1 = findViewById(R.id.inputCode1);
         inputCode2 = findViewById(R.id.inputCode2);
@@ -189,6 +195,9 @@ public class VerifyOTPActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Verification OTP
+     */
     private void verifyOTP() {
         buttonVerify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,11 +215,9 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         + inputCode4.getText().toString() + inputCode5.getText().toString() + inputCode6.getText().toString();
 
                 String otp = getIntent().getStringExtra("OTP");
-                System.out.println("code" + code);
-                System.out.println("otp" + otp);
 
-                if (Integer.valueOf(code) == Integer.valueOf(otp)) {
-                    //createBooking();
+                if (code.equals(otp)) {
+                    createBooking();
                     showAlertDialog(R.layout.dialog_success);
                 } else {
                     Toast.makeText(VerifyOTPActivity.this, "The verification code entered was invalid.", Toast.LENGTH_LONG).show();
@@ -243,18 +250,24 @@ public class VerifyOTPActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * create new booking
+     */
     private void createBooking() {
         if (user != null) {
 
             sharedPreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String dateFrom = getIntent().getStringExtra("dateFrom");
-            String dateTo = getIntent().getStringExtra("dateTo");
+            String dateFrom = "25/07/2021";
+            String dateTo = "30/07/2021";
             String car_id = sharedPreferences.getString("CAR_ID", "2zBqr13LeVO4tnLAtrMn");
             totalMoneyRental = getIntent().getFloatExtra("TotalMoney", -1);
-
             String userUid = user.getUid();
+            Log.e("Total price", String.valueOf(totalMoneyRental));
+            Log.e("userUid", userUid);
+            Log.e("ID car", car_id);
+
+
 
             Booking booking = null;
             try {
@@ -283,6 +296,9 @@ public class VerifyOTPActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Send message information pay success
+     */
     private void sendSMS() {
         String massage = "Bạn đã thanh toán thành công. Thời gian giữ đặt xe < 2h. LƯU Ý: Mang theo CMND để xác nhận khi đến lấy xe. RTC xin CẢM ƠN!" +
                 "Mã TT: 8648BHJH73728";

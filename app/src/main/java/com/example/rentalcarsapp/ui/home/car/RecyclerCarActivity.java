@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.admin.CarListAdapter;
 import com.example.rentalcarsapp.model.Car;
+import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
+import com.example.rentalcarsapp.ui.home.booking.ListBookingUserActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 
@@ -150,7 +152,7 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
      * @param text
      */
     private void loadListViewCar(String text){
-        Query query = fireStore.collection("cars").limitToLast(7).orderBy("carName").startAt(text.toUpperCase()).endAt(text+"\uf8ff");
+        Query query = fireStore.collection("cars").limit(8).orderBy("carName").startAt(text.toUpperCase()).endAt(text+"\uf8ff");
         options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
         adapter = new CarListAdapter(options);
         adapter.startListening();
@@ -198,9 +200,9 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
             case R.id.nav_history_rental_car:
-/*                Intent intentHistory = new Intent(getApplicationContext(), RevenueBrandActivity.class);
+                Intent intentHistory = new Intent(getApplicationContext(), ListBookingUserActivity.class);
                 startActivity(intentHistory);
-                finish();*/
+                finish();
                 break;
 
             case R.id.nav_logout:

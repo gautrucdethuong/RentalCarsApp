@@ -62,6 +62,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     /**
      * oncreate when click on it will active it
+     *
      * @param savedInstanceState
      */
     @Override
@@ -116,8 +117,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
-
-
         // [END get_document_options]
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -193,7 +192,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // Back login
+        //Back page
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,13 +200,42 @@ public class EditProfileActivity extends AppCompatActivity {
                 pairs[0] = new Pair<View, String>(imgBack, "logo_image");
                 pairs[1] = new Pair<View, String>(mStep, "txt_transaction");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(EditProfileActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class), options.toBundle());
+                DocumentReference docRef = fStore.collection("users").document(userId);
+                Source source = Source.SERVER;
+                docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Document found in the offline cache
+                            DocumentSnapshot document = task.getResult();
+
+                            Map<String, Object> user = document.getData();
+                            String role = String.valueOf(user.get("roleName"));
+                            Log.e("roleName", role);
+                            switch (role) {
+                                case "Admin":
+                                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class), options.toBundle());
+                                    finish();
+                                    break;
+                                case "Customer":
+                                    startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class), options.toBundle());
+                                    finish();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
+                            Log.d("TAG", "Cached get failed: ", task.getException());
+                        }
+                    }
+                });
             }
         });
     }
 
     /**
      * Maybe this code to check image to upload firebase (not use)
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -229,6 +257,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     /**
      * uploadImageToFirebase
+     *
      * @param imageUri
      */
     private void uploadImageToFirebase(Uri imageUri) {
@@ -252,8 +281,8 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
     }
+
     /**
-     *
      * @return true, false for validatefullname
      */
     private boolean ValidateFullName() {
@@ -272,8 +301,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
     }
+
     /**
-     *
      * @return true, false for validatephonenumber
      */
     private boolean ValidatePhoneNumber() {
@@ -291,8 +320,8 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
     }
+
     /**
-     *
      * @return true, false for ValidateEmail
      */
     private boolean ValidateEmail() {
