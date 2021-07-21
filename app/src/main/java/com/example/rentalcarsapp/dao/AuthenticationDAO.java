@@ -65,7 +65,8 @@ public class AuthenticationDAO {
 
                                 String role = String.valueOf(user.get("roleName"));
                                 Log.e("fStoreID", role);
-                                if (!statusUser) {
+                                Log.e("statusUser", String.valueOf(statusUser));
+                                if (statusUser) {
                                     role = "deactive";
                                 }
                                 callback.isLogin(role);
