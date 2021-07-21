@@ -2,9 +2,13 @@ package com.example.rentalcarsapp.dao;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,8 +46,8 @@ public class AuthenticationDAO {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 // Get the document, forcing the SDK to use the offline cache
-                if(task.isSuccessful()){
-                    String userId= fAuth.getCurrentUser().getUid();
+                if (task.isSuccessful()) {
+                    String userId = fAuth.getCurrentUser().getUid();
                     DocumentReference docRef = fStore.collection("users").document(userId);
 
                     // Source can be CACHE, SERVER, or DEFAULT.
@@ -57,8 +61,13 @@ public class AuthenticationDAO {
 
                                 Log.d("TAG", "Cached document data: " + document.getData());
                                 Map<String, Object> user = document.getData();
-                                String role=String.valueOf(user.get("roleName"));
-                                Log.e("fStoreID",role);
+                                boolean statusUser = Boolean.parseBoolean(String.valueOf(user.get("userStatus")));
+
+                                String role = String.valueOf(user.get("roleName"));
+                                Log.e("fStoreID", role);
+                                if (!statusUser) {
+                                    role = "deactive";
+                                }
                                 callback.isLogin(role);
 
                             } else {
@@ -67,7 +76,7 @@ public class AuthenticationDAO {
                         }
                     });
 
-                }else{
+                } else {
                     callback.isLogin("");
                 }
             }
