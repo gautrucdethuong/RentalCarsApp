@@ -26,8 +26,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.apdapter.CarListAdapter;
 import com.example.rentalcarsapp.apdapter.CarListAminAdapter;
 import com.example.rentalcarsapp.model.Car;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
@@ -152,7 +152,6 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
     /**
      * Called when an item in the navigation menu is selected.
      *
-     * @param item The selected item
      * @return true to display the item as the selected item
      */
     @Override

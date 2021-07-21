@@ -16,7 +16,6 @@
     <string name="nav_header_title">HUYNH NHAT MINH</string>
     <string name="nav_header_subtitle">minhhn@gmail.com</string>
     <string name="update_car_information">Update car information</string>
-    <string name="car_name">Car Name</string>
     <string name="brand">Brand</string>
     <string name="_0">0</string>
     <string name="color">Color</string>
@@ -37,13 +36,8 @@
     <string name="payment">Payment</string>
     <string name="call">Call</string>
 
-    <string name="confirm_password">Confirm Password</string>
-    <string name="password">Password</string>
 
     <string name="_1_2">1/2</string>
-    <string name="full_name">Full Name</string>
-    <string name="email">Email</string>
-    <string name="phone_no">Phone No</string>
     <string name="next">Next</string>
     <string name="update_to_start_an_old_journey">Update to start an old Journey</string>
     <string name="_2_2">2/2</string>
