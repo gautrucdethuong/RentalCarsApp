@@ -1,5 +1,6 @@
 package com.example.rentalcarsapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * Company: FPT大学.
  */
 
-public class Car {
+public class Car implements Serializable {
     private int carId;
     private String carName;
     private float carPrice;
@@ -19,7 +20,14 @@ public class Car {
     private String carImage;
     private float carRating;
     private String carBrand;
+    private int carStatus;
+    public int getCarStatus() {
+        return carStatus;
+    }
 
+    public void setCarStatus(int carStatus) {
+        this.carStatus = carStatus;
+    }
     public String getCarBrand() {
         return carBrand;
     }
@@ -44,7 +52,7 @@ public class Car {
 
     }
 
-    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating, String carBrand) {
+    public Car(int carId, String carName, float carPrice, String carColor, String carLicensePlates, String carSeat, String carImage, String carDescription, Date carCreatedDate, Date carDeletedDate, float carRating, String carBrand, int carStatus) {
         this.carId = carId;
         this.carName = carName;
         this.carPrice = carPrice;
@@ -57,6 +65,7 @@ public class Car {
         this.carDeletedDate = carDeletedDate;
         this.carRating = carRating;
         this.carBrand = carBrand;
+        this.carStatus = carStatus;
     }
 
     public int getCarId() {

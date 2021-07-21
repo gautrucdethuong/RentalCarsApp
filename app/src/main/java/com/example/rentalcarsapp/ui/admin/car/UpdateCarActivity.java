@@ -20,11 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rentalcarsapp.R;
-import com.example.rentalcarsapp.dao.CallbackValidation;
 import com.example.rentalcarsapp.dao.CarDAO;
-import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.Car;
-import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,25 +34,29 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CreateCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class UpdateCarActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final int PICK_IMAGE_REQUEST = 1;
     private Button btnCreate;
     private TextInputLayout txtCarName, txtCarPrice, txtColor, txtSeat, txtDescription, txtCarLicensePlates;
-    private TextView txtCarBrand;
     private ImageView imgCar;
     private Uri imgUri;
     FirebaseFirestore fStore;
     CarDAO carDAO;
     private StorageReference mStorageRef;
-    ArrayAdapter<String> adapter;
+    String carId;
     String[] brand = {"Choose brand", "Audi", "Toyota", "Ford", "Honda", "Hyundai", "BMW","Vinfast"};
     Spinner spinner;
     String carBrand;
+    private TextView txtCarBrand;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.carmanagement_create);
+        setContentView(R.layout.activity_update_car);
         btnCreate = findViewById(R.id.btnCreateCar);
         txtCarName = findViewById(R.id.txtCarname);
         txtCarPrice = findViewById(R.id.txtCarprice);
@@ -79,6 +80,20 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
             }
         });
         fStore = FirebaseFirestore.getInstance();
+        Car car = (Car) getIntent().getSerializableExtra("carObject");
+        carId = (String) getIntent().getSerializableExtra("carId");
+
+        txtCarName.getEditText().setText(car.getCarName());
+        txtCarBrand.setText(car.getCarBrand());
+        txtCarLicensePlates.getEditText().setText(car.getCarLicensePlates());
+        txtColor.getEditText().setText(car.getCarColor());
+        txtSeat.getEditText().setText(car.getCarSeat());
+        txtDescription.getEditText().setText(car.getCarDescription());
+        txtCarPrice.getEditText().setText(String.valueOf(car.getCarPrice()));
+        imgCar.setBackground(null);
+        Picasso.get().load(car.getCarImage())
+                .error(R.drawable.user)
+                .into(imgCar);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,8 +114,6 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
                                         @Override
                                         public void onSuccess(Uri downloadUrl) {
                                             Car newCar = new Car();
-
-                                            Log.e("ERR", downloadUrl.toString());
                                             String carName = String.valueOf(txtCarName.getEditText().getText());
                                             float carPrice = Float.parseFloat(String.valueOf(txtCarPrice.getEditText().getText()));
                                             String carColor = String.valueOf(txtColor.getEditText().getText());
@@ -108,7 +121,6 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
                                             String carDescription = String.valueOf(txtDescription.getEditText().getText());
                                             String carLicensePlates = String.valueOf(txtCarLicensePlates.getEditText().getText());
                                             String carBrand = String.valueOf(txtCarBrand.getText());
-
                                             newCar.setCarName(carName);
                                             newCar.setCarPrice(carPrice);
                                             newCar.setCarColor(carColor);
@@ -118,12 +130,15 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
                                             newCar.setCarLicensePlates(carLicensePlates);
                                             newCar.setCarBrand(carBrand);
                                             newCar.setCarRating(5);
+                                            newCar.setCarStatus(car.getCarStatus());
+                                            Log.e("carBrand", carBrand);
+                                            Map<String, Object> updateCar = new HashMap<>();
                                             if (validateCar(newCar)) {
-                                                DocumentReference documentReference = fStore.collection("cars").document();
+                                                DocumentReference documentReference = fStore.collection("cars").document(carId);
                                                 documentReference.set(newCar).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        Toast.makeText(CreateCarActivity.this, "Create Car Successful", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(UpdateCarActivity.this, "Update Car Successful", Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(getApplicationContext(), ListCarActivity.class));
                                                         finish();
                                                     }
@@ -141,11 +156,49 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
-                                    Toast.makeText(CreateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UpdateCarActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
+                } else if (!car.getCarImage().isEmpty()) {
+                    Car newCar = new Car();
+                    String carName = String.valueOf(txtCarName.getEditText().getText());
+                    float carPrice = Float.parseFloat(String.valueOf(txtCarPrice.getEditText().getText()));
+                    String carColor = String.valueOf(txtColor.getEditText().getText());
+                    String carSet = String.valueOf(txtSeat.getEditText().getText());
+                    String carDescription = String.valueOf(txtDescription.getEditText().getText());
+                    String carLicensePlates = String.valueOf(txtCarLicensePlates.getEditText().getText());
+                    String carBrand = String.valueOf(txtCarBrand.getText());
+
+                    newCar.setCarName(carName);
+                    newCar.setCarPrice(carPrice);
+                    newCar.setCarColor(carColor);
+                    newCar.setCarImage(car.getCarImage());
+                    newCar.setCarSeat(carSet);
+                    newCar.setCarDescription(carDescription);
+                    newCar.setCarLicensePlates(carLicensePlates);
+                    newCar.setCarBrand(carBrand);
+                    newCar.setCarRating(5);
+                    newCar.setCarStatus(car.getCarStatus());
+                    Log.e("carBrand", carBrand);
+                    Map<String, Object> updateCar = new HashMap<>();
+                    if (validateCar(newCar)) {
+                        DocumentReference documentReference = fStore.collection("cars").document(carId);
+                        documentReference.set(newCar).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(UpdateCarActivity.this, "Update Car Successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), ListCarActivity.class));
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+                    }
+                    //do something with downloadurl
                 } else {
-                    Toast.makeText(CreateCarActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateCarActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -214,9 +267,11 @@ public class CreateCarActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        carBrand = spinner.getSelectedItem().toString();
-        Log.e("herree",carBrand);
-        txtCarBrand.setText(carBrand);
+        if (i != 0) {
+            carBrand = spinner.getSelectedItem().toString();
+            txtCarBrand.setText(carBrand);
+        }
+
     }
 
     @Override

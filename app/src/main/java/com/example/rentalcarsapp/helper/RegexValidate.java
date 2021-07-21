@@ -53,4 +53,9 @@ public class RegexValidate{
             validation.response(false);
         }
     }
+    public static void  checkEmpty(String value,CallbackValidation validation){
+        if(!value.isEmpty()){
+            validation.response(false);
+        }
+    }
 }
