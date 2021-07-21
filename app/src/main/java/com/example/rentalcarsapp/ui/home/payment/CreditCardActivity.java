@@ -10,6 +10,7 @@ import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.braintreepayments.cardform.view.CardForm;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
+import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -49,8 +51,7 @@ import java.util.concurrent.TimeUnit;
  * Company: FPT大学.
  */
 
-public class CreditCardActivity extends AppCompatActivity implements OnCardFormSubmitListener,
-        CardEditText.OnCardTypeChangedListener{
+public class CreditCardActivity extends AppCompatActivity implements OnCardFormSubmitListener, CardEditText.OnCardTypeChangedListener{
     // variable initializing
     private CardForm cardForm;
     private Button buttonPayment;
@@ -89,6 +90,7 @@ public class CreditCardActivity extends AppCompatActivity implements OnCardFormS
      *  of our FirebaseAuth.
      */
     private void init(){
+        mSupportedCardTypesView = findViewById(R.id.supported_card_types);
         mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
         cardForm = findViewById(R.id.card_form);
 
@@ -106,16 +108,24 @@ public class CreditCardActivity extends AppCompatActivity implements OnCardFormS
      */
     private void validateCardForm(){
         cardForm.cardRequired(true)
+                .maskCardNumber(true)
+                .maskCvv(true)
                 .expirationRequired(true)
                 .cvvRequired(true)
                 .postalCodeRequired(true)
-                .actionLabel("Purchase")
-                .cardholderName(CardForm.FIELD_REQUIRED)
                 .mobileNumberRequired(true)
+                .cardholderName(CardForm.FIELD_REQUIRED)
                 .mobileNumberExplanation("Make sure SMS is supported.")
-                .setup(CreditCardActivity.this);
+                .actionLabel("Purchase")
+                .setup(this);
+
+        cardForm.setOnCardFormSubmitListener(this);
+        cardForm.setOnCardTypeChangedListener(this);
+
         cardForm.getCvvEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         cardForm.getPostalCodeEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     /**
@@ -231,7 +241,7 @@ public class CreditCardActivity extends AppCompatActivity implements OnCardFormS
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ChooseTimeActivity.class));
+                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
                 finish();
             }
         });
@@ -264,11 +274,15 @@ public class CreditCardActivity extends AppCompatActivity implements OnCardFormS
 
     @Override
     public void onCardFormSubmit() {
-
+            //payment();
     }
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-
+        if (cardType == CardType.EMPTY) {
+            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+        } else {
+            mSupportedCardTypesView.setSelected(cardType);
+        }
     }
 }

@@ -102,8 +102,6 @@ public class CarDetailsActivity extends AppCompatActivity {
         });
     }
 
-
-
     /**
      * Back to RecyclerCarActivity
      */

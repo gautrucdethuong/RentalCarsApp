@@ -218,7 +218,6 @@ public class VerifyOTPActivity extends AppCompatActivity {
 
                 if (code.equals(otp)) {
                     createBooking();
-                    showAlertDialog(R.layout.dialog_success);
                 } else {
                     Toast.makeText(VerifyOTPActivity.this, "The verification code entered was invalid.", Toast.LENGTH_LONG).show();
                 }
@@ -300,8 +299,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
      * Send message information pay success
      */
     private void sendSMS() {
-        String massage = "Bạn đã thanh toán thành công. Thời gian giữ đặt xe < 2h. LƯU Ý: Mang theo CMND để xác nhận khi đến lấy xe. RTC xin CẢM ƠN!" +
-                "Mã TT: 8648BHJH73728";
+        String massage = "You have successfully paid. Booking time < 2 hours. NOTE: Bring ID to confirm when picking up the car. RTC THANK YOU! ID code: 8648BHJH73728";
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage("0832511369", null, massage, null, null);
     }

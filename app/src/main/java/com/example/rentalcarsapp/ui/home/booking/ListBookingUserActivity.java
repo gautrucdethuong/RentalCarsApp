@@ -1,9 +1,12 @@
 package com.example.rentalcarsapp.ui.home.booking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +16,7 @@ import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.admin.BookingListAdapter;
 import com.example.rentalcarsapp.apdapter.user.BookingListUserAdapter;
 import com.example.rentalcarsapp.model.Booking;
+import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +35,7 @@ public class ListBookingUserActivity extends AppCompatActivity {
     private FirebaseFirestore fireStore;//declare variable fireStore
     private BookingListUserAdapter adapter;//declare variable adapter
     private FirebaseUser user;//declare variable user
+    private ImageView imgBack;
     /**
      * Method to interface initialization
      * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle)
@@ -41,6 +46,7 @@ public class ListBookingUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listview_booking);
         // get authentication in firebase
         user = FirebaseAuth.getInstance().getCurrentUser();
+        imgBack = findViewById(R.id.ImageBtnBack);
         fireStore = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.recyclerView_booking);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -50,6 +56,7 @@ public class ListBookingUserActivity extends AppCompatActivity {
         adapter=new BookingListUserAdapter(options);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        backToList();
     }
     /**
      * Method to star to connect adapter
@@ -66,5 +73,18 @@ public class ListBookingUserActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    /**
+     * Back to RecyclerCarActivity
+     */
+    private void backToList() {
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                finish();
+            }
+        });
     }
 }
