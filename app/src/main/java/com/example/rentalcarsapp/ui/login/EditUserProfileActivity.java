@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserInfoActivity;
@@ -153,9 +154,39 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(EditUserProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
-                        finish();
+                        DocumentReference docRef = fStore.collection("users").document(userId);
+                        Source source = Source.SERVER;
+                        docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    // Document found in the offline cache
+                                    DocumentSnapshot document = task.getResult();
+
+                                    Map<String, Object> user = document.getData();
+                                    String role = String.valueOf(user.get("roleName"));
+                                    Log.e("roleNameUpdate", role);
+                                    switch (role) {
+                                        case "Admin":
+                                            Toast.makeText(EditUserProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                                            finish();
+                                            break;
+                                        case "Customer":
+                                            Toast.makeText(EditUserProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                                            finish();
+                                            break;
+
+                                        default:
+                                            break;
+                                    }
+                                } else {
+                                    Log.d("TAG", "Cached get failed: ", task.getException());
+                                }
+                            }
+                        });
+
                     }
                 });
                 Log.d(TAG, "onCreate: " + fullName + " " + emailAddress + " " + phoneNumber + " " + gender);

@@ -81,6 +81,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         Map<String, Object> user = document.getData();
                         String role = String.valueOf(user.get("roleName"));
+                        boolean statusUser = Boolean.parseBoolean(String.valueOf(user.get("userStatus")));
+                        if (!statusUser) {
+                            Toast.makeText(LoginActivity.this, "Your account is deactive now !", Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().signOut();//logout
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                        }
                         Log.e("roleName", role);
                         switch (role) {
                             case "Admin":
@@ -163,6 +170,12 @@ public class LoginActivity extends AppCompatActivity {
                                 case "Customer":
                                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
+                                    finish();
+                                    break;
+                                case "deactive":
+                                    Toast.makeText(LoginActivity.this, "Your account is deactive now !", Toast.LENGTH_SHORT).show();
+                                    FirebaseAuth.getInstance().signOut();//logout
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     finish();
                                     break;
                                 default:

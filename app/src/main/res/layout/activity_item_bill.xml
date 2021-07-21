@@ -8,13 +8,6 @@
     android:elevation="5dp"
     app:cardUseCompatPadding="true">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view_admin"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/activity_drawer_admin" />
 
     <LinearLayout
         android:id="@+id/layout_bill"
@@ -51,14 +44,6 @@
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#00008577"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:navigationIcon="@drawable/ic_baseline_menu_24"
-        tools:ignore="MissingConstraints" />
+
 
 </androidx.cardview.widget.CardView>
