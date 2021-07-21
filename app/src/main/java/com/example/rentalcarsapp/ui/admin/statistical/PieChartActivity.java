@@ -6,19 +6,30 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.MainActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.model.Car;
+import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
+import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
+import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
 import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.example.rentalcarsapp.ui.home.payment.ChooseTimeActivity;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
+import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -34,7 +45,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +59,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 /**
@@ -55,7 +70,7 @@ import java.util.ArrayList;
  * Company: FPT大学.
  */
 
-public class PieChartActivity extends AppCompatActivity {
+public class PieChartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private PieChart pieChart;
     private ImageView imgBack;
@@ -66,11 +81,31 @@ public class PieChartActivity extends AppCompatActivity {
     private static final String SHARED_PREFERENCE_PIE_CHART= "myPrefsPieChart";
     private SharedPreferences.Editor editor;
     private TextView textViewTitle;
-
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+    private View header;
+    private TextView textViewName, textViewEmail;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_piechart);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        header = navigationView.getHeaderView(0);
+        textViewName = header.findViewById(R.id.textViewName);
+        textViewEmail = header.findViewById(R.id.textViewEmail);
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
+        getInfoUserByDrawer();
         init();
         backToList();
         loadPieChartData();
@@ -224,12 +259,86 @@ public class PieChartActivity extends AppCompatActivity {
     }
 
     private void backToList(){
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-                finish();
-            }
-        });
+//        imgBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+//                finish();
+//            }
+//        });
     }
+
+    /**
+     * Called when an item in the navigation menu is selected.
+     *
+     * @param item The selected item
+     * @return true to display the item as the selected item
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home:
+                Intent intentDashboard = new Intent(getApplicationContext(), DashboardActivity.class);
+                Log.e("HEHE", "herreeeee");
+                startActivity(intentDashboard);
+                finish();
+                break;
+            case R.id.nav_home_month:
+                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
+                startActivity(intentHome);
+                finish();
+
+                break;
+            case R.id.nav_home_brand:
+                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
+                startActivity(intentProfile);
+                finish();
+
+                break;
+            case R.id.nav_users_management:
+                Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
+                startActivity(intentUsersManagement);
+                finish();
+                break;
+            case R.id.nav_profile:
+                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(profile);
+                finish();
+                break;
+
+            case R.id.nav_booking_management:
+                Intent booking = new Intent(getApplicationContext(), ListBookingActivity.class);
+                startActivity(booking);
+                finish();
+                break;
+            case R.id.nav_car_management:
+                Intent car = new Intent(getApplicationContext(), ListCarActivity.class);
+                startActivity(car);
+                finish();
+                break;
+            case R.id.nav_bill_management:
+                Intent bill = new Intent(getApplicationContext(), ListBillActivity.class);
+                startActivity(bill);
+                finish();
+                break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();//logout
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    private void getInfoUserByDrawer() {
+        if (user != null) {
+            String email = user.getEmail();
+            String name = user.getDisplayName();
+
+            textViewName.setText(name);
+            textViewEmail.setText(email);
+
+        }
+    }
+
 }

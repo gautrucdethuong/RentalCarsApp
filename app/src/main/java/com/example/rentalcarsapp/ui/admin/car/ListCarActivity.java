@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,7 +69,10 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    private View header;
+    private TextView textViewName, textViewEmail;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +92,12 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        header = navigationView.getHeaderView(0);
+        textViewName = header.findViewById(R.id.textViewName);
+        textViewEmail = header.findViewById(R.id.textViewEmail);
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
+        getInfoUserByDrawer();
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +158,7 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
+
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 Intent intentDashboard = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -200,5 +212,15 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+    // get information user login
+    private void getInfoUserByDrawer() {
+        if (user != null) {
+            String email = user.getEmail();
+            String name = user.getDisplayName();
 
+            textViewName.setText(name);
+            textViewEmail.setText(email);
+
+        }
+    }
 }

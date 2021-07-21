@@ -44,7 +44,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     Toolbar toolbar;
     private View header;
     private TextView textViewName, textViewEmail;
-
     private TextView personCount, adminCount, saleStaffCount, carCount;
     FirebaseAuth fAuth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -74,6 +73,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        header = navigationView.getHeaderView(0);
+        textViewName = header.findViewById(R.id.textViewName);
+        textViewEmail = header.findViewById(R.id.textViewEmail);
+        getInfoUserByDrawer();
         fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
             @Override
@@ -129,7 +132,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 Intent intentDashboard = new Intent(getApplicationContext(), DashboardActivity.class);
-                Log.e("HEHE", "herreeeee");
                 startActivity(intentDashboard);
                 finish();
                 break;
@@ -179,5 +181,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+    // get information user login
+    private void getInfoUserByDrawer() {
+        if (user != null) {
+            String email = user.getEmail();
+            String name = user.getDisplayName();
+
+            textViewName.setText(name);
+            textViewEmail.setText(email);
+
+        }
     }
 }
