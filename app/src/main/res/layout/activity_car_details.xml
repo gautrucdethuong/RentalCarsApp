@@ -28,7 +28,7 @@
         android:layout_height="41dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
-        android:text="Car Name"
+        android:text="@string/car_name"
         android:textColor="#FF9E80"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -52,7 +52,7 @@
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Price"
+        android:text="@string/price"
         android:textColor="#FF8A80"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,18 +90,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingBtn_Booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:backgroundTint="#F4FF81"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_local_phone_black_24dp" />
 
     <ImageView
         android:id="@+id/ImageBtnBack"

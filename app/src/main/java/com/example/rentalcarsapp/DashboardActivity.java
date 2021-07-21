@@ -18,18 +18,15 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
 import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
 import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
-import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueYearActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueBrandActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
-import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -39,17 +36,18 @@ import com.google.firebase.storage.StorageReference;
 import org.jetbrains.annotations.NotNull;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-    Toolbar toolbar;
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
     private View header;
     private TextView textViewName, textViewEmail;
     private TextView personCount, adminCount, saleStaffCount, carCount;
-    FirebaseAuth fAuth;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    FirebaseFirestore fStore;
-    FirebaseUser user;
-    StorageReference storageReference;
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseFirestore fStore;
+
+    private StorageReference storageReference;
 
     /**
      * oncreate when click on it will active it
@@ -60,7 +58,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         fAuth = FirebaseAuth.getInstance();
-        user = fAuth.getCurrentUser();
+
 
         storageReference = storage.getReference();
         personCount = findViewById(R.id.textView3);
@@ -146,13 +144,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 finish();
                 break;
             case R.id.nav_home_month:
-                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
+                Intent intentHome = new Intent(getApplicationContext(), RevenueYearActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
             case R.id.nav_home_brand:
-                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
+                Intent intentProfile = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentProfile);
                 finish();
 

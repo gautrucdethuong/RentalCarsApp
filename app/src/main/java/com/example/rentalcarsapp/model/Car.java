@@ -21,8 +21,16 @@ public class Car implements Serializable {
     private float carRating;
     private String carBrand;
     private int carStatus;
+    private String carDescription;
+    private Date carCreatedDate;
+    private Date carDeletedDate;
+
     public int getCarStatus() {
         return carStatus;
+    }
+
+    public void setCarStatus(int carStatus) {
+        this.carStatus = carStatus;
     }
 
     public void setCarStatus(int carStatus) {
@@ -44,9 +52,7 @@ public class Car implements Serializable {
         this.carRating = carRating;
     }
 
-    private String carDescription;
-    private Date carCreatedDate;
-    private Date carDeletedDate;
+
 
     public Car(){
 
