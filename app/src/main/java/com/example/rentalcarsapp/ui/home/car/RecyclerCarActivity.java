@@ -198,7 +198,7 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
             case R.id.nav_history_rental_car:
-/*                Intent intentHistory = new Intent(getApplicationContext(), PieChartActivity.class);
+/*                Intent intentHistory = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentHistory);
                 finish();*/
                 break;

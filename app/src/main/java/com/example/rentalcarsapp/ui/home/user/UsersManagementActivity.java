@@ -38,8 +38,8 @@ import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
 import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
 import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueYearActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueBrandActivity;
 import com.example.rentalcarsapp.ui.admin.user.CreateUserActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
@@ -287,13 +287,13 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
                 finish();
                 break;
             case R.id.nav_home_month:
-                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
+                Intent intentHome = new Intent(getApplicationContext(), RevenueYearActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
             case R.id.nav_home_brand:
-                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
+                Intent intentProfile = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentProfile);
                 finish();
 

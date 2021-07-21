@@ -32,8 +32,9 @@ import com.example.rentalcarsapp.apdapter.CarListAminAdapter;
 import com.example.rentalcarsapp.model.Car;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
 import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
+
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueBrandActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueYearActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
 import com.example.rentalcarsapp.ui.home.car.CarDetailsActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
@@ -164,13 +165,13 @@ public class ListCarActivity extends AppCompatActivity implements NavigationView
                 finish();
                 break;
             case R.id.nav_home_month:
-                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
+                Intent intentHome = new Intent(getApplicationContext(), RevenueYearActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
             case R.id.nav_home_brand:
-                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
+                Intent intentProfile = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentProfile);
                 finish();
 

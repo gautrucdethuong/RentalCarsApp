@@ -21,6 +21,7 @@ import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
 import com.example.rentalcarsapp.ui.admin.statistical.RevenueYearActivity;
 import com.example.rentalcarsapp.ui.admin.statistical.RevenueBrandActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
+import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,9 +47,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseFirestore fStore;
-
+    private FirebaseAuth fAuth;
     private StorageReference storageReference;
-
+    private FirebaseUser user;
     /**
      * oncreate when click on it will active it
      * @param savedInstanceState
@@ -58,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         fAuth = FirebaseAuth.getInstance();
-
+        user=fAuth.getCurrentUser();
 
         storageReference = storage.getReference();
         personCount = findViewById(R.id.textView3);

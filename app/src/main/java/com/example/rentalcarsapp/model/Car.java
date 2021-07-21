@@ -33,9 +33,6 @@ public class Car implements Serializable {
         this.carStatus = carStatus;
     }
 
-    public void setCarStatus(int carStatus) {
-        this.carStatus = carStatus;
-    }
     public String getCarBrand() {
         return carBrand;
     }
