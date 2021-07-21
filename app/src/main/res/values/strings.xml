@@ -7,8 +7,6 @@
     <string name="block">Block</string>
     <string name="change_role">Change Role</string>
     <string name="staff">Staff</string>
-    <string name="admin">Admin</string>
-<!--    <string name="create">Create</string>-->
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
         weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
         FCM registration token to logcat.</string>
@@ -19,6 +17,17 @@
     <string name="nav_header_desc">Create</string>
     <string name="nav_header_title">HUYNH NHAT MINH</string>
     <string name="nav_header_subtitle">minhhn@gmail.com</string>
+    <string name="update_car_information">Update car information</string>
+    <string name="car_name">Car Name</string>
+    <string name="brand">Brand</string>
+    <string name="_0">0</string>
+    <string name="color">Color</string>
+    <string name="seat">Seat</string>
+    <string name="description">Description</string>
+    <string name="licenseplates">LicensePlates</string>
+    <string name="create">Create</string>
+    <string name="create_new_car">Create new car</string>
+    <string name="update">Update</string>
     <string name="country_name">Country Name</string>
     <string name="population">Population</string>
     <string name="traveling">Traveling</string>

@@ -131,11 +131,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         });
     }
 
-        }
-    }
 
     /**
-     * Handle navigation item click
+     * navigation (Tong or Minh Huynh)=))
      * @param menuItem
      * @return
      */
@@ -194,6 +192,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     // get information user login
     private void getInfoUserByDrawer() {
         if (user != null) {
