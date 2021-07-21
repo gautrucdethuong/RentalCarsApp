@@ -26,8 +26,8 @@ import com.example.rentalcarsapp.dao.Callback;
 import com.example.rentalcarsapp.ui.admin.bill.ListBillActivity;
 import com.example.rentalcarsapp.ui.admin.booking.ListBookingActivity;
 import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueYearActivity;
+import com.example.rentalcarsapp.ui.admin.statistical.RevenueBrandActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
@@ -216,13 +216,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_home_month:
-                Intent intentHome = new Intent(getApplicationContext(), BarChartActivity.class);
+                Intent intentHome = new Intent(getApplicationContext(), RevenueYearActivity.class);
                 startActivity(intentHome);
                 finish();
 
                 break;
             case R.id.nav_home_brand:
-                Intent intentProfile = new Intent(getApplicationContext(), PieChartActivity.class);
+                Intent intentProfile = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentProfile);
                 finish();
 

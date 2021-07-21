@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
 
     <application
 
@@ -20,6 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.home.payment.VerifyOTPActivity"></activity>
         <activity
             android:name=".ui.home.user.UsersManagementActivity"
             android:screenOrientation="portrait" />
@@ -51,10 +55,11 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".ui.admin.car.ListCarActivity"
             android:screenOrientation="portrait" >
@@ -91,22 +96,21 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.forgot.ForgotPasswordActivity" />
 
-        <activity android:name=".ui.home.payment.CreditCard"></activity>
-        <activity android:name=".ui.home.payment.ChoosePaymentActivity"></activity>
+        <activity android:name=".ui.home.payment.CreditCardActivity"></activity>
 
         <activity android:name=".ui.home.payment.ChooseTimeActivity">
 
 
         </activity>
 
-        <activity android:name=".ui.home.booking.BookingDetails">
+        <activity android:name=".ui.home.booking.BookingDetailsActivity">
 
         </activity>
 
-        <activity android:name=".ui.admin.statistical.BarChartActivity"></activity>
-        <activity android:name=".ui.admin.statistical.PieChartActivity"></activity>
         <activity android:name=".ui.admin.car.CreateCarActivity" />
         <activity android:name=".ui.admin.car.UpdateCarActivity" />
+        <activity android:name=".ui.admin.statistical.RevenueYearActivity"></activity>
+        <activity android:name=".ui.admin.statistical.RevenueBrandActivity"></activity>
 
 
         <meta-data

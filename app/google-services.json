@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "557174253692-12saro3a8ner78enmnn2o4atfqb36i88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rentalcarsapp",
+            "certificate_hash": "e047c6456b332c37b5afa171d3d449a3813388f0"
+          }
+        },
+        {
           "client_id": "557174253692-0dg3q3kqukece8c94846t1dntnkonugs.apps.googleusercontent.com",
           "client_type": 3
         }

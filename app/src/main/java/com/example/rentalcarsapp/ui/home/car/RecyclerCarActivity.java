@@ -1,15 +1,11 @@
 package com.example.rentalcarsapp.ui.home.car;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,20 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.apdapter.admin.CarListAdapter;
 import com.example.rentalcarsapp.model.Car;
-import com.example.rentalcarsapp.ui.admin.statistical.BarChartActivity;
-import com.example.rentalcarsapp.ui.admin.statistical.PieChartActivity;
 import com.example.rentalcarsapp.ui.login.EditProfileActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,8 +45,6 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
     private RecyclerView recyclerView;
     private FirestoreRecyclerOptions<Car> options;
     private FirebaseFirestore fireStore;
-    private SharedPreferences sharedpreferences;
-    private static final String SHARED_PREFERENCE_PRICE = "myPrefs";
 
     private View header;
     private Toolbar toolbar;
@@ -66,13 +55,16 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
 
     private CarListAdapter adapter;
 
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview_car);
 
         fireStore = FirebaseFirestore.getInstance();
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
@@ -83,7 +75,11 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
         searchByName();
     }
 
-    // get information user login
+
+    /**
+     * Function get information when user login
+     * Set data in UI
+     */
     private void getInfoUserByDrawer() {
         if (user != null) {
             String email = user.getEmail();
@@ -91,13 +87,15 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
 
             textViewName.setText(email);
             textViewEmail.setText(phone);
-
         }
     }
 
-    // Function initializing our UI components of list view item.
+
+    /**
+     * // Function initializing our UI components of list view item.
+     */
     private void init() {
-        sharedpreferences = getSharedPreferences(SHARED_PREFERENCE_PRICE, Context.MODE_PRIVATE);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -115,7 +113,11 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
 
     }
 
-    // Search by name
+    /**
+     * Event addTextChangedListener
+     * Function search car by name car
+     *  Search when data change
+     */
     private void searchByName() {
         EditText inputSearch = findViewById(R.id.inputSearch);
 
@@ -142,28 +144,45 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
         });
     }
 
-
+    /**
+     * Function load list car
+     * Query filter car list by condition
+     * @param text
+     */
     private void loadListViewCar(String text){
-        Query query = fireStore.collection("cars").limit(7).orderBy("carName").startAt(text.toUpperCase()).endAt(text+"\uf8ff");
+        Query query = fireStore.collection("cars").limitToLast(7).orderBy("carName").startAt(text.toUpperCase()).endAt(text+"\uf8ff");
         options = new FirestoreRecyclerOptions.Builder<Car>().setQuery(query, Car.class).build();
         adapter = new CarListAdapter(options);
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * onStart
+     */
     @Override
     protected void onStart() {
         super.onStart();
         adapter.startListening();
     }
 
+    /**
+     * onStop
+     */
     @Override
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
     }
 
-    // Drawer function user
+
+
+    /**
+     * List onNavigationItemSelected
+     * // Drawer function user
+     * @param menuItem
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -179,14 +198,8 @@ public class RecyclerCarActivity extends AppCompatActivity implements Navigation
                 finish();
                 break;
             case R.id.nav_history_rental_car:
-/*                Intent intentHistory = new Intent(getApplicationContext(), PieChartActivity.class);
+/*                Intent intentHistory = new Intent(getApplicationContext(), RevenueBrandActivity.class);
                 startActivity(intentHistory);
-                finish();*/
-                break;
-
-            case R.id.nav_support:
-/*                Intent intentSupport= new Intent(getApplicationContext(), RadarChartActivity.class);
-                startActivity(intentSupport);
                 finish();*/
                 break;
 

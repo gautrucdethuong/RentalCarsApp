@@ -32,7 +32,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="76dp"
-        android:hint="Received date"
+        android:hint="@string/received_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -42,7 +42,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:hint="Resend time"
+        android:hint="@string/resend_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDateTo" />
 
@@ -52,7 +52,7 @@
         android:layout_height="43dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
-        android:hint="Resend date"
+        android:hint="@string/resend_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -62,7 +62,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="24dp"
-        android:hint="Received time"
+        android:hint="@string/received_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDateFrom" />
 
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="40dp"
-        android:text="From"
+        android:text="@string/from"
         android:textColor="#FF9E80"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTimeFrom"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="20dp"
-        android:text="To"
+        android:text="@string/to"
         android:textColor="#FF9E80"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/editTextDateTo"
@@ -100,19 +100,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:text="Please choose a date"
+        android:text="@string/please_choose_a_date"
         android:textColor="#FF80AB"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/buttonAddBooking"
+        android:id="@+id/buttonOffline"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:background="@color/colorAccent2"
-        android:text="Continue"
+        android:text="Offline"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOnline"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="92dp"
+        android:background="@color/colorAccent2"
+        android:text="Online"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

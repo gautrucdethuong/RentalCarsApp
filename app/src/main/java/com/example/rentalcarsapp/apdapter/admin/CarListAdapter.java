@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -22,13 +24,17 @@ import com.example.rentalcarsapp.model.Booking;
 import com.example.rentalcarsapp.model.Car;
 import com.example.rentalcarsapp.ui.admin.car.ListCarActivity;
 import com.example.rentalcarsapp.ui.home.car.CarDetailsActivity;
+import com.example.rentalcarsapp.ui.home.payment.ChooseTimeActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +59,7 @@ public class CarListAdapter extends FirestoreRecyclerAdapter<Car, CarListAdapter
 
     private SharedPreferences sharedpreferences;
     private static final String SHARED_PREFERENCE_PRICE = "myPrefs";
-    //public Context context;
+
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -66,6 +72,12 @@ public class CarListAdapter extends FirestoreRecyclerAdapter<Car, CarListAdapter
         super(options);
     }
 
+    /**
+     * CarListAdapter.CarViewHolder onCreateViewHolder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @NotNull
     @Override
@@ -76,51 +88,93 @@ public class CarListAdapter extends FirestoreRecyclerAdapter<Car, CarListAdapter
         return new CarListAdapter.CarViewHolder(view);
     }
 
+    /**
+     * display data to the interface through View Holder
+     * @param holder onBindViewHolder
+     * @param position
+     * @param model
+     */
     @Override
     protected void onBindViewHolder(@NonNull CarListAdapter.CarViewHolder holder, int position, @NonNull Car model) {
-/*        ArrayList<String> listCar = new ArrayList<>();
+        /**
+         * if the car status is not rented
+         */
+        if(model.getCarStatus() == 1){
 
-        FirebaseFirestore.getInstance().collection("cars").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<DocumentSnapshot> snapshotList=queryDocumentSnapshots.getDocuments();
-                for(DocumentSnapshot snapshot:snapshotList){
+            holder.textViewNameCar.setText(model.getCarName());
+            holder.textViewPrice.setText("$ " + model.getCarPrice() + " / Daily");
+            holder.ratingBar.setRating(model.getCarRating());
+            Picasso.get().load(model.getCarImage())
+                    .error(R.drawable.user)
+                    .into(holder.imageView);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Event click item in Recycle view
+                 * @param v
+                 */
+                @Override
+                public void onClick(View v) {
 
+                    Intent intent = new Intent(holder.itemView.getContext(), CarDetailsActivity.class);
+                    intent.putExtra("carName", model.getCarName());
+                    intent.putExtra("carPrice", model.getCarPrice());
+                    intent.putExtra("carRating", model.getCarRating());
+                    intent.putExtra("carImage", model.getCarImage());
+                    intent.putExtra("carSeat", model.getCarSeat());
+                    intent.putExtra("carDescription", model.getCarDescription());
+                    holder.itemView.getContext().startActivity(intent);
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                System.out.println("Failed get value");
-            }
-        });*/
-        holder.textViewNameCar.setText(model.getCarName());
-        holder.textViewPrice.setText("$ " + model.getCarPrice() + " / Daily");
-        holder.ratingBar.setRating(model.getCarRating());
-        Picasso.get().load(model.getCarImage())
-                .error(R.drawable.user)
-                .into(holder.imageView);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sharedpreferences = holder.itemView.getContext().getSharedPreferences(SHARED_PREFERENCE_PRICE, Context.MODE_PRIVATE);
-                Intent intent = new Intent(holder.itemView.getContext(), CarDetailsActivity.class);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putFloat("CAR_PRICE",model.getCarPrice());
-                editor.apply();
-                intent.putExtra("carName", model.getCarName());
-                intent.putExtra("carPrice", model.getCarPrice());
-                intent.putExtra("carRating", model.getCarRating());
-                intent.putExtra("carImage", model.getCarImage());
-                intent.putExtra("carSeat", model.getCarSeat());
-                intent.putExtra("carDescription", model.getCarDescription());
-                //v.startActivity(intent);
-                holder.itemView.getContext().startActivity(intent);
-            }
-        });
+
+            });
+            holder.buttonRental.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sharedpreferences = holder.itemView.getContext().getSharedPreferences(SHARED_PREFERENCE_PRICE, Context.MODE_PRIVATE);
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                    Intent intent = new Intent(holder.itemView.getContext(), ChooseTimeActivity.class);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putFloat("CAR_PRICE", model.getCarPrice());
+                    editor.commit();
+                    editor.putString("CAR_ID", snapshot.getId());
+                    editor.commit();
+
+                    intent.putExtra("carIDDocument", snapshot.getId());
+                    Log.e("carIDDocument", snapshot.getId());
+                    holder.itemView.getContext().startActivity(intent);
+                }
+            });
+            /**
+             * if the car status is rented
+             */
+        }else{
+            holder.textViewNameCar.setText(model.getCarName());
+            holder.textViewPrice.setText("$ " + model.getCarPrice() + " / Daily");
+            holder.ratingBar.setRating(model.getCarRating());
+            Picasso.get().load(model.getCarImage())
+                    .error(R.drawable.user)
+                    .into(holder.imageView);
+            holder.buttonRental.setEnabled(false);
+            holder.buttonRental.setText("Busy");
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Event click item in Recycle view
+                 * @param v
+                 */
+                @Override
+                public void onClick(View v) {
+                    sharedpreferences = holder.itemView.getContext().getSharedPreferences(SHARED_PREFERENCE_PRICE, Context.MODE_PRIVATE);
+                    Intent intent = new Intent(holder.itemView.getContext(), CarDetailsActivity.class);
+                    intent.putExtra("carName", model.getCarName());
+                    intent.putExtra("carPrice", model.getCarPrice());
+                    intent.putExtra("carRating", model.getCarRating());
+                    intent.putExtra("carImage", model.getCarImage());
+                    intent.putExtra("carSeat", model.getCarSeat());
+                    intent.putExtra("carDescription", model.getCarDescription());
+                    holder.itemView.getContext().startActivity(intent);
+                }
+            });
+        }
     }
-
-
 
     class CarViewHolder extends RecyclerView.ViewHolder
     {
@@ -128,6 +182,12 @@ public class CarListAdapter extends FirestoreRecyclerAdapter<Car, CarListAdapter
         public TextView textViewPrice;
         public ImageView imageView;
         public RatingBar ratingBar;
+        private Button buttonRental;
+
+        /**
+         * get data on the interface
+         * @param itemView
+         */
         public CarViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -136,6 +196,8 @@ public class CarListAdapter extends FirestoreRecyclerAdapter<Car, CarListAdapter
             textViewPrice = itemView.findViewById(R.id.txtPriceTotal);
             ratingBar = itemView.findViewById(R.id.ratingBar);
             imageView = itemView.findViewById(R.id.imageButtonCar);
+            buttonRental = itemView.findViewById(R.id.buttonRental);
+
         }
     }
 }
