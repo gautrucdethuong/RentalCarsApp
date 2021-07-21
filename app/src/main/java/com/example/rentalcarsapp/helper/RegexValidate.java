@@ -38,7 +38,7 @@ public class RegexValidate{
     public static final String MESSAGE_ERROR_PASSWORD = "Password must be at least 8 characters including uppercase, lowercase letters, numbers and special characters.";
     public static final String MESSAGE_SHOW_RESET_PASSWORD = "Enter the email associated with your account and we'll send an email with instructions to reset your password.";
 
-    public static final String MESSAGE_SEND_OTP = "Incorrect email format, eg admin@gmail.com";
+    public static final String MESSAGE_SEND_OTP = " là mã giao dịch (OTP) của bạn. LƯU Ý: Tuyệt đối KHÔNG chia sẻ cho bất kỳ ai dưới bất kỳ hình thức nào. LH hotro@rentalcars.vn";
     public static void checkPhoneExist(String input, String regex, CallbackValidation validation){
         if(!input.matches(regex)){
             validation.response(false);

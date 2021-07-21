@@ -59,7 +59,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="151dp"
+        android:layout_marginBottom="119dp"
         android:text="The total amount:"
         android:textSize="18sp" />
 
@@ -70,7 +70,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="77dp"
         android:hint="1234"
         android:textColor="#FF80AB"
         android:textSize="24sp" />

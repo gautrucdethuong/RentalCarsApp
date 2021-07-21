@@ -18,7 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.braintreepayments.cardform.OnCardFormSubmitListener;
+import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
+import com.braintreepayments.cardform.view.SupportedCardTypesView;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +49,8 @@ import java.util.concurrent.TimeUnit;
  * Company: FPT大学.
  */
 
-public class CreditCardActivity extends AppCompatActivity {
+public class CreditCardActivity extends AppCompatActivity implements OnCardFormSubmitListener,
+        CardEditText.OnCardTypeChangedListener{
     // variable initializing
     private CardForm cardForm;
     private Button buttonPayment;
@@ -55,6 +60,11 @@ public class CreditCardActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private static final String SHARED_PREFERENCE_OTP= "myPrefsOTP";
     private float totalMoneyRental = 0;
+    private SupportedCardTypesView mSupportedCardTypesView;
+
+    private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
+            CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
+            CardType.HIPER, CardType.HIPERCARD };
 
     /**
      * onCreate
@@ -79,8 +89,9 @@ public class CreditCardActivity extends AppCompatActivity {
      *  of our FirebaseAuth.
      */
     private void init(){
-
+        mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
         cardForm = findViewById(R.id.card_form);
+
         textViewPriceTotal = findViewById(R.id.txtPriceTotal);
         buttonPayment = findViewById(R.id.btnBuy);
         auth = FirebaseAuth.getInstance();
@@ -249,5 +260,15 @@ public class CreditCardActivity extends AppCompatActivity {
                     numbers.charAt(rndm_method.nextInt(numbers.length()));
         }
         return otp;
+    }
+
+    @Override
+    public void onCardFormSubmit() {
+
+    }
+
+    @Override
+    public void onCardTypeChanged(CardType cardType) {
+
     }
 }
