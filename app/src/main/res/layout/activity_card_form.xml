@@ -7,11 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.payment.CreditCardActivity">
 
-    <com.braintreepayments.cardform.view.CardForm
-        android:id="@+id/card_form"
-        android:paddingTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.braintreepayments.cardform.view.SupportedCardTypesView
+                android:id="@+id/supported_card_types"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="20dp" />
+
+            <com.braintreepayments.cardform.view.CardForm
+                android:id="@+id/card_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/bt_margin"/>
+
+        </LinearLayout>
 
     <Button
         android:id="@+id/btnBuy"
@@ -23,7 +37,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginBottom="10dp"
         android:background="@color/colorPrimary"
-        android:text="Add booking"
+        android:text="Booking"
         android:textColor="@android:color/white" />
 
 
@@ -40,18 +54,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="15dp"
-        android:text="CARD INFORMATION"
-        android:textColor="#FF9E80"
-        android:textSize="26sp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/textViewTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,7 +61,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="119dp"
+        android:layout_marginBottom="106dp"
         android:text="The total amount:"
         android:textSize="18sp" />
 
@@ -70,7 +72,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="77dp"
+        android:layout_marginBottom="71dp"
         android:hint="1234"
         android:textColor="#FF80AB"
         android:textSize="24sp" />
