@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.example.rentalcarsapp.apdapter.UsersListApdapter;
 import com.example.rentalcarsapp.model.User;
 import com.example.rentalcarsapp.ui.admin.user.CreateUserActivity;
 import com.example.rentalcarsapp.ui.admin.user.UpdateUserActivity;
+import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.example.rentalcarsapp.ui.login.LoginActivity;
 import com.example.rentalcarsapp.ui.register.RegisterInforActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +67,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
     Toolbar toolbar;
     MenuBuilder menuBuilder;
     Button buttonNew;
+    private ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        imgBack = findViewById(R.id.ImageBtnBack);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_closed);
         drawerLayout.addDrawerListener(toggle);
@@ -82,6 +86,7 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
         coursesLV = findViewById(R.id.idLVCourses);
         dataModalArrayList = new ArrayList<>();
         buttonNew = findViewById(R.id.new_user);
+        backToList();
         buttonNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +113,16 @@ public class UsersManagementActivity extends AppCompatActivity implements Naviga
             super.onBackPressed();
         }
     }
-
+    // function back to list
+    private void backToList(){
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                finish();
+            }
+        });
+    }
 
     @SuppressLint("RestrictedApi")
     private void loadDatainListview() {

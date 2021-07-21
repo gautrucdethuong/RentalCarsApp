@@ -10,11 +10,7 @@
             android:id="@+id/nav_home_brand"
             android:title="Revenue Brand">
         </item>
-        <item
-            android:id="@+id/profile"
-            android:title="Profile">
 
-        </item>
         <item
             android:id="@+id/nav_user_management"
             android:title="User Management">

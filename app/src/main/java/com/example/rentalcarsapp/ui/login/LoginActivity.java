@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                         // Document found in the offline cache
                         DocumentSnapshot document = task.getResult();
 
-                        Log.d("TAG", "Cached document data: " + document.getData());
                         Map<String, Object> user = document.getData();
                         String role=String.valueOf(user.get("roleName"));
                         Log.e("roleName",role);
@@ -184,21 +183,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 });
-                // authenticate the user
-//                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-//                        }else {
-//                            Toast.makeText(LoginActivity.this, "Logged in Failed ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                            progressBar.setVisibility(View.GONE);
-//                        }
-//
-//                    }
-//                });
-
             }
         });
 

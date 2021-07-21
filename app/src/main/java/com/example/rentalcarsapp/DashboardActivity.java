@@ -41,14 +41,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private View header;
+    private TextView textViewName, textViewEmail;
+
     private TextView personCount, adminCount, saleStaffCount, carCount;
     FirebaseAuth fAuth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     FirebaseFirestore fStore;
     FirebaseUser user;
-    private View header;
     StorageReference storageReference;
-    private TextView textViewName, textViewEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +58,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
+
         storageReference = storage.getReference();
         personCount = findViewById(R.id.textView3);
         adminCount = findViewById(R.id.textView4);
         saleStaffCount = findViewById(R.id.textView6);
         carCount = findViewById(R.id.textView7);
+        fStore = FirebaseFirestore.getInstance();
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -69,12 +74,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        fStore = FirebaseFirestore.getInstance();
-
         header = navigationView.getHeaderView(0);
         textViewName = header.findViewById(R.id.textViewName);
         textViewEmail = header.findViewById(R.id.textViewEmail);
-        toolbar = findViewById(R.id.toolbar);
+
+
+
+        getInfoUserByDrawer();
 
         fStore.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 
@@ -154,11 +160,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_user_management:
                 Intent intentUsersManagement = new Intent(getApplicationContext(), UsersManagementActivity.class);
                 startActivity(intentUsersManagement);
-                finish();
-                break;
-            case R.id.profile:
-                Intent profile = new Intent(getApplicationContext(), EditProfileActivity.class);
-                startActivity(profile);
                 finish();
                 break;
 

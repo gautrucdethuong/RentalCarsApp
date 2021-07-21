@@ -28,7 +28,18 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF">
 
-            <androidx.appcompat.widget.Toolbar
+            <ImageView
+                android:id="@+id/ImageBtnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -36,7 +47,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/ic_baseline_menu_24"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints" />-->
 
             <Button
                 android:id="@+id/new_user"
@@ -45,7 +56,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.873"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
                 android:text="@string/create"
                 android:background="@color/colorPrimaryDark"
                 tools:ignore="MissingConstraints"></Button>

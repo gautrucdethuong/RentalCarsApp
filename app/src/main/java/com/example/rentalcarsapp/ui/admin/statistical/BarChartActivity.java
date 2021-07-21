@@ -100,17 +100,16 @@ public class BarChartActivity extends AppCompatActivity {
 
     private void drawerBarChart() {
 
-
         ArrayList<BarEntry> visitors = new ArrayList<>();
-        visitors.add(new BarEntry(2014, 420));
-        visitors.add(new BarEntry(2015, 320));
-        visitors.add(new BarEntry(2016, 201));
-        visitors.add(new BarEntry(2017, 987));
-        visitors.add(new BarEntry(2018, 289));
-        visitors.add(new BarEntry(2019, 425));
-        visitors.add(new BarEntry(2020, 677));
+        visitors.add(new BarEntry(2015, 3200));
+        visitors.add(new BarEntry(2016, 2001));
+        visitors.add(new BarEntry(2017, 9807));
+        visitors.add(new BarEntry(2018, 2809));
+        visitors.add(new BarEntry(2019, 4205));
+        visitors.add(new BarEntry(2020, 6707));
+        visitors.add(new BarEntry(2021, 4200));
 
-        BarDataSet barDataSet = new BarDataSet(visitors, "Visitors");
+        BarDataSet barDataSet = new BarDataSet(visitors, "YEAR");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         barDataSet.getValueTextColor(Color.BLACK);
         barDataSet.setValueTextSize(16f);
@@ -118,7 +117,7 @@ public class BarChartActivity extends AppCompatActivity {
         BarData barData = new BarData(barDataSet);
         barChart.setFitBars(true);
         barChart.setData(barData);
-        barChart.getDescription().setText("Bar Chart Example");
+        barChart.getDescription().setText("Revenue Year");
         barChart.animateY(2000);
 
     }
