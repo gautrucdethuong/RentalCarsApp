@@ -51,6 +51,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     FirebaseUser user;
     StorageReference storageReference;
 
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +131,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         });
     }
 
+
+    /**
+     * navigation (Tong or Minh Huynh)=))
+     * @param menuItem
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -182,6 +192,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     // get information user login
     private void getInfoUserByDrawer() {
         if (user != null) {

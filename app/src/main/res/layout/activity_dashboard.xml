@@ -42,7 +42,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Traveling"
+                android:text="@string/traveling"
                 android:textSize="25sp"
                 app:fontFamily="@font/bungee"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="Start a new Journey"
+                android:text="@string/start_a_new_journey"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
@@ -99,7 +99,7 @@
                             android:layout_below="@id/bus"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Person"
+                            android:text="@string/person"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 
@@ -130,7 +130,7 @@
                             android:layout_below="@id/imageView3"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Admin"
+                            android:text="@string/admin"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 
@@ -173,7 +173,7 @@
                             android:layout_below="@id/bus1"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Sale Staff"
+                            android:text="@string/sale_staff"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 
@@ -204,7 +204,7 @@
                             android:layout_below="@id/train"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Car"
+                            android:text="@string/car"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 
@@ -246,7 +246,7 @@
                             android:layout_below="@id/cycle"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Payment"
+                            android:text="@string/payment"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 
@@ -277,7 +277,7 @@
                             android:layout_below="@id/airplane"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:text="Call"
+                            android:text="@string/call"
                             android:textSize="24sp"
                             app:fontFamily="@font/aclonica" />
 

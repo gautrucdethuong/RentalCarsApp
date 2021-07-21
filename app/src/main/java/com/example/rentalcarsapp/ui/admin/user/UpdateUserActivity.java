@@ -18,6 +18,7 @@ import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.helper.RegexValidate;
 import com.example.rentalcarsapp.model.User;
+import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -45,6 +46,10 @@ public class UpdateUserActivity extends AppCompatActivity {
     StorageReference storageReference;
     public User person;
 
+    /**
+     *
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -55,6 +60,10 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * oncreate when click on it will active it
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +164,7 @@ public class UpdateUserActivity extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+
         mUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,21 +189,25 @@ public class UpdateUserActivity extends AppCompatActivity {
                 pairs[0] = new Pair<View, String>(imgBack, "logo_image");
                 pairs[1] = new Pair<View, String>(mStep, "txt_transaction");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(UpdateUserActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), DashboardActivity.class), options.toBundle());
+                startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class), options.toBundle());
             }
         });
     }
 
-    private boolean ValidateFullName() {
+    /**
+     *
+     * @return true, false for validatefullname
+     */
+    private boolean ValidateFullName(){
         String fullName = String.valueOf(mFullName.getEditText().getText());
 
-        if (fullName.isEmpty()) {
+        if(fullName.isEmpty()){
             mFullName.setError("Please enter full name.");
             return false;
-        } else if (!fullName.matches(RegexValidate.VALID_FULL_NAME)) {
+        }else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
             mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
             return false;
-        } else {
+        }else{
             mFullName.setError(null);
             mFullName.setErrorEnabled(false);
             return true;
@@ -201,15 +215,19 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidatePhoneNumber() {
+    /**
+     *
+     * @return true, false for validatephonenumber
+     */
+    private boolean ValidatePhoneNumber(){
         String phoneNumber = String.valueOf(mPhone.getEditText().getText());
-        if (phoneNumber.isEmpty()) {
+        if(phoneNumber.isEmpty()){
             mPhone.setError("Please enter phone number.");
             return false;
-        } else if (!phoneNumber.matches(RegexValidate.VALID_PHONE_NUMBER)) {
+        }else if(!phoneNumber.matches(RegexValidate.VALID_PHONE_NUMBER)){
             mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
             return false;
-        } else {
+        }else{
             mPhone.setError(null);
             mPhone.setErrorEnabled(false);
             return true;
@@ -217,15 +235,19 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidateEmail() {
+    /**
+     *
+     * @return true, false for ValidateEmail
+     */
+    private boolean ValidateEmail(){
         String email = String.valueOf(mEmail.getEditText().getText());
-        if (email.isEmpty()) {
+        if(email.isEmpty()){
             mEmail.setError("Please enter email.");
             return false;
-        } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
+        }else if(!email.matches(RegexValidate.VALID_EMAIL)){
             mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
             return false;
-        } else {
+        }else{
             mEmail.setError(null);
             mEmail.setErrorEnabled(false);
             return true;

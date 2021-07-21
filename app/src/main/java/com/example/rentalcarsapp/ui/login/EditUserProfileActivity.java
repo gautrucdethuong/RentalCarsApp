@@ -1,52 +1,47 @@
-package com.example.rentalcarsapp.ui.admin.user;
+package com.example.rentalcarsapp.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.rentalcarsapp.DashboardActivity;
 import com.example.rentalcarsapp.R;
 import com.example.rentalcarsapp.dao.AuthenticationDAO;
+import com.example.rentalcarsapp.ui.admin.user.UpdateUserInfoActivity;
+import com.example.rentalcarsapp.ui.home.car.RecyclerCarActivity;
 import com.example.rentalcarsapp.ui.home.user.UsersManagementActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.Timestamp;
 
-import java.util.HashMap;
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-public class UpdateUserInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditUserProfileActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
     Button mUpdateBtn;
     FirebaseAuth fAuth;
@@ -55,13 +50,6 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
     FirebaseUser user;
     StorageReference storageReference;
     AuthenticationDAO authDao;
-    String userID;
-    TextView textView;
-    Spinner spinner;
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
-    String[] roles = {"Choose role", "Customer", "Admin", "Sale Staff"};
-    String item;
     ImageView imgBack;
     private Intent intent;
     RadioGroup mRadioGroupGender;
@@ -76,47 +64,37 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.usermanagement_update_infor);
+        setContentView(R.layout.activity_user_update_userinfo);
         mDatePicker = findViewById(R.id.age_picker);
         mUpdateBtn = findViewById(R.id.next2Btn);
-        textView = findViewById(R.id.create_role);
-        spinner = findViewById(R.id.spinner);
         authDao = new AuthenticationDAO();
         fAuth = FirebaseAuth.getInstance();
-        list = new ArrayList<String>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
-        spinner.setAdapter(adapter);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setOnItemSelectedListener(this);
         fStore = FirebaseFirestore.getInstance();
         user = fAuth.getCurrentUser();
         imgBack = findViewById(R.id.logoImage);
         progressBar = findViewById(R.id.progressBar);
         mRadioGroupGender = findViewById(R.id.radioGender);
-        fetchdata();
         intent = getIntent();
         String emailAddress = String.valueOf(intent.getStringExtra("email"));
         String fullName = String.valueOf(intent.getStringExtra("fullName"));
         String phoneNumber = String.valueOf(intent.getStringExtra("phone"));
-        String role = intent.getStringExtra("roleName");
-        String person = intent.getStringExtra("person");
         fStore = FirebaseFirestore.getInstance();
-        //String userId = fAuth.getCurrentUser().getUid();
+        String userId = fAuth.getCurrentUser().getUid();
         // [START get_document_options]
-        DocumentReference docRef = fStore.collection("users").document(person);
-
+        DocumentReference docRef = fStore.collection("users").document(userId);
         // Source can be CACHE, SERVER, or DEFAULT.
         Source source = Source.CACHE;
+
         // Get the document, forcing the SDK to use the offline cache
         docRef.get(source).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull @NotNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     DocumentSnapshot document = task.getResult();
                     Log.d("TAG", "Cached document data: " + document.getData());
                     Map<String, Object> user = document.getData();
-                    Log.d("TAG", "Mih Meo: " + user.get("userGender").toString());
                     if (Integer.parseInt(user.get("userGender").toString()) == 1) {
                         rGender = findViewById(R.id.male);
                         rGender.setChecked(true);
@@ -136,7 +114,6 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
                     int year = Integer.parseInt((String) DateFormat.format("yyyy", birthday));
                     Log.d("TAG", "Mih Meo test: " + day + month + year);
                     mDatePicker.init(year, month, day, null);
-                    textView.setText(String.valueOf(user.get("roleName")));
                 } else {
                     Log.d("TAG", "Cached get failed: ", task.getException());
                 }
@@ -162,12 +139,11 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
                 } else if (rGender.getText().equals("Other")) {
                     gender = 2;
                 }
-                DocumentReference docRef = fStore.collection("users").document(person);
+                DocumentReference docRef = fStore.collection("users").document(userId);
                 Map<String, Object> edited = new HashMap<>();
                 edited.put("userEmail", email);
                 edited.put("fullName", fullName);
                 edited.put("userPhoneNumber", phoneNumber);
-                edited.put("roleName", textView.getText().toString());
                 edited.put("userGender", gender);
                 try {
                     edited.put("userBirthday", simpleDateFormat.parse(birthday));
@@ -177,63 +153,13 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
                 docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateUserInfoActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), UsersManagementActivity.class));
+                        Toast.makeText(EditUserProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), RecyclerCarActivity.class));
                         finish();
                     }
                 });
-                Log.d(TAG, "onCreate: " + fullName + " " + emailAddress + " " + phoneNumber + " " + role + " " + gender);
+                Log.d(TAG, "onCreate: " + fullName + " " + emailAddress + " " + phoneNumber + " " + gender);
             }
         });
-
-//        mEmail.getEditText().setText(emailAddress);
-//        mFullName.getEditText().setText(fullName);
-//        mPhone.getEditText().setText(phoneNumber);
-        //textView.setText(role);
-
-    }
-
-    /**
-     * get spinner role on select item to bind it into textview
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        item = spinner.getSelectedItem().toString();
-        textView.setText(item);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    /**
-     * fetchdata from role firebase data to spinner(not use)
-     */
-    public void fetchdata() {
-        fStore = FirebaseFirestore.getInstance();
-
-        fStore.collection("roles")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String role_name = document.get("roleName").toString();
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                                list.add(role_name);
-                            }
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapter);
     }
 }

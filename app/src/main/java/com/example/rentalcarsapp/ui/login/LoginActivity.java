@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
-            String userId= fAuth.getCurrentUser().getUid();
+            String userId = fAuth.getCurrentUser().getUid();
 
             DocumentReference docRef = fStore.collection("users").document(userId);
             Source source = Source.SERVER;
@@ -80,9 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
 
                         Map<String, Object> user = document.getData();
-                        String role=String.valueOf(user.get("roleName"));
-                        Log.e("roleName",role);
-                        switch (role){
+                        String role = String.valueOf(user.get("roleName"));
+                        Log.e("roleName", role);
+                        switch (role) {
                             case "Admin":
                                 Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
@@ -154,8 +154,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void isLogin(String roleName) {
 
-                        if(!roleName.isEmpty()) {
-                            switch (roleName){
+                        if (!roleName.isEmpty()) {
+                            switch (roleName) {
                                 case "Admin":
                                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                                     break;
                             }
 
-                        }else{
+                        } else {
                             Toast.makeText(LoginActivity.this, "Logged in Failed ! ", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }

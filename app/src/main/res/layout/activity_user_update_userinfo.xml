@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".ui.admin.user.UpdateUserActivity">
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/ic_baseline_arrow_back_24"
         android:padding="5dp" />
 
@@ -39,7 +39,7 @@
             android:background="@drawable/border"
             android:fontFamily="@font/concert_one"
             android:padding="30dp"
-            android:text="@string/_1_2"
+            android:text="@string/_2_2"
             android:textSize="18dp" />
     </LinearLayout>
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="-20dp"
-        android:text="@string/update_to_start_an_old_journey"
+        android:text="upgrade yourself to start a new journey"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -57,53 +57,87 @@
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fullName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_gender"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checked="true"
+                android:text="@string/male" />
+
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/female" />
+
+
+            <RadioButton
+                android:id="@+id/others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/other" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/black" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_your_age"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+        <DatePicker
+            android:id="@+id/age_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/full_name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/phone_no">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:spinnersShown="true" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/signup_next_button"
+        android:id="@+id/next2Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000"
-        android:text="@string/next"
+        android:text="update"
         android:textColor="#fff" />
 
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 </LinearLayout>
+

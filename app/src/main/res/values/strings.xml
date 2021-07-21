@@ -6,10 +6,7 @@
     <string name="edit">Edit</string>
     <string name="block">Block</string>
     <string name="change_role">Change Role</string>
-    <string name="customer">Customer</string>
     <string name="staff">Staff</string>
-    <string name="admin">Admin</string>
-<!--    <string name="create">Create</string>-->
     <string name="quickstart_message">Click the SUBSCRIBE TO WEATHER button below to subscribe to the
         weather topic. Messages sent to the weather topic will be received. The LOG TOKEN button logs the
         FCM registration token to logcat.</string>
@@ -31,4 +28,31 @@
     <string name="create">Create</string>
     <string name="create_new_car">Create new car</string>
     <string name="update">Update</string>
+    <string name="country_name">Country Name</string>
+    <string name="population">Population</string>
+    <string name="traveling">Traveling</string>
+    <string name="start_a_new_journey">Start a new Journey</string>
+    <string name="person">Person</string>
+    <string name="admin">Admin</string>
+    <string name="sale_staff">Sale Staff</string>
+    <string name="car">Car</string>
+    <string name="payment">Payment</string>
+    <string name="call">Call</string>
+
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+
+    <string name="_1_2">1/2</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone No</string>
+    <string name="next">Next</string>
+    <string name="update_to_start_an_old_journey">Update to start an old Journey</string>
+    <string name="_2_2">2/2</string>
+    <string name="choose_gender">Choose Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="select_your_age">Select Your Age</string>
+    <string name="customer">Customer</string>
 </resources>

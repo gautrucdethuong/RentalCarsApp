@@ -56,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.873"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/create"
+                android:text="create"
                 android:background="@color/colorPrimaryDark"
                 tools:ignore="MissingConstraints"></Button>
 

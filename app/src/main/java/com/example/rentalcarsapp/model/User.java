@@ -1,5 +1,6 @@
 package com.example.rentalcarsapp.model;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
