@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     AuthenticationDAO authDao;
     ImageView imglogo;
     FirebaseFirestore fStore;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +67,9 @@ public class LoginActivity extends AppCompatActivity {
         mSlogan = findViewById(R.id.slogan_name);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-
-        if (fAuth.getCurrentUser() != null) {
+        user=fAuth.getCurrentUser();
+        if (user != null) {
             String userId = fAuth.getCurrentUser().getUid();
-
             DocumentReference docRef = fStore.collection("users").document(userId);
             Source source = Source.SERVER;
 

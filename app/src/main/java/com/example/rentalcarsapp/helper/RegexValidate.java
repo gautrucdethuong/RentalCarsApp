@@ -26,7 +26,7 @@ public class RegexValidate{
     public static final String VALID_FULL_NAME = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
     //public static final String VALID_URL = "(http(s?):)([/|.|\\w|\\s|-])*\\.(?:jpg|gif|png)";
     public static final String VALID_EMAIL = "^([a-zA-Z0-9]+[\\._-]??[a-zA-Z0-9]+)+@{1}?([a-zA-Z0-9]+[\\._-]??[a-zA-Z0-9]+)+[\\.com|\\.net|\\.org|\\.vn]$";
-    public static final String VALID_PHONE_NUMBER = "(84|0[3|5|7|8|9])+([0-9]{9})\\b";
+    public static final String VALID_PHONE_NUMBER = "([0-9]{10})\\b";
     public static final String VALID_PASSWORD = "^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#%^&+=]).*";
 
 

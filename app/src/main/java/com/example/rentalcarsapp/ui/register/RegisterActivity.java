@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +24,9 @@ import com.google.android.material.textfield.TextInputLayout;
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
 
-    TextInputLayout mFullName,mEmail,mPassword,mPhone,mConfirmPassword;
-    Button mRegisterBtn,mLoginBtn;
-    TextView mWelcome,mSlogan,mStep;
+    TextInputLayout mFullName, mEmail, mPassword, mPhone, mConfirmPassword;
+    Button mRegisterBtn, mLoginBtn;
+    TextView mWelcome, mSlogan, mStep;
     ImageView imgBack;
 
 
@@ -52,35 +53,23 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
-    private void btnRegister(){
+
+    private void btnRegister() {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()){
+                if (!ValidateFullName() | !ValidateEmail() | !ValidatePassword() | !ValidatePhoneNumber() | !ComparePassword() | !ValidateConfirmPassword()) {
                     return;
                 }
 
-                String fullName = String.valueOf(mFullName.getEditText().getText());
 
-                RegexValidate.checkPhoneExist(fullName, RegexValidate.VALID_FULL_NAME, new CallbackValidation() {
-                    @Override
-                    public void response(boolean result) {
-                        if(!result){
-                            mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
-                        }else{
-                            mPhone.setError(null);
-                            mPhone.setErrorEnabled(false);
+                Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
+                intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
+                intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
+                intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));
+                intent.putExtra("phoneNumber", String.valueOf(mPhone.getEditText().getText()));
 
-                            Intent intent = new Intent(getApplicationContext(), RegisterInforActivity.class);
-                            intent.putExtra("fullName", String.valueOf(mFullName.getEditText().getText()));
-                            intent.putExtra("email", String.valueOf(mEmail.getEditText().getText()));
-                            intent.putExtra("passWord", String.valueOf(mPassword.getEditText().getText()));
-                            intent.putExtra("phoneNumber", String.valueOf(mPhone.getEditText().getText()));
-
-                            startActivity(intent);
-                        }
-                    }
-                });
+                startActivity(intent);
 
             }
         });
@@ -88,64 +77,65 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void btnContinue(){
+    private void btnContinue() {
         // Back login page
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+                Pair[] pairs = new Pair[4];
+                pairs[0] = new Pair<View, String>(imgBack, "logo_image");
+                pairs[1] = new Pair<View, String>(mWelcome, "logo_text");
+                pairs[2] = new Pair<View, String>(mSlogan, "logo_signup");
+                pairs[3] = new Pair<View, String>(mStep, "txt_transaction");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class), options.toBundle());
             }
         });
     }
 
-    private void back(){
+    private void back() {
         // Back login
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Pair[] pairs=new Pair[4];
-                pairs[0]=new Pair<View,String>(imgBack,"logo_image");
-                pairs[1]=new Pair<View,String>(mWelcome,"logo_text");
-                pairs[2]=new Pair<View,String>(mSlogan,"logo_signup");
-                pairs[3]=new Pair<View,String>(mStep,"txt_transaction");
-                ActivityOptions options= ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class),options.toBundle());
+                Pair[] pairs = new Pair[4];
+                pairs[0] = new Pair<View, String>(imgBack, "logo_image");
+                pairs[1] = new Pair<View, String>(mWelcome, "logo_text");
+                pairs[2] = new Pair<View, String>(mSlogan, "logo_signup");
+                pairs[3] = new Pair<View, String>(mStep, "txt_transaction");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, pairs);
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class), options.toBundle());
             }
         });
     }
-    private void init(){
 
-        mFullName   = findViewById(R.id.fullName);
-        mEmail      = findViewById(R.id.Email);
-        mPassword   = findViewById(R.id.password);
+    private void init() {
+
+        mFullName = findViewById(R.id.fullName);
+        mEmail = findViewById(R.id.Email);
+        mPassword = findViewById(R.id.password);
         mConfirmPassword = findViewById(R.id.re_confirm_password);
-        mPhone      = findViewById(R.id.phone);
-        mRegisterBtn= findViewById(R.id.signup_next_button);
-        mLoginBtn   = findViewById(R.id.createText);
-        imgBack   = findViewById(R.id.ImageBtnBack);
+        mPhone = findViewById(R.id.phone);
+        mRegisterBtn = findViewById(R.id.signup_next_button);
+        mLoginBtn = findViewById(R.id.createText);
+        imgBack = findViewById(R.id.ImageBtnBack);
 
-        mWelcome=findViewById(R.id.logo_name);
-        mSlogan=findViewById(R.id.slogan_name);
+        mWelcome = findViewById(R.id.logo_name);
+        mSlogan = findViewById(R.id.slogan_name);
 
         mStep = findViewById(R.id.txtStep);
     }
 
-    private boolean ValidateFullName(){
+    private boolean ValidateFullName() {
         String fullName = String.valueOf(mFullName.getEditText().getText());
 
-        if(fullName.isEmpty()){
+        if (fullName.isEmpty()) {
             mFullName.setError("Please enter full name.");
             return false;
-        }else if(!fullName.matches(RegexValidate.VALID_FULL_NAME)){
+        } else if (!fullName.matches(RegexValidate.VALID_FULL_NAME)) {
             mFullName.setError(RegexValidate.MESSAGE_ERROR_FULL_NAME);
             return false;
-        }else{
+        } else {
             mFullName.setError(null);
             mFullName.setErrorEnabled(false);
             return true;
@@ -153,15 +143,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidatePhoneNumber(){
+    private boolean ValidatePhoneNumber() {
         String phoneNumber = String.valueOf(mPhone.getEditText().getText());
-        if(phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             mPhone.setError("Please enter phone number.");
             return false;
-        }else if(!phoneNumber.matches(RegexValidate.VALID_PHONE_NUMBER)){
+        } else if (!phoneNumber.matches(RegexValidate.VALID_PHONE_NUMBER)) {
             mPhone.setError(RegexValidate.MESSAGE_ERROR_PHONE_NUMBER);
             return false;
-        }else{
+        } else {
             mPhone.setError(null);
             mPhone.setErrorEnabled(false);
             return true;
@@ -169,15 +159,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidatePassword(){
+    private boolean ValidatePassword() {
         String passWord = String.valueOf(mPassword.getEditText().getText());
-        if(passWord.isEmpty()){
+        if (passWord.isEmpty()) {
             mPassword.setError("Please enter password.");
             return false;
-        }else if(!passWord.matches(RegexValidate.VALID_PASSWORD)){
+        } else if (!passWord.matches(RegexValidate.VALID_PASSWORD)) {
             mPassword.setError(RegexValidate.MESSAGE_ERROR_PASSWORD);
             return false;
-        }else{
+        } else {
             mPassword.setError(null);
             mPassword.setErrorEnabled(false);
             return true;
@@ -185,12 +175,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidateConfirmPassword(){
+    private boolean ValidateConfirmPassword() {
         String passWord = String.valueOf(mConfirmPassword.getEditText().getText());
-        if(passWord.isEmpty()){
+        if (passWord.isEmpty()) {
             mConfirmPassword.setError("Please enter confirm password.");
             return false;
-        }else{
+        } else {
             mConfirmPassword.setError(null);
             mConfirmPassword.setErrorEnabled(false);
             return true;
@@ -198,13 +188,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean ComparePassword(){
+    private boolean ComparePassword() {
         String passWord = String.valueOf(mPassword.getEditText().getText());
         String re_passWord = String.valueOf(mConfirmPassword.getEditText().getText());
-        if(!passWord.equals(re_passWord)){
+        if (!passWord.equals(re_passWord)) {
             mConfirmPassword.setError(RegexValidate.MESSAGE_ERROR_CONFIRM_PASSWORD);
             return false;
-        }else{
+        } else {
             mConfirmPassword.setError(null);
             mConfirmPassword.setErrorEnabled(false);
             return true;
@@ -212,15 +202,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean ValidateEmail(){
+    private boolean ValidateEmail() {
         String email = String.valueOf(mEmail.getEditText().getText());
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             mEmail.setError("Please enter email.");
             return false;
-        }else if(!email.matches(RegexValidate.VALID_EMAIL)){
+        } else if (!email.matches(RegexValidate.VALID_EMAIL)) {
             mEmail.setError(RegexValidate.MESSAGE_ERROR_EMAIL);
             return false;
-        }else{
+        } else {
             mEmail.setError(null);
             mEmail.setErrorEnabled(false);
             return true;

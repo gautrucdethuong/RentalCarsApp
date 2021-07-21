@@ -60,7 +60,7 @@ public class UpdateUserInfoActivity extends AppCompatActivity implements Adapter
     Spinner spinner;
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
-    String[] roles = {"Choose role", "Customer", "Admin", "Sale Staff"};
+    String[] roles = {"Choose role", "Customer", "Admin"};
     String item;
     ImageView imgBack;
     private Intent intent;
