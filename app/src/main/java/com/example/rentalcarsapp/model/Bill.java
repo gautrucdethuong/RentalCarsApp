@@ -3,76 +3,136 @@ package com.example.rentalcarsapp.model;
 import java.util.Date;
 
 /**
- * Author by HUYNH NHAT MINH (ミン).
- * Email: minhhnce140197@fpt.edu.vn.
- * Date on 6/30/2021.
+ * Author by Tieu Ha Anh Khoi
+ * Email: khoithace140252@fpt.edu.vn.
+ * Date on 7/4/2021.
  * Company: FPT大学.
  */
 
 public class Bill {
-private String bookingId;
-private String billId;
-private Date billCreateDate;
-private Date billUpdatedDate;
-private int billStatus;
-public float bookingTotal;
+private String bookingId;//declare variable bookingId
+private String billId;//declare variable billId
+private Date billCreateddate;//declare variable billCreateddate
+private Date billUpdateddate;//declare variable billUpdateddate
+private int billStatus;//declare variable billStatus
+public float bookingTotal;//declare variable bookingTotal
+
+    /**
+     * Create a constructor with no parameters
+     */
     public Bill() {
 
     }
 
-    public Bill(String bookingId, String billId, Date billCreateDate, Date billUpdatedDate, int billStatus,float bookingTotal) {
+    /**
+     * Create a constructor with full parameters
+     * @param bookingId id of booking to store in database
+     * @param billId id of bill to store in database
+     * @param billCreateddate create date of bill to store in database
+     * @param billUpdateddate update date of bill to store in database
+     * @param billStatus status of bill to store in database
+     * @param bookingTotal total of booking to store in database
+     */
+    public Bill(String bookingId, String billId, Date billCreateddate, Date billUpdateddate, int billStatus,float bookingTotal) {
         this.bookingId = bookingId;
         this.billId = billId;
-        this.billCreateDate = billCreateDate;
-        this.billUpdatedDate = billUpdatedDate;
+        this.billCreateddate = billCreateddate;
+        this.billUpdateddate = billUpdateddate;
         this.billStatus = billStatus;
         this.bookingTotal=bookingTotal;
     }
 
+    /**
+     * Get total of booking
+     * @return bookingTotal
+     */
     public float getBookingTotal() {
         return bookingTotal;
     }
 
+    /**
+     * Set total of booking
+     * @param bookingTotal total of booking to store in database
+     */
     public void setBookingTotal(float bookingTotal) {
         this.bookingTotal = bookingTotal;
     }
 
+    /**
+     * Get id of booking
+     * @return bookingId
+     */
     public String getBookingId() {
         return bookingId;
     }
-
+    /**
+     * Set total of booking
+     * @param bookingId id of booking to store in database
+     */
     public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 
+    /**
+     * Get id of bill
+     * @return billId
+     */
     public String getBillId() {
         return billId;
     }
 
+    /**
+     * Set id of bill
+     * @param billId id of bill to store in database
+     */
     public void setBillId(String billId) {
         this.billId = billId;
     }
 
-    public Date getBillCreateDate() {
-        return billCreateDate;
+    /**
+     * Get create date of bill
+     * @return billCreateddate
+     */
+    public Date getBillCreatedDate() {
+        return billCreateddate;
     }
 
-    public void setBillCreateDate(Date billCreateDate) {
-        this.billCreateDate = billCreateDate;
+    /**
+     * Set create date of bill
+     * @param billCreateddate create date of bill to store in database
+     */
+    public void setBillCreatedDate(Date billCreateddate) {
+        this.billCreateddate = billCreateddate;
     }
 
+    /**
+     * Get update date of bill
+     * @return billUpdateddate
+     */
     public Date getBillUpdatedDate() {
-        return billUpdatedDate;
+        return billUpdateddate;
     }
 
+    /**
+     * Set update date of bill
+     * @param billUpdatedDate update date of bill to store in database
+     */
     public void setBillUpdatedDate(Date billUpdatedDate) {
-        this.billUpdatedDate = billUpdatedDate;
+        this.billUpdateddate = billUpdateddate;
     }
 
+    /**
+     * Get status of bill
+     * @return billStatus
+     */
     public int getBillStatus() {
         return billStatus;
     }
 
+    /**
+     * Set status of bill
+     * @param billStatus status of bill to store in database
+     */
     public void setBillStatus(int billStatus) {
         this.billStatus = billStatus;
     }

@@ -38,7 +38,6 @@
         <activity
             android:name=".DashboardActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".ui.admin.user.CreateUserInfoActivity"
@@ -75,7 +74,9 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity android:name=".ui.home.booking.ListBookingUserActivity" android:screenOrientation="portrait">
 
+        </activity>
         <activity android:name=".ui.admin.bill.ListBillActivity">
      
         </activity>

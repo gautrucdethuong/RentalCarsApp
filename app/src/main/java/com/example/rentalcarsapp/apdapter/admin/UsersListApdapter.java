@@ -1,4 +1,4 @@
-package com.example.rentalcarsapp.apdapter;
+package com.example.rentalcarsapp.apdapter.admin;
 
 import android.widget.ArrayAdapter;
 

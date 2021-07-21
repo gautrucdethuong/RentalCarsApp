@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -22,9 +22,9 @@
         android:layout_height="113dp"
         android:layout_marginTop="-30dp"
         android:fontFamily="@font/bungee"
-        android:text="Hello there, Welcome back"
+        android:text="@string/hello_there_welcome_back"
         android:transitionName="logo_text"
-        android:textColor="#000"
+        android:textColor="@color/colorBlack"
         android:textSize="40sp" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:transitionName="logo_signup"
-        android:text="Sign In to continue"
+        android:text="@string/sign_in_to_continue"
         android:textSize="18sp" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtEmail"
-            android:hint="Email"
-            android:paddingBottom="20dp"
+            android:hint="@string/email"
             style ="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -56,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true"
             style ="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
             <com.google.android.material.textfield.TextInputEditText
@@ -70,18 +69,18 @@
             android:id="@+id/forgotPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:textColor="#000000"
-            android:text="Forgot Password?"
+            android:background="@color/overColor"
+            android:textColor="@color/colorBlack"
+            android:text="@string/forgot_password"
             android:layout_gravity="right"
             android:elevation="0dp"/>
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:background="#000"
-            android:textColor="#fff"
+            android:text="@string/sign_in"
+            android:background="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
         <Button
@@ -90,11 +89,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="5dp"
-            android:background="#00000000"
+            android:background="@color/overColor"
             android:elevation="0dp"
-            android:text="New User? SIGN UP"
+            android:text="@string/new_user_sign_up"
             android:fontFamily="@font/antic"
-            android:textColor="#000000" />
+            android:textColor="@color/colorBlack" />
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"

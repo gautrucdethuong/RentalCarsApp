@@ -171,7 +171,6 @@ public class BookingDetails extends AppCompatActivity {
             float totalBooking = sharedPreferences.getFloat("TOTAL_BOOKING", -1);
             String carId = sharedPreferences.getString("CAR_ID",null);
             String userUid = user.getUid();
-
             Booking booking = null;
             try {
                 booking = new Booking(simpleDateFormat.parse(dateFrom), simpleDateFormat.parse(dateTo), totalBooking, 1,carId, userUid,null);

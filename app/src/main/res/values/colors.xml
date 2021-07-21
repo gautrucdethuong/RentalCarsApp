@@ -5,16 +5,16 @@
     <color name="colorAccent">#D81B60</color>
     <color name="black">#111111</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="colorYellowPrimary">#FFC107</color>
     <color name="purple_200">#B388FF</color>
     <color name="yellow">#E7FD03</color>
     <color name="colorPrimary2">#607D8B</color>
     <color name="colorPrimaryDark2">#455A64</color>
     <color name="colorAccent2">#4CAF50</color>
-
-
     <color name="colorPrimaryDialog">#008577</color>
     <color name="colorPrimaryDarkDialog">#00574B</color>
     <color name="colorAccentDialog">#D81B60</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="overColor">#00000000</color>
 </resources>
